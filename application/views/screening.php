@@ -137,19 +137,19 @@ input.invalid {
                 <h5 class="card-title m-0">Form Screening Mandiri</h5>
               </div>
             <div class="card-body">
-				<form id="regForm" action="/action_page.php">
+	<form id="regForm" action="">
   <!-- One "tab" for each step in the form: -->
   <div class="tab">
   <u><h2>Data Diri</h2></u>
   <div class="row">
-    <div class="col-sm-4">
+    <div class="col-sm-5">
       <!-- select -->
       <div class="form-group">
         <label>No KTP :</label>
         <input type="text" placeholder="No. KTP" name="ktp" id="ktp" autocomplete="off" onkeyup="allowNumbersOnly(this, event)" maxlength="16" class="form-control" required autofocus>
       </div>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-1">
       <div class="form-group btn-cari">
         <button class="btn btn-primary" id="btncari">Cari</button>
       </div>
@@ -357,7 +357,8 @@ function nextPrev(n) {
   // if you have reached the end of the form...
   if (currentTab >= x.length) {
     // ... the form gets submitted:
-    document.getElementById("regForm").submit();
+    //document.getElementById("regForm").submit();
+    alert('ok')
     return false;
   }
   // Otherwise, display the correct tab:
@@ -422,10 +423,17 @@ function allowNumbersOnly(a, event) {
   $(function () {
     $('#btncari').on('click',function(){
       var ktp = $('#ktp').val();
+      var obj = document.forms.namedItem("regForm")
       $.ajax({
         type: "POST",
         url: "<?php echo base_url('screening_c/get_js')?>",
-        data : {ktp : ktp},
+        //data : {ktp : ktp},
+        processData:false,
+        contentType:false,
+        cache:false,
+        async:true,
+        crossOrigin : true,
+        data: new FormData(obj),
         dataType: "json",
         success: function (response) {
           if(response.content.RESPON){
