@@ -22,4 +22,9 @@ class Screening_c extends CI_Controller {
 	{
 		$this->load->view('screening');
 	}
+
+	public function error()
+	{
+		$this->load->view('404');
+	}
 }
