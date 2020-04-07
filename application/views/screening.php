@@ -141,14 +141,8 @@ input.invalid {
     </div>
     <div class="col-sm-6">
       <div class="form-group">
-        <label>No Telp :</label>
-        <input type="text" placeholder="No. Telp" name="telp" autocomplete="off" onkeyup="allowContactNumberOnly(this)" maxlength="12" class="form-control reset" required>
-      </div>
-    </div>
-    <div class="col-sm-6">
-      <div class="form-group">
         <label>Nama :</label>
-        <input type="text" placeholder="No. Telp" name="nama" id="nama" class="form-control reset" required>
+        <input type="text" placeholder="Nama" name="nama" id="nama" class="form-control reset" required readonly>
       </div>
     </div>
   </div>
@@ -157,14 +151,14 @@ input.invalid {
       <!-- select -->
       <div class="form-group">
         <label>Provinsi :</label>
-        <input type="text" placeholder="Provinsi" name="prov" id="prov" autocomplete="off" class="form-control reset" required>
+        <input type="text" placeholder="Provinsi" name="prov" id="prov" autocomplete="off" class="form-control reset" required readonly>
         <input type="hidden" placeholder="Provinsi" name="id_prov" id="id_prov" autocomplete="off" class="form-control reset" required>
       </div>
     </div>
     <div class="col-sm-6">
       <div class="form-group">
       <label>Kota :</label>
-        <input type="text" placeholder="Kota" name="kota" id="kota" autocomplete="off" class="form-control reset" required>
+        <input type="text" placeholder="Kota" name="kota" id="kota" autocomplete="off" class="form-control reset" required readonly>
         <input type="hidden" placeholder="Kota" name="id_kota" id="id_kota" autocomplete="off" class="form-control reset" required>
       </div>
     </div>
@@ -174,14 +168,14 @@ input.invalid {
       <!-- select -->
       <div class="form-group">
         <label>Kecamatan :</label>
-        <input type="text" placeholder="Kecamatan" name="kec" id="kec" autocomplete="off" class="form-control reset" required>
-        <input type="hidden" placeholder="Kota" name="id_kec" id="id_kec" autocomplete="off" class="form-control reset" required>
+        <input type="text" placeholder="Kecamatan" name="kec" id="kec" autocomplete="off" class="form-control reset" required readonly>
+        <input type="hidden" placeholder="Kecamatan" name="id_kec" id="id_kec" autocomplete="off" class="form-control reset" required>
       </div>
     </div>
     <div class="col-sm-6">
       <div class="form-group">
       <label>Kelurahan :</label>
-        <input type="text" placeholder="Kelurahan" name="kel" id="kel" autocomplete="off" class="form-control reset" required>
+        <input type="text" placeholder="Kelurahan" name="kel" id="kel" autocomplete="off" class="form-control reset" required readonly>
         <input type="hidden" placeholder="Kelurahan" name="id_kel" id="id_kel" autocomplete="off" class="form-control reset" required>
       </div>
     </div>
@@ -191,10 +185,32 @@ input.invalid {
       <!-- select -->
       <div class="form-group">
         <label>Alamat :</label>
-        <input type="text" placeholder="Alamat" name="alamat" id="alamat" autocomplete="off" class="form-control reset" required>
+        <input type="text" placeholder="Alamat" name="alamat" id="alamat" autocomplete="off" class="form-control reset" required readonly>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <!-- select -->
+      <div class="form-group">
+        <label>RT :</label>
+        <input type="text" placeholder="RT" name="rt" id="rt" autocomplete="off" class="form-control reset" required readonly>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <!-- select -->
+      <div class="form-group">
+        <label>RW :</label>
+        <input type="text" placeholder="RW" name="rw" id="rw" autocomplete="off" class="form-control reset" required readonly>
       </div>
     </div>
   </div>	
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label>No Telp :</label>
+        <input type="text" placeholder="No. Telp" name="telp" autocomplete="off" onkeyup="allowContactNumberOnly(this)" maxlength="12" class="form-control reset" required>
+      </div>
+    </div>
+  </div>
   </div>
   <div class="tab">
   <u><h2>Data Screening</h2></u>
@@ -403,6 +419,8 @@ function allowNumbersOnly(a, event) {
             $('#kel').val(response.content[0].NAMA_KEL)
             $('#id_kel').val(response.content[0].NO_KEL)
             $('#alamat').val(response.content[0].ALAMAT)
+            $('#rt').val(response.content[0].NO_RT)
+            $('#rw').val(response.content[0].NO_RW)
           }
         }
       });
