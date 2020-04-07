@@ -68,6 +68,16 @@ input.invalid {
 .step.finish {
   background-color: #4CAF50;
 }
+
+.btn-cari{
+  padding-top: 30px;
+}
+
+@media(max-width: 599px){
+  	.btn-cari {
+	    padding-top: 0px;
+	  }
+  }
   </style>
 </head>
 <body class="hold-transition layout-top-nav">
@@ -132,11 +142,16 @@ input.invalid {
   <div class="tab">
   <u><h2>Data Diri</h2></u>
   <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-4">
       <!-- select -->
       <div class="form-group">
         <label>No KTP :</label>
         <input type="text" placeholder="No. KTP" name="ktp" id="ktp" autocomplete="off" onkeyup="allowNumbersOnly(this, event)" maxlength="16" class="form-control" required autofocus>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="form-group btn-cari">
+        <button class="btn btn-primary" id="btncari">Cari</button>
       </div>
     </div>
     <div class="col-sm-6">
@@ -400,6 +415,13 @@ function allowNumbersOnly(a, event) {
     var code = (event.which) ? event.which : event.keyCode;
     
     //if(code == 13){
+      
+    //} 
+  }
+
+  $(function () {
+    $('#btncari').on('click',function(){
+      var ktp = $('#ktp').val();
       $.ajax({
         type: "POST",
         url: "<?php echo base_url('screening_c/get_js')?>",
@@ -424,8 +446,8 @@ function allowNumbersOnly(a, event) {
           }
         }
       });
-    //}
-}
+    })
+  });
 </script>
 </body>
 </html>
