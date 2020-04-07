@@ -383,7 +383,7 @@ function allowNumbersOnly(a, event) {
 
     var code = (event.which) ? event.which : event.keyCode;
     
-    if(code == 13){
+    //if(code == 13){
       $.ajax({
         type: "POST",
         url: "<?php echo base_url('screening_c/get_js')?>",
@@ -406,7 +406,7 @@ function allowNumbersOnly(a, event) {
           }
         }
       });
-    }
+    //}
 }
 </script>
 </body>
