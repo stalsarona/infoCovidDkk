@@ -136,13 +136,13 @@ input.invalid {
       <!-- select -->
       <div class="form-group">
         <label>No KTP :</label>
-        <input type="text" placeholder="No. KTP" name="ktp" id="ktp" autocomplete="off" onkeyup="allowNumbersOnly(this)" maxlength="16" class="form-control" required autofocus>
+        <input type="text" placeholder="No. KTP" name="ktp" id="ktp" autocomplete="off" onkeyup="allowNumbersOnly(this, event)" maxlength="16" class="form-control" required autofocus>
       </div>
     </div>
     <div class="col-sm-6">
       <div class="form-group">
         <label>No Telp :</label>
-        <input type="text" placeholder="No. Telp" name="telp" autocomplete="off" onkeypress="allowNumbersOnly(event)" maxlength="12" class="form-control reset" required>
+        <input type="text" placeholder="No. Telp" name="telp" autocomplete="off" onkeyup="allowContactNumberOnly(this)" maxlength="12" class="form-control reset" required>
       </div>
     </div>
     <div class="col-sm-6">
@@ -201,13 +201,13 @@ input.invalid {
     Apakah anda memiliki keluhan Demam ?
     <div class="col-sm-10">
         <div class="form-check">
-          <input class="form-check-input reset" type="radio" name="p1" id="gridRadios1" value="option1">
+          <input class="form-check-input" type="radio" name="p1" id="gridRadios1" value="option1">
           <label class="form-check-label" for="gridRadios1">
             Ya
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input reset" type="radio" name="p1" id="gridRadios2" value="option2" required>
+          <input class="form-check-input" type="radio" name="p1" id="gridRadios2" value="option2" required>
           <label class="form-check-label" for="gridRadios2">
             Tidak
           </label>
@@ -216,13 +216,13 @@ input.invalid {
     Apakah anda memiliki keluhan Kesulitan Menelan ?
     <div class="col-sm-10">
         <div class="form-check">
-          <input class="form-check-input reset" type="radio" name="p2" id="gridRadios1" value="option1">
+          <input class="form-check-input" type="radio" name="p2" id="gridRadios1" value="option1">
           <label class="form-check-label" for="gridRadios1">
             Ya
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input reset" type="radio" name="p2" id="gridRadios2" value="option2" required>
+          <input class="form-check-input" type="radio" name="p2" id="gridRadios2" value="option2" required>
           <label class="form-check-label" for="gridRadios2">
             Tidak
           </label>
@@ -234,13 +234,13 @@ input.invalid {
     Hasil nyaaaa
     <div class="col-sm-10">
         <div class="form-check">
-          <input class="form-check-input reset" type="radio" name="p1" id="gridRadios1" value="option1">
+          <input class="form-check-input" type="radio" name="p1" id="gridRadios1" value="option1">
           <label class="form-check-label" for="gridRadios1">
             Ya
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input reset" type="radio" name="p1" id="gridRadios2" value="option2">
+          <input class="form-check-input" type="radio" name="p1" id="gridRadios2" value="option2">
           <label class="form-check-label" for="gridRadios2">
             Tidak
           </label>
@@ -365,37 +365,48 @@ function fixStepIndicator(n) {
   x[n].className += " active";
 }
 
-function allowNumbersOnly(a) {
+function allowContactNumberOnly(a){
+  if(!/^[0-9.]+$/.test(a.value)){
+    a.value = a.value.substring(0,a.value.length-1000);
+  }
+}
+
+function allowNumbersOnly(a, event) {
    
     if(!/^[0-9.]+$/.test(a.value))
     {
     a.value = a.value.substring(0,a.value.length-1000);
     }
     //ambil data ktp
+    var kode = $(this).event;
     var ktp = $('#ktp').val();
-    $.ajax({
-      type: "POST",
-      url: "<?php echo base_url('screening_c/get_js')?>",
-      data : {ktp : ktp},
-      dataType: "json",
-      success: function (response) {
-        if(response.content.RESPON){
-          $('.reset').val('')
-        } else {
-          $('#nama').val(response.content[0].NAMA_LGKP)
-          $('#prov').val(response.content[0].NAMA_PROP)
-          $('#id_prov').val(response.content[0].NO_PROP)
-          $('#kota').val(response.content[0].NAMA_KAB)
-          $('#id_kota').val(response.content[0].NO_KAB)
-          $('#kec').val(response.content[0].NAMA_KEC)
-          $('#id_kec').val(response.content[0].NO_KEC)
-          $('#kel').val(response.content[0].NAMA_KEL)
-          $('#id_kel').val(response.content[0].NO_KEL)
+
+    var code = (event.which) ? event.which : event.keyCode;
+    
+    if(code == 13){
+      $.ajax({
+        type: "POST",
+        url: "<?php echo base_url('screening_c/get_js')?>",
+        data : {ktp : ktp},
+        dataType: "json",
+        success: function (response) {
+          if(response.content.RESPON){
+            $('.reset').val('')
+          } else {
+            $('#nama').val(response.content[0].NAMA_LGKP)
+            $('#prov').val(response.content[0].NAMA_PROP)
+            $('#id_prov').val(response.content[0].NO_PROP)
+            $('#kota').val(response.content[0].NAMA_KAB)
+            $('#id_kota').val(response.content[0].NO_KAB)
+            $('#kec').val(response.content[0].NAMA_KEC)
+            $('#id_kec').val(response.content[0].NO_KEC)
+            $('#kel').val(response.content[0].NAMA_KEL)
+            $('#id_kel').val(response.content[0].NO_KEL)
+            $('#alamat').val(response.content[0].ALAMAT)
+          }
         }
-       
-        
-      }
-    });
+      });
+    }
 }
 </script>
 </body>
