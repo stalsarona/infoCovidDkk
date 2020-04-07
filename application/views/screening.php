@@ -136,13 +136,19 @@ input.invalid {
       <!-- select -->
       <div class="form-group">
         <label>No KTP :</label>
-        <input type="text" placeholder="No. KTP" name="ktp" autocomplete="off" onkeypress="allowNumbersOnly(event)" maxlength="16" class="form-control" required autofocus>
+        <input type="text" placeholder="No. KTP" name="ktp" id="ktp" autocomplete="off" onkeyup="allowNumbersOnly(this)" maxlength="16" class="form-control" required autofocus>
       </div>
     </div>
     <div class="col-sm-6">
       <div class="form-group">
         <label>No Telp :</label>
-        <input type="text" placeholder="No. Telp" name="telp" autocomplete="off" onkeypress="allowNumbersOnly(event)" maxlength="12" class="form-control" required>
+        <input type="text" placeholder="No. Telp" name="telp" autocomplete="off" onkeypress="allowNumbersOnly(event)" maxlength="12" class="form-control reset" required>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label>Nama :</label>
+        <input type="text" placeholder="No. Telp" name="nama" id="nama" class="form-control reset" required>
       </div>
     </div>
   </div>
@@ -151,13 +157,15 @@ input.invalid {
       <!-- select -->
       <div class="form-group">
         <label>Provinsi :</label>
-        <input type="text" placeholder="Provinsi" name="prov" autocomplete="off" class="form-control" required>
+        <input type="text" placeholder="Provinsi" name="prov" id="prov" autocomplete="off" class="form-control reset" required>
+        <input type="hidden" placeholder="Provinsi" name="id_prov" id="id_prov" autocomplete="off" class="form-control reset" required>
       </div>
     </div>
     <div class="col-sm-6">
       <div class="form-group">
       <label>Kota :</label>
-        <input type="text" placeholder="Kota" name="kota" autocomplete="off" class="form-control" required>
+        <input type="text" placeholder="Kota" name="kota" id="kota" autocomplete="off" class="form-control reset" required>
+        <input type="hidden" placeholder="Kota" name="id_kota" id="id_kota" autocomplete="off" class="form-control reset" required>
       </div>
     </div>
   </div>
@@ -166,13 +174,15 @@ input.invalid {
       <!-- select -->
       <div class="form-group">
         <label>Kecamatan :</label>
-        <input type="text" placeholder="Kecamatan" name="kec" autocomplete="off" class="form-control" required>
+        <input type="text" placeholder="Kecamatan" name="kec" id="kec" autocomplete="off" class="form-control reset" required>
+        <input type="hidden" placeholder="Kota" name="id_kec" id="id_kec" autocomplete="off" class="form-control reset" required>
       </div>
     </div>
     <div class="col-sm-6">
       <div class="form-group">
       <label>Kelurahan :</label>
-        <input type="text" placeholder="Kelurahan" name="kel" autocomplete="off" class="form-control" required>
+        <input type="text" placeholder="Kelurahan" name="kel" id="kel" autocomplete="off" class="form-control reset" required>
+        <input type="hidden" placeholder="Kelurahan" name="id_kel" id="id_kel" autocomplete="off" class="form-control reset" required>
       </div>
     </div>
   </div>
@@ -181,7 +191,7 @@ input.invalid {
       <!-- select -->
       <div class="form-group">
         <label>Alamat :</label>
-        <input type="text" placeholder="Alamat" name="alamat" autocomplete="off" class="form-control" required>
+        <input type="text" placeholder="Alamat" name="alamat" id="alamat" autocomplete="off" class="form-control reset" required>
       </div>
     </div>
   </div>	
@@ -191,13 +201,13 @@ input.invalid {
     Apakah anda memiliki keluhan Demam ?
     <div class="col-sm-10">
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="p1" id="gridRadios1" value="option1">
+          <input class="form-check-input reset" type="radio" name="p1" id="gridRadios1" value="option1">
           <label class="form-check-label" for="gridRadios1">
             Ya
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="p1" id="gridRadios2" value="option2" required>
+          <input class="form-check-input reset" type="radio" name="p1" id="gridRadios2" value="option2" required>
           <label class="form-check-label" for="gridRadios2">
             Tidak
           </label>
@@ -206,13 +216,13 @@ input.invalid {
     Apakah anda memiliki keluhan Kesulitan Menelan ?
     <div class="col-sm-10">
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="p2" id="gridRadios1" value="option1">
+          <input class="form-check-input reset" type="radio" name="p2" id="gridRadios1" value="option1">
           <label class="form-check-label" for="gridRadios1">
             Ya
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="p2" id="gridRadios2" value="option2" required>
+          <input class="form-check-input reset" type="radio" name="p2" id="gridRadios2" value="option2" required>
           <label class="form-check-label" for="gridRadios2">
             Tidak
           </label>
@@ -224,13 +234,13 @@ input.invalid {
     Hasil nyaaaa
     <div class="col-sm-10">
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="p1" id="gridRadios1" value="option1">
+          <input class="form-check-input reset" type="radio" name="p1" id="gridRadios1" value="option1">
           <label class="form-check-label" for="gridRadios1">
             Ya
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="p1" id="gridRadios2" value="option2">
+          <input class="form-check-input reset" type="radio" name="p1" id="gridRadios2" value="option2">
           <label class="form-check-label" for="gridRadios2">
             Tidak
           </label>
@@ -355,11 +365,37 @@ function fixStepIndicator(n) {
   x[n].className += " active";
 }
 
-function allowNumbersOnly(e) {
-    var code = (e.which) ? e.which : e.keyCode;
-    if (code > 31 && (code < 48 || code > 57)) {
-        e.preventDefault();
+function allowNumbersOnly(a) {
+   
+    if(!/^[0-9.]+$/.test(a.value))
+    {
+    a.value = a.value.substring(0,a.value.length-1000);
     }
+    //ambil data ktp
+    var ktp = $('#ktp').val();
+    $.ajax({
+      type: "POST",
+      url: "<?php echo base_url('screening_c/get_js')?>",
+      data : {ktp : ktp},
+      dataType: "json",
+      success: function (response) {
+        if(response.content.RESPON){
+          $('.reset').val('')
+        } else {
+          $('#nama').val(response.content[0].NAMA_LGKP)
+          $('#prov').val(response.content[0].NAMA_PROP)
+          $('#id_prov').val(response.content[0].NO_PROP)
+          $('#kota').val(response.content[0].NAMA_KAB)
+          $('#id_kota').val(response.content[0].NO_KAB)
+          $('#kec').val(response.content[0].NAMA_KEC)
+          $('#id_kec').val(response.content[0].NO_KEC)
+          $('#kel').val(response.content[0].NAMA_KEL)
+          $('#id_kel').val(response.content[0].NO_KEL)
+        }
+       
+        
+      }
+    });
 }
 </script>
 </body>

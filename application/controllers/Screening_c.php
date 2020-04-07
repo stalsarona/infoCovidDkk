@@ -27,4 +27,49 @@ class Screening_c extends CI_Controller {
 	{
 		$this->load->view('404');
 	}
+
+	public function get_log()
+	{
+		$id              = "TUGUREJORSUD2019";
+		$data['todays']			 = date('dmY');
+		$data['pass']            = md5($id.$data['todays']);
+
+		return $data;
+	}
+
+	public function get_cors($url)
+    {
+      
+        $ch0 	 = curl_init();
+                curl_setopt($ch0, CURLOPT_URL, $url);
+                curl_setopt ($ch0, CURLOPT_RETURNTRANSFER, 1);
+        $exec0 	 = curl_exec ($ch0);
+        curl_close ($ch0); 
+        return $exec0;
+    }
+
+	public function get_js()
+    {
+		$ktp = $this->input->post('ktp');
+		$get_pass = $this->get_log();
+        $url = "http://adminduk.jatengprov.go.id:8282/ws_server/get_json/RSUDTUGUREJO/GET_NIK_TUGUREJO?USER_ID=RSUDTUGUREJO&PASSWORD=".$get_pass['pass']."&NIK=".$ktp."";
+        $data = json_decode($this->get_cors($url), TRUE);
+        //$data = $this->get_cors($url);
+        //untuk scraping json harus di decode baru di looping dahulu
+        $this->output->set_content_type('application/json')->set_output(json_encode($data));
+    }
+
+	public function bridging()
+	{
+		$data = $this->get_log();
+		// echo '<h1>';
+		// echo 'content-type:application/json<br>';
+		// echo 'Today:'.$data['todays'].'<br>';
+		// echo 'X-KEY:'.$data['pass'].'<br>';
+		// echo '</h1>';
+		$bridge = 'http://adminduk.jatengprov.go.id:8282/ws_server/get_json/RSUDTUGUREJO/GET_NIK_TUGUREJO?USER_ID=RSUDTUGUREJO&PASSWORD='.$data['pass'].'&NIK=3374152404950001';
+		
+		$this->output->set_content_type('application/json')->set_output(json_encode($bridge));
+		
+	}
 }
