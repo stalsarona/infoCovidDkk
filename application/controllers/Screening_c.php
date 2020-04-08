@@ -20,7 +20,17 @@ class Screening_c extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('screening');
+		//$data['pandemi'] = $this->db->get('CORONA_SOALH')->result();
+		$data['soal'] = $this->tampilan_pertanyaan();
+
+		$this->load->view('screening_new', $data);
+	}
+
+	public function get_soal()
+	{
+		// $data = $this->db->get('CORONA_SOALH')->result();
+		// $this->output->set_content_type('application/json')->set_output(json_encode($data));
+		
 	}
 
 	public function error()
@@ -62,7 +72,83 @@ class Screening_c extends CI_Controller {
 		$ktp = $this->input->post('ktp');
 		$url = "http://adminduk.jatengprov.go.id:8282/ws_server/get_json/RSUDTUGUREJO/GET_NIK_TUGUREJO?USER_ID=RSUDTUGUREJO&PASSWORD=".$get_log['pass']."&NIK=".$ktp."";
 		$get_url = file_get_contents($url);
-		$this->output->set_content_type('application/json')->set_output(json_encode($get_url));
+		$real = json_decode($get_url, true);
+		$hasil = array();
+		foreach($real as $key){
+			$hasil[] = array('ktp' => $key['NIK']);
+		}
+		$this->output->set_content_type('application/json')->set_output(json_decode($hasil));	
+	}
+
+	public function get_pertanyaan()
+	{
+		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wsrstugu/rstugu/covid/get_pertanyaan";
+        $data = json_decode($this->get_cors($url), TRUE);
+        //$data = $this->get_cors($url);
+        //untuk scraping json harus di decode baru di looping dahulu
+		//$this->output->set_content_type('application/json')->set_output(json_encode($data));
+		return $data;
+	}
+
+	public function get_pertanyaan_bykode($id)
+	{
+		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wsrstugu/rstugu/covid/get_pertanyaan_bykode/".$id;
+        $data = json_decode($this->get_cors($url), TRUE);
+        //$data = $this->get_cors($url);
+        //untuk scraping json harus di decode baru di looping dahulu
+		//$this->output->set_content_type('application/json')->set_output(json_encode($data));
+		return $data;
+	}
+
+	public function get_pertanyaan_detail($tipe)
+	{
 		
+		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wsrstugu/rstugu/covid/get_detail_pertanyaan/".$tipe;
+        $data = json_decode($this->get_cors($url), TRUE);
+        //$data = $this->get_cors($url);
+        //untuk scraping json harus di decode baru di looping dahulu
+		//$this->output->set_content_type('application/json')->set_output(json_encode($data));
+		return $data;
+	}
+
+	function tampilan_pertanyaan(){
+		$pertanyaan = $this->get_pertanyaan();
+		$contenku = '';
+		foreach ($pertanyaan as $pertanyaan ) {
+			if($pertanyaan['TIPE'] == 'YA_TIDAK'){
+				$contenku .=  '<label>'.$pertanyaan['SOAL'].'</label>';
+				$pertanyaan_detail = $this->get_pertanyaan_detail($pertanyaan['IDSOAL']);
+				foreach ($pertanyaan_detail as $pertanyaan_detail) {
+					$contenku .= '<div class="col-sm-10"><div class="form-check">
+								<input class="form-check-input" type="radio" name="'.$pertanyaan_detail['IDSOALDTL'].'" id="" value="'.$pertanyaan_detail['DESCR'].'">
+								<label class="form-check-label" for="gridRadios1">
+									'.$pertanyaan_detail['DESCR'].'
+								</label>
+								</div>
+								</div>';
+				}
+			} else {
+				$contenku .=  '<label>'.$pertanyaan['SOAL'].'</label>';
+				$pertanyaan_detail = $this->get_pertanyaan_detail($pertanyaan['IDSOAL']);
+				foreach ($pertanyaan_detail as $pertanyaan_cekbox) {
+					if($pertanyaan_cekbox['IDSOAL'] == $pertanyaan['IDSOAL'] ) {
+						if($pertanyaan_cekbox['TIPE'] == "CHECKBOX"){
+						$contenku .= '<div class="form-check">
+										<input class="form-check-input " type="checkbox" name="'.$pertanyaan_cekbox['IDSOALDTL'].'" id="" value="'.$pertanyaan_cekbox['DESCR'].'">
+										<label class="form-check-label" for="gridRadios2">
+										'.$pertanyaan_cekbox['DESCR'].'
+										</label>
+									</div>';
+						} else {
+							$contenku .= '<div class="form-group">
+											<input type="text" placeholder="'.$pertanyaan_cekbox['DESCR'].'" name="'.$pertanyaan_cekbox['IDSOALDTL'].'" id="" autocomplete="off" class="form-control reset">
+										</div>';
+						}
+					} 
+				}
+			}
+		}
+
+		return $contenku;
 	}
 }
