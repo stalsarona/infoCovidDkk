@@ -120,7 +120,7 @@ class Screening_c extends CI_Controller {
 				$pertanyaan_detail = $this->get_pertanyaan_detail($pertanyaan['IDSOAL']);
 				foreach ($pertanyaan_detail as $pertanyaan_detail) {
 					$contenku .= '<div class="col-sm-10"><div class="form-check">
-								<input class="form-check-input" type="radio" name="'.$pertanyaan_detail['IDSOALDTL'].'" id="" value="'.$pertanyaan_detail['DESCR'].'">
+								<input class="form-check-input" type="radio" name="'.$pertanyaan_detail['IDSOAL'].'" id="'.$pertanyaan_detail['IDSOALDTL'].'" value="'.$pertanyaan_detail['DESCR'].'">
 								<label class="form-check-label" for="gridRadios1">
 									'.$pertanyaan_detail['DESCR'].'
 								</label>

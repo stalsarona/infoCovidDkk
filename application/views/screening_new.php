@@ -286,14 +286,14 @@ input.invalid {
   
     <?php echo $soal; ?>
   
-    <!-- <div class="col-md-12">
+    <div class="col-md-12">
       <div class="form-group">
         <input type="text" placeholder="Nama Daerah : " name="" id="" autocomplete="off" class="form-control reset">
       </div>
       <div class="form-group">
         <input type="text" placeholder="Kota Lainnya" name="" id="" autocomplete="off" class="form-control reset">
       </div>
-    </div> -->
+    </div>
   </div>
   <div class="tab">
     <div class="col-sm-12" style="text-align:center;">
@@ -381,8 +381,27 @@ function nextPrev(n) {
   if (currentTab >= x.length) {
     // ... the form gets submitted:
     //document.getElementById("regForm").submit();
-    alert('ok')
-    return false;
+    // alert('ok')
+    var obj = document.forms.namedItem("regForm")
+    $.ajax({
+    type: "POST",
+    url: "http://api.rstugurejo.jatengprov.go.id:8000/wsrstugu/rstugu/covid/simpan_pendataan",
+    processData:false,
+    contentType:false,
+    cache:false,
+    async:true,
+    crossOrigin : true,
+    data: new FormData(obj),
+    dataType: "json",
+    beforeSend: function() {
+        $('.overlay').css('display', 'block');
+    },
+    success: function (response) {
+        $('.overlay').css('display', 'none');
+        //window.location.reload()
+    }
+    });
+    //return false;
   }
   // Otherwise, display the correct tab:
   showTab(currentTab);
