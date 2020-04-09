@@ -20,9 +20,9 @@ class Screening_c extends CI_Controller {
 	 */
 	public function index()
 	{
-		//$data['pandemi'] = $this->db->get('CORONA_SOALH')->result();
+		$data['js_soal_detail'] = $this->get_pertanyaan_detail_();
 		$data['soal'] = $this->tampilan_pertanyaan();
-
+		$data['js_soal'] = $this->get_pertanyaan();
 		$this->load->view('screening_new', $data);
 	}
 
@@ -94,6 +94,14 @@ class Screening_c extends CI_Controller {
 	{
 		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wsrstugu/rstugu/covid/get_pertanyaan_bykode/".$id;
         $data = json_decode($this->get_cors($url), TRUE);
+      
+		return $data;
+	}
+
+	public function get_pertanyaan_detail_()
+	{
+		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wsrstugu/rstugu/covid/get_detail_pertanyaan_";
+        $data = json_decode($this->get_cors($url), TRUE);
         //$data = $this->get_cors($url);
         //untuk scraping json harus di decode baru di looping dahulu
 		//$this->output->set_content_type('application/json')->set_output(json_encode($data));
@@ -105,9 +113,7 @@ class Screening_c extends CI_Controller {
 		
 		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wsrstugu/rstugu/covid/get_detail_pertanyaan/".$tipe;
         $data = json_decode($this->get_cors($url), TRUE);
-        //$data = $this->get_cors($url);
-        //untuk scraping json harus di decode baru di looping dahulu
-		//$this->output->set_content_type('application/json')->set_output(json_encode($data));
+       
 		return $data;
 	}
 
@@ -120,7 +126,7 @@ class Screening_c extends CI_Controller {
 				$pertanyaan_detail = $this->get_pertanyaan_detail($pertanyaan['IDSOAL']);
 				foreach ($pertanyaan_detail as $pertanyaan_detail) {
 					$contenku .= '<div class="col-sm-10"><div class="form-check">
-								<input class="form-check-input" type="radio" name="'.$pertanyaan_detail['IDSOAL'].'" id="'.$pertanyaan_detail['IDSOALDTL'].'" value="'.$pertanyaan_detail['DESCR'].'">
+								<input class="form-check-input validate" type="radio" name="'.$pertanyaan_detail['IDSOAL'].'-radio" id="'.$pertanyaan_detail['IDSOALDTL'].'" value="'.$pertanyaan_detail['DESCR'].'">
 								<label class="form-check-label" for="gridRadios1">
 									'.$pertanyaan_detail['DESCR'].'
 								</label>
@@ -131,20 +137,20 @@ class Screening_c extends CI_Controller {
 				$contenku .=  '<label>'.$pertanyaan['SOAL'].'</label>';
 				$pertanyaan_detail = $this->get_pertanyaan_detail($pertanyaan['IDSOAL']);
 				foreach ($pertanyaan_detail as $pertanyaan_cekbox) {
-					if($pertanyaan_cekbox['IDSOAL'] == $pertanyaan['IDSOAL'] ) {
+					// if($pertanyaan_cekbox['IDSOAL'] == $pertanyaan['IDSOAL'] ) {
 						if($pertanyaan_cekbox['TIPE'] == "CHECKBOX"){
 						$contenku .= '<div class="form-check">
-										<input class="form-check-input " type="checkbox" name="'.$pertanyaan_cekbox['IDSOALDTL'].'" id="" value="'.$pertanyaan_cekbox['DESCR'].'">
+										<input class="form-check-input cekbox" type="checkbox" name="'.$pertanyaan_cekbox['IDSOAL'].'-cekbox" id="'.$pertanyaan_cekbox['IDSOALDTL'].'" value="'.$pertanyaan_cekbox['DESCR'].'">
 										<label class="form-check-label" for="gridRadios2">
 										'.$pertanyaan_cekbox['DESCR'].'
 										</label>
 									</div>';
 						} else {
 							$contenku .= '<div class="form-group">
-											<input type="text" placeholder="'.$pertanyaan_cekbox['DESCR'].'" name="'.$pertanyaan_cekbox['IDSOALDTL'].'" id="" autocomplete="off" class="form-control reset">
+											<input type="text" placeholder="'.$pertanyaan_cekbox['DESCR'].' :" name="'.$pertanyaan_cekbox['IDSOAL'].'-text" id="'.$pertanyaan_cekbox['IDSOALDTL'].'" autocomplete="off" class="form-control reset">
 										</div>';
 						}
-					} 
+					//} 
 				}
 			}
 		}

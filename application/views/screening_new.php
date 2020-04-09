@@ -8,7 +8,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <link rel="shortcut icon" type="image/png" href="<?php echo base_url()?>assets/images/logo.png">
+  <link rel="shortcut icon" type="ico" href="<?php echo base_url()?>assets/images/logo.ico">
   <title>Screening Mandiri Covid 19</title>
 
   <!-- Font Awesome Icons -->
@@ -191,129 +191,135 @@ input.invalid {
                 <h5 class="card-title m-0">Form Screening Mandiri</h5>
               </div>
             <div class="card-body">
-  <form id="regForm">
-  <!-- One "tab" for each step in the form: -->
-  <div class="tab">
-  <u><h2>Data Diri</h2></u>
-  <div class="row">
-    <div class="col-sm-5">
-      <!-- select -->
-      <div class="form-group">
-        <label>No KTP : <code>(* Silahkan cari atau isi secara manual ) </code> </label>
-        <input type="text" placeholder="No. KTP" name="ktp" id="ktp" autocomplete="off" onkeyup="allowNumbersOnly(this, event)" maxlength="16" class="form-control validate" required autofocus>
-      </div>
-    </div>
-    <div class="col-sm-1">
-      <div class="form-group btn-cari">
-        <a href="javaScript:void(0)" class="btn btn-primary" id="btncari">Cari</a>
-      </div>
-    </div>
-    <div class="col-sm-6">
-      <div class="form-group">
-        <label>Nama :</label>
-        <input type="text" placeholder="Nama" name="nama" id="nama" class="form-control reset validate">
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-6">
-      <!-- select -->
-      <div class="form-group">
-        <label>Provinsi :</label>
-        <input type="text" placeholder="Provinsi" name="prov" id="prov" autocomplete="off" class="form-control reset validate">
-        <input type="hidden" placeholder="Provinsi" name="id_prov" id="id_prov" autocomplete="off" class="form-control reset">
-      </div>
-    </div>
-    <div class="col-sm-6">
-      <div class="form-group">
-      <label>Kota :</label>
-        <input type="text" placeholder="Kota" name="kota" id="kota" autocomplete="off" class="form-control reset validate">
-        <input type="hidden" placeholder="Kota" name="id_kota" id="id_kota" autocomplete="off" class="form-control reset">
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-6">
-      <!-- select -->
-      <div class="form-group">
-        <label>Kecamatan :</label>
-        <input type="text" placeholder="Kecamatan" name="kec" id="kec" autocomplete="off" class="form-control reset validate">
-        <input type="hidden" placeholder="Kecamatan" name="id_kec" id="id_kec" autocomplete="off" class="form-control reset">
-      </div>
-    </div>
-    <div class="col-sm-6">
-      <div class="form-group">
-      <label>Kelurahan :</label>
-        <input type="text" placeholder="Kelurahan" name="kel" id="kel" autocomplete="off" class="form-control reset validate">
-        <input type="hidden" placeholder="Kelurahan" name="id_kel" id="id_kel" autocomplete="off" class="form-control reset">
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-6">
-      <!-- select -->
-      <div class="form-group">
-        <label>Alamat :</label>
-        <input type="text" placeholder="Alamat" name="alamat" id="alamat" autocomplete="off" class="form-control reset validate">
-      </div>
-    </div>
-    <div class="col-sm-3">
-      <!-- select -->
-      <div class="form-group">
-        <label>RT :</label>
-        <input type="text" placeholder="RT" name="rt" id="rt" autocomplete="off" class="form-control reset validate">
-      </div>
-    </div>
-    <div class="col-sm-3">
-      <!-- select -->
-      <div class="form-group">
-        <label>RW :</label>
-        <input type="text" placeholder="RW" name="rw" id="rw" autocomplete="off" class="form-control reset validate">
-      </div>
-    </div>
-  </div>	
-  <div class="row">
-    <div class="col-sm-6">
-      <div class="form-group">
-        <label>No Telp :</label>
-        <input type="text" placeholder="No. Telp" name="telp" autocomplete="off" onkeyup="allowContactNumberOnly(this)" maxlength="12" class="form-control reset validate">
-      </div>
-    </div>
-  </div>
-  </div>
-  <div class="tab">
-  <u><h2>Data Screening</h2></u>
-  
-    <?php echo $soal; ?>
-  
-    <div class="col-md-12">
-      <div class="form-group">
-        <input type="text" placeholder="Nama Daerah : " name="" id="" autocomplete="off" class="form-control reset">
-      </div>
-      <div class="form-group">
-        <input type="text" placeholder="Kota Lainnya" name="" id="" autocomplete="off" class="form-control reset">
-      </div>
-    </div>
-  </div>
-  <div class="tab">
-    <div class="col-sm-12" style="text-align:center;">
-        <img style="width:100px;" src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBoZWlnaHQ9IjUxMnB4IiB2aWV3Qm94PSIwIDAgNDk2IDQ5Ni4wMTQ2MSIgd2lkdGg9IjUxMnB4Ij48cGF0aCBkPSJtNDU1Ljg4MjgxMiAxMjguMDAzOTA2LTYwLjgwMDc4MS0yNy4wNDY4NzUtMjcuMDcwMzEyLTYwLjgyNDIxOS02Ni4xNjc5NjkgNi45MTAxNTctNTMuODMyMDMxLTM5LjAzOTA2My01My44NjMyODEgMzkuMDM5MDYzLTY2LjEzNjcxOS02LjkxMDE1Ny0yNy4wNTA3ODEgNjAuNzk2ODc2LTYwLjgyNDIxOSAyNy4wNzQyMTggNi45MTQwNjIgNjYuMTY3OTY5LTM5LjAzOTA2MiA1My44MzIwMzEgMzkuMDM5MDYyIDUzLjg2MzI4Mi02LjkxNDA2MiA2Ni4xMzY3MTggNjAuODAwNzgxIDI3LjA0Njg3NSAyNy4wNzQyMTkgNjAuODI0MjE5IDY2LjE2Nzk2OS02LjkxMDE1NiA1My44MzIwMzEgMzkuMDM5MDYyIDUzLjg2MzI4MS0zOS4wMzkwNjIgNjYuMTM2NzE5IDYuOTEwMTU2IDI3LjA0Njg3NS02MC44MDA3ODEgNjAuODI0MjE4LTI3LjA3MDMxMy02LjkxNDA2Mi02Ni4xNjc5NjggMzkuMDQyOTY5LTUzLjgzMjAzMi0zOS4wNDI5NjktNTMuODYzMjgxem0tMjU1Ljg3MTA5MyAyMTYtNjcuOTIxODc1LTY3LjkyMTg3NSAyMi42NDA2MjUtMjIuNTU4NTkzIDQ1LjI4MTI1IDQ1LjE5OTIxOCAxMzUuNzU3ODEyLTEzNS43NTc4MTIgMjIuNjQwNjI1IDIyLjYzNjcxOHptMCAwIiBmaWxsPSIjNTdhNGZmIi8+PGcgZmlsbD0iIzFlODFjZSI+PHBhdGggZD0ibTQ5NC40OTIxODggMjQzLjMwODU5NC0zNy4yNS01MS4zODY3MTkgNi42MDE1NjItNjMuMTA5Mzc1Yy4zNTkzNzUtMy40NDkyMTktMS41MzkwNjItNi43MzQzNzUtNC43MDcwMzEtOC4xNDQ1MzFsLTU3Ljk4MDQ2OS0yNS44MDA3ODEtMjUuODAwNzgxLTU3Ljk4NDM3NmMtMS40MTc5NjktMy4xNjAxNTYtNC42OTkyMTktNS4wNTQ2ODctOC4xNDQ1MzEtNC43MTA5MzdsLTYzLjEyMTA5NCA2LjU5NzY1Ni01MS4zODI4MTMtMzcuMjQ2MDkzYy0yLjgwMDc4MS0yLjAzMTI1LTYuNTg5ODQzLTIuMDMxMjUtOS4zOTA2MjUgMGwtNTEuMzg2NzE4IDM3LjI0NjA5My02My4xMTcxODgtNi41OTc2NTZjLTMuNDQxNDA2LS4zMjgxMjUtNi43MTA5MzggMS41NjI1LTguMTQ0NTMxIDQuNzAzMTI1bC0yNS44MDA3ODEgNTcuOTg0Mzc1LTU3Ljk4NDM3NiAyNS44MDg1OTRjLTMuMTY0MDYyIDEuNDA2MjUtNS4wNjI1IDQuNjkxNDA2LTQuNzAzMTI0IDguMTM2NzE5bDYuNTk3NjU2IDYzLjExNzE4Ny0zNy4yNDYwOTQgNTEuMzg2NzE5Yy0yLjAzMTI1IDIuODAwNzgxLTIuMDMxMjUgNi41ODk4NDQgMCA5LjM5MDYyNWwzNy4yNDYwOTQgNTEuMzgyODEyLTYuNTk3NjU2IDYzLjEyMTA5NGMtLjM2MzI4MiAzLjQ0NTMxMyAxLjUzNTE1NiA2LjczNDM3NSA0LjcwMzEyNCA4LjE0NDUzMWw1Ny45ODQzNzYgMjUuODAwNzgyIDI1LjgwMDc4MSA1Ny45ODQzNzRjMS40MjU3ODEgMy4xNDg0MzggNC42OTkyMTkgNS4wNDI5NjkgOC4xNDQ1MzEgNC43MTA5MzhsNjMuMTE3MTg4LTYuNjAxNTYyIDUxLjM4NjcxOCAzNy4yNWMyLjgwMDc4MiAyLjAzMTI1IDYuNTg5ODQ0IDIuMDMxMjUgOS4zOTA2MjUgMGw1MS4zODI4MTMtMzcuMjUgNjMuMTIxMDk0IDYuNjAxNTYyYzMuNDQ1MzEyLjM0NzY1NiA2LjcyMjY1Ni0xLjU0Njg3NSA4LjE0NDUzMS00LjcwMzEyNWwyNS44MDA3ODEtNTcuOTg0Mzc1IDU3Ljk4MDQ2OS0yNS44MDg1OTRjMy4xNjQwNjItMS40MTAxNTYgNS4wNjI1LTQuNjkxNDA2IDQuNzA3MDMxLTguMTM2NzE4bC02LjYwMTU2Mi02My4xMjEwOTQgMzcuMjUtNTEuMzgyODEzYzIuMDM1MTU2LTIuODAwNzgxIDIuMDM1MTU2LTYuNTk3NjU2IDAtOS4zOTg0Mzd6bS01MiA1My44NjMyODFjLTEuMTYwMTU3IDEuNTk3NjU2LTEuNjg3NSAzLjU2NjQwNi0xLjQ4MDQ2OSA1LjUyNzM0NGw2LjMwNDY4NyA2MC4zODI4MTItNTUuNDgwNDY4IDI0LjY5OTIxOWMtMS44MTI1Ljc5Njg3NS0zLjI2NTYyNiAyLjI0MjE4OC00LjA2NjQwNyA0LjA1NDY4OGwtMjQuNjc5Njg3IDU1LjQ4MDQ2OC02MC4zOTg0MzgtNi4zMTI1Yy0xLjk2MDkzNy0uMjAzMTI1LTMuOTI1NzgxLjMyODEyNS01LjUxOTUzMSAxLjQ4ODI4MmwtNDkuMTYwMTU2IDM1LjYzMjgxMi00OS4xNjc5NjktMzUuNjMyODEyYy0xLjM2MzI4MS0uOTk2MDk0LTMuMDAzOTA2LTEuNTMxMjUtNC42ODc1LTEuNTI3MzQ0LS4yODEyNSAwLS41NjI1IDAtLjgwMDc4MS4wMzkwNjJsLTYwLjQwMjM0NCA2LjMxMjUtMjQuNjc5Njg3LTU1LjQ4MDQ2OGMtLjgwNDY4OC0xLjgxMjUtMi4yNS0zLjI2MTcxOS00LjA2MjUtNC4wNjY0MDdsLTU1LjUxMTcxOS0yNC42ODc1IDYuMzA0Njg3LTYwLjM4MjgxMmMuMjAzMTI1LTEuOTYwOTM4LS4zMjQyMTgtMy45Mjk2ODgtMS40ODA0NjgtNS41MjczNDRsLTM1LjYzMjgxMy00OS4xNjc5NjkgMzUuNjMyODEzLTQ5LjE2Nzk2OGMxLjE1NjI1LTEuNTk3NjU3IDEuNjgzNTkzLTMuNTY2NDA3IDEuNDgwNDY4LTUuNTI3MzQ0bC02LjMwNDY4Ny02MC4zODY3MTkgNTUuNDgwNDY5LTI0LjY5NTMxM2MxLjgxMjUtLjc5Njg3NCAzLjI2MTcxOC0yLjI0MjE4NyA0LjA2MjUtNC4wNTQ2ODdsMjQuNjc5Njg3LTU1LjQ4MDQ2OSA2MC40MDIzNDQgNi4zMTI1YzEuOTU3MDMxLjE5NTMxMyAzLjkyMTg3NS0uMzM1OTM3IDUuNTE5NTMxLTEuNDg4MjgxbDQ5LjE2Nzk2OS0zNS42MzI4MTMgNDkuMTY3OTY5IDM1LjYzMjgxM2MxLjU5Mzc1IDEuMTU2MjUgMy41NTg1OTMgMS42ODM1OTQgNS41MTk1MzEgMS40ODgyODFsNjAuMzk4NDM3LTYuMzEyNSAyNC42Nzk2ODggNTUuNDgwNDY5Yy44MDQ2ODcgMS44MTI1IDIuMjUzOTA2IDMuMjU3ODEzIDQuMDY2NDA2IDQuMDYyNWw1NS40ODA0NjkgMjQuNjg3NS02LjMwNDY4OCA2MC4zODY3MTljLS4yMDcwMzEgMS45NjA5MzcuMzIwMzEzIDMuOTI5Njg3IDEuNDgwNDY5IDUuNTI3MzQ0bDM1LjYyODkwNiA0OS4xNjc5Njh6bTAgMCIvPjxwYXRoIGQ9Im0zNDEuNDI1NzgxIDE1Ny4zMDg1OTRjLTMuMTI1LTMuMTI1LTguMTg3NS0zLjEyNS0xMS4zMTI1IDBsLTEzMC4xMDE1NjIgMTMwLjEwMTU2Mi0zOS42MjUtMzkuNTUwNzgxYy0zLjEyMTA5NC0zLjExMzI4MS04LjE3NTc4MS0zLjExMzI4MS0xMS4yOTY4NzUgMGwtMjIuNjc5Njg4IDIyLjU0Mjk2OWMtMS41MDM5MDYgMS41LTIuMzUxNTYyIDMuNTM5MDYyLTIuMzUxNTYyIDUuNjY0MDYycy44NDc2NTYgNC4xNjQwNjMgMi4zNTE1NjIgNS42NjQwNjNsNjcuOTIxODc1IDY3LjkyMTg3NWMzLjEyMTA5NCAzLjEyMTA5NCA4LjE4NzUgMy4xMjEwOTQgMTEuMzEyNSAwbDE1OC4zOTg0MzgtMTU4LjQwMjM0NGMzLjEyMTA5My0zLjEyMTA5NCAzLjEyMTA5My04LjE4NzUgMC0xMS4zMTI1em0tMTQxLjQxNDA2MiAxNzUuMzgyODEyLTU2LjYwMTU2My01Ni42MDE1NjIgMTEuMzEyNS0xMS4yODUxNTYgMzkuNjQwNjI1IDM5LjU1ODU5M2MzLjEyMTA5NCAzLjExNzE4OCA4LjE3OTY4OCAzLjExNzE4OCAxMS4zMDQ2ODggMGwxMzAuMTAxNTYyLTEzMC4wODk4NDMgMTEuMzI4MTI1IDExLjMyODEyNHptMCAwIi8+PC9nPjwvc3ZnPgo=" />
-        <div>Terimakasih telah membantu <a href="rstugurejo.jatengprov.go.id" title="srip">rstugurejo.jatengprov.go.id</a> untuk mendata</div>
-    </div>
-  </div>
-  <div style="overflow:auto;">
-    <div style="float:right;">
-      <button type="button" class="btn btn-warning" id="prevBtn" onclick="nextPrev(-1)">Sebelumnya</button>
-      <button type="button" class="btn btn-primary" id="nextBtn" onclick="nextPrev(1)">Selanjutnya</button>
-    </div>
-  </div>
-  <!-- Circles which indicates the steps of the form: -->
-  <div style="text-align:center;margin-top:40px;">
-    <span class="step"></span>
-    <span class="step"></span>
-    <span class="step"></span>
-  </div>
-</form>
+              <form id="regForm">
+              <!-- One "tab" for each step in the form: -->
+              <div class="tab">
+              <u><h2>Data Diri</h2></u>
+              <div class="row">
+                <div class="col-sm-5">
+                  <!-- select -->
+                  <div class="form-group">
+                    <label>No KTP : <code>(* Silahkan cari atau isi secara manual ) </code> </label>
+                    <input type="text" placeholder="No. KTP" name="ktp" id="ktp" autocomplete="off" onkeyup="allowNumbersOnly(this, event)" maxlength="16" class="form-control validate" required autofocus>
+                  </div>
+                </div>
+                <div class="col-sm-1">
+                  <div class="form-group btn-cari">
+                    <a href="javaScript:void(0)" class="btn btn-primary" id="btncari">Cari</a>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label>Nama :</label>
+                    <input type="text" placeholder="Nama" name="nama" id="nama" class="form-control reset validate">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <!-- select -->
+                  <div class="form-group">
+                    <label>Provinsi :</label>
+                    <input type="text" placeholder="Provinsi" name="prov" id="prov" autocomplete="off" class="form-control reset validate">
+                    <input type="hidden" placeholder="Provinsi" name="id_prov" id="id_prov" autocomplete="off" class="form-control reset">
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                  <label>Kota :</label>
+                    <input type="text" placeholder="Kota" name="kota" id="kota" autocomplete="off" class="form-control reset validate">
+                    <input type="hidden" placeholder="Kota" name="id_kota" id="id_kota" autocomplete="off" class="form-control reset">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <!-- select -->
+                  <div class="form-group">
+                    <label>Kecamatan :</label>
+                    <input type="text" placeholder="Kecamatan" name="kec" id="kec" autocomplete="off" class="form-control reset validate">
+                    <input type="hidden" placeholder="Kecamatan" name="id_kec" id="id_kec" autocomplete="off" class="form-control reset">
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                  <label>Kelurahan :</label>
+                    <input type="text" placeholder="Kelurahan" name="kel" id="kel" autocomplete="off" class="form-control reset validate">
+                    <input type="hidden" placeholder="Kelurahan" name="id_kel" id="id_kel" autocomplete="off" class="form-control reset">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <!-- select -->
+                  <div class="form-group">
+                    <label>Alamat :</label>
+                    <input type="text" placeholder="Alamat" name="alamat" id="alamat" autocomplete="off" class="form-control reset validate">
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <!-- select -->
+                  <div class="form-group">
+                    <label>RT :</label>
+                    <input type="text" placeholder="RT" name="rt" id="rt" autocomplete="off" class="form-control reset validate">
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <!-- select -->
+                  <div class="form-group">
+                    <label>RW :</label>
+                    <input type="text" placeholder="RW" name="rw" id="rw" autocomplete="off" class="form-control reset validate">
+                  </div>
+                </div>
+              </div>	
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label>No Telp :</label>
+                    <input type="text" placeholder="No. Telp" name="telp" autocomplete="off" onkeyup="allowNumbersOnly(this, event)" maxlength="12" class="form-control reset validate">
+                  </div>
+                </div>
+              </div>
+              </div>
+              <div class="tab">
+              <u><h2>Data Screening</h2></u>
+              
+                <?php echo $soal; ?>
+                <?php foreach ($js_soal as $js_soal1) { if($js_soal1['TIPE'] == 'YA_TIDAK'){?>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <input type="text" placeholder="" name="<?php echo $js_soal1['IDSOAL']?>" id="<?php echo $js_soal1['IDSOAL']?>" autocomplete="off" class="form-control reset validate">
+                  </div>
+                </div>
+                <?php } else if($js_soal1['TIPE'] == 'CHECKBOX'){ ?>
+                  <div class="form-group">
+                    <input type="text" placeholder="" name="<?php echo $js_soal1['IDSOAL']?>" id="<?php echo $js_soal1['IDSOAL']?>" autocomplete="off" class="form-control reset">
+                  </div>
+                <?php } else {?>
+                  <div class="form-group">
+                    <input type="text" placeholder="" name="<?php echo $js_soal1['IDSOAL']?>" id="<?php echo $js_soal1['IDSOAL']?>" autocomplete="off" class="form-control reset">
+                  </div>
+                <?php } } ?>
+              </div>
+              <div class="tab">
+                <div class="col-sm-12" style="text-align:center;">
+                    <img style="width:100px;" src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBoZWlnaHQ9IjUxMnB4IiB2aWV3Qm94PSIwIDAgNDk2IDQ5Ni4wMTQ2MSIgd2lkdGg9IjUxMnB4Ij48cGF0aCBkPSJtNDU1Ljg4MjgxMiAxMjguMDAzOTA2LTYwLjgwMDc4MS0yNy4wNDY4NzUtMjcuMDcwMzEyLTYwLjgyNDIxOS02Ni4xNjc5NjkgNi45MTAxNTctNTMuODMyMDMxLTM5LjAzOTA2My01My44NjMyODEgMzkuMDM5MDYzLTY2LjEzNjcxOS02LjkxMDE1Ny0yNy4wNTA3ODEgNjAuNzk2ODc2LTYwLjgyNDIxOSAyNy4wNzQyMTggNi45MTQwNjIgNjYuMTY3OTY5LTM5LjAzOTA2MiA1My44MzIwMzEgMzkuMDM5MDYyIDUzLjg2MzI4Mi02LjkxNDA2MiA2Ni4xMzY3MTggNjAuODAwNzgxIDI3LjA0Njg3NSAyNy4wNzQyMTkgNjAuODI0MjE5IDY2LjE2Nzk2OS02LjkxMDE1NiA1My44MzIwMzEgMzkuMDM5MDYyIDUzLjg2MzI4MS0zOS4wMzkwNjIgNjYuMTM2NzE5IDYuOTEwMTU2IDI3LjA0Njg3NS02MC44MDA3ODEgNjAuODI0MjE4LTI3LjA3MDMxMy02LjkxNDA2Mi02Ni4xNjc5NjggMzkuMDQyOTY5LTUzLjgzMjAzMi0zOS4wNDI5NjktNTMuODYzMjgxem0tMjU1Ljg3MTA5MyAyMTYtNjcuOTIxODc1LTY3LjkyMTg3NSAyMi42NDA2MjUtMjIuNTU4NTkzIDQ1LjI4MTI1IDQ1LjE5OTIxOCAxMzUuNzU3ODEyLTEzNS43NTc4MTIgMjIuNjQwNjI1IDIyLjYzNjcxOHptMCAwIiBmaWxsPSIjNTdhNGZmIi8+PGcgZmlsbD0iIzFlODFjZSI+PHBhdGggZD0ibTQ5NC40OTIxODggMjQzLjMwODU5NC0zNy4yNS01MS4zODY3MTkgNi42MDE1NjItNjMuMTA5Mzc1Yy4zNTkzNzUtMy40NDkyMTktMS41MzkwNjItNi43MzQzNzUtNC43MDcwMzEtOC4xNDQ1MzFsLTU3Ljk4MDQ2OS0yNS44MDA3ODEtMjUuODAwNzgxLTU3Ljk4NDM3NmMtMS40MTc5NjktMy4xNjAxNTYtNC42OTkyMTktNS4wNTQ2ODctOC4xNDQ1MzEtNC43MTA5MzdsLTYzLjEyMTA5NCA2LjU5NzY1Ni01MS4zODI4MTMtMzcuMjQ2MDkzYy0yLjgwMDc4MS0yLjAzMTI1LTYuNTg5ODQzLTIuMDMxMjUtOS4zOTA2MjUgMGwtNTEuMzg2NzE4IDM3LjI0NjA5My02My4xMTcxODgtNi41OTc2NTZjLTMuNDQxNDA2LS4zMjgxMjUtNi43MTA5MzggMS41NjI1LTguMTQ0NTMxIDQuNzAzMTI1bC0yNS44MDA3ODEgNTcuOTg0Mzc1LTU3Ljk4NDM3NiAyNS44MDg1OTRjLTMuMTY0MDYyIDEuNDA2MjUtNS4wNjI1IDQuNjkxNDA2LTQuNzAzMTI0IDguMTM2NzE5bDYuNTk3NjU2IDYzLjExNzE4Ny0zNy4yNDYwOTQgNTEuMzg2NzE5Yy0yLjAzMTI1IDIuODAwNzgxLTIuMDMxMjUgNi41ODk4NDQgMCA5LjM5MDYyNWwzNy4yNDYwOTQgNTEuMzgyODEyLTYuNTk3NjU2IDYzLjEyMTA5NGMtLjM2MzI4MiAzLjQ0NTMxMyAxLjUzNTE1NiA2LjczNDM3NSA0LjcwMzEyNCA4LjE0NDUzMWw1Ny45ODQzNzYgMjUuODAwNzgyIDI1LjgwMDc4MSA1Ny45ODQzNzRjMS40MjU3ODEgMy4xNDg0MzggNC42OTkyMTkgNS4wNDI5NjkgOC4xNDQ1MzEgNC43MTA5MzhsNjMuMTE3MTg4LTYuNjAxNTYyIDUxLjM4NjcxOCAzNy4yNWMyLjgwMDc4MiAyLjAzMTI1IDYuNTg5ODQ0IDIuMDMxMjUgOS4zOTA2MjUgMGw1MS4zODI4MTMtMzcuMjUgNjMuMTIxMDk0IDYuNjAxNTYyYzMuNDQ1MzEyLjM0NzY1NiA2LjcyMjY1Ni0xLjU0Njg3NSA4LjE0NDUzMS00LjcwMzEyNWwyNS44MDA3ODEtNTcuOTg0Mzc1IDU3Ljk4MDQ2OS0yNS44MDg1OTRjMy4xNjQwNjItMS40MTAxNTYgNS4wNjI1LTQuNjkxNDA2IDQuNzA3MDMxLTguMTM2NzE4bC02LjYwMTU2Mi02My4xMjEwOTQgMzcuMjUtNTEuMzgyODEzYzIuMDM1MTU2LTIuODAwNzgxIDIuMDM1MTU2LTYuNTk3NjU2IDAtOS4zOTg0Mzd6bS01MiA1My44NjMyODFjLTEuMTYwMTU3IDEuNTk3NjU2LTEuNjg3NSAzLjU2NjQwNi0xLjQ4MDQ2OSA1LjUyNzM0NGw2LjMwNDY4NyA2MC4zODI4MTItNTUuNDgwNDY4IDI0LjY5OTIxOWMtMS44MTI1Ljc5Njg3NS0zLjI2NTYyNiAyLjI0MjE4OC00LjA2NjQwNyA0LjA1NDY4OGwtMjQuNjc5Njg3IDU1LjQ4MDQ2OC02MC4zOTg0MzgtNi4zMTI1Yy0xLjk2MDkzNy0uMjAzMTI1LTMuOTI1NzgxLjMyODEyNS01LjUxOTUzMSAxLjQ4ODI4MmwtNDkuMTYwMTU2IDM1LjYzMjgxMi00OS4xNjc5NjktMzUuNjMyODEyYy0xLjM2MzI4MS0uOTk2MDk0LTMuMDAzOTA2LTEuNTMxMjUtNC42ODc1LTEuNTI3MzQ0LS4yODEyNSAwLS41NjI1IDAtLjgwMDc4MS4wMzkwNjJsLTYwLjQwMjM0NCA2LjMxMjUtMjQuNjc5Njg3LTU1LjQ4MDQ2OGMtLjgwNDY4OC0xLjgxMjUtMi4yNS0zLjI2MTcxOS00LjA2MjUtNC4wNjY0MDdsLTU1LjUxMTcxOS0yNC42ODc1IDYuMzA0Njg3LTYwLjM4MjgxMmMuMjAzMTI1LTEuOTYwOTM4LS4zMjQyMTgtMy45Mjk2ODgtMS40ODA0NjgtNS41MjczNDRsLTM1LjYzMjgxMy00OS4xNjc5NjkgMzUuNjMyODEzLTQ5LjE2Nzk2OGMxLjE1NjI1LTEuNTk3NjU3IDEuNjgzNTkzLTMuNTY2NDA3IDEuNDgwNDY4LTUuNTI3MzQ0bC02LjMwNDY4Ny02MC4zODY3MTkgNTUuNDgwNDY5LTI0LjY5NTMxM2MxLjgxMjUtLjc5Njg3NCAzLjI2MTcxOC0yLjI0MjE4NyA0LjA2MjUtNC4wNTQ2ODdsMjQuNjc5Njg3LTU1LjQ4MDQ2OSA2MC40MDIzNDQgNi4zMTI1YzEuOTU3MDMxLjE5NTMxMyAzLjkyMTg3NS0uMzM1OTM3IDUuNTE5NTMxLTEuNDg4MjgxbDQ5LjE2Nzk2OS0zNS42MzI4MTMgNDkuMTY3OTY5IDM1LjYzMjgxM2MxLjU5Mzc1IDEuMTU2MjUgMy41NTg1OTMgMS42ODM1OTQgNS41MTk1MzEgMS40ODgyODFsNjAuMzk4NDM3LTYuMzEyNSAyNC42Nzk2ODggNTUuNDgwNDY5Yy44MDQ2ODcgMS44MTI1IDIuMjUzOTA2IDMuMjU3ODEzIDQuMDY2NDA2IDQuMDYyNWw1NS40ODA0NjkgMjQuNjg3NS02LjMwNDY4OCA2MC4zODY3MTljLS4yMDcwMzEgMS45NjA5MzcuMzIwMzEzIDMuOTI5Njg3IDEuNDgwNDY5IDUuNTI3MzQ0bDM1LjYyODkwNiA0OS4xNjc5Njh6bTAgMCIvPjxwYXRoIGQ9Im0zNDEuNDI1NzgxIDE1Ny4zMDg1OTRjLTMuMTI1LTMuMTI1LTguMTg3NS0zLjEyNS0xMS4zMTI1IDBsLTEzMC4xMDE1NjIgMTMwLjEwMTU2Mi0zOS42MjUtMzkuNTUwNzgxYy0zLjEyMTA5NC0zLjExMzI4MS04LjE3NTc4MS0zLjExMzI4MS0xMS4yOTY4NzUgMGwtMjIuNjc5Njg4IDIyLjU0Mjk2OWMtMS41MDM5MDYgMS41LTIuMzUxNTYyIDMuNTM5MDYyLTIuMzUxNTYyIDUuNjY0MDYycy44NDc2NTYgNC4xNjQwNjMgMi4zNTE1NjIgNS42NjQwNjNsNjcuOTIxODc1IDY3LjkyMTg3NWMzLjEyMTA5NCAzLjEyMTA5NCA4LjE4NzUgMy4xMjEwOTQgMTEuMzEyNSAwbDE1OC4zOTg0MzgtMTU4LjQwMjM0NGMzLjEyMTA5My0zLjEyMTA5NCAzLjEyMTA5My04LjE4NzUgMC0xMS4zMTI1em0tMTQxLjQxNDA2MiAxNzUuMzgyODEyLTU2LjYwMTU2My01Ni42MDE1NjIgMTEuMzEyNS0xMS4yODUxNTYgMzkuNjQwNjI1IDM5LjU1ODU5M2MzLjEyMTA5NCAzLjExNzE4OCA4LjE3OTY4OCAzLjExNzE4OCAxMS4zMDQ2ODggMGwxMzAuMTAxNTYyLTEzMC4wODk4NDMgMTEuMzI4MTI1IDExLjMyODEyNHptMCAwIi8+PC9nPjwvc3ZnPgo=" />
+                    <div>Terimakasih telah membantu <a href="rstugurejo.jatengprov.go.id" title="srip">rstugurejo.jatengprov.go.id</a> untuk mendata</div>
+                </div>
+              </div>
+              <div style="overflow:auto;">
+                <div style="float:right;">
+                  <button type="button" class="btn btn-warning" id="prevBtn" onclick="nextPrev(-1)">Sebelumnya</button>
+                  <button type="button" class="btn btn-primary" id="nextBtn" onclick="nextPrev(1)">Selanjutnya</button>
+                </div>
+              </div>
+              <!-- Circles which indicates the steps of the form: -->
+              <div style="text-align:center;margin-top:40px;">
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+              </div>
+            </form>
               </div>
             </div>
           </div>
@@ -330,7 +336,7 @@ input.invalid {
   <!-- Main Footer -->
   <footer class="main-footer">
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2019 <a href="https://rstugurejo.jatengprov.go.id">RSUD Tugurejo</a>.</strong>
+    <strong>Copyright &copy; 2020 <a href="https://rstugurejo.jatengprov.go.id">RSUD Tugurejo</a>.</strong>
   </footer>
 </div>
 <!-- ./wrapper -->
@@ -447,7 +453,8 @@ function allowContactNumberOnly(a){
 
 function allowNumbersOnly(a, event) {
    
-    if(!/^[0-9.]+$/.test(a.value))
+    // if(!/^[0-9.]+$/.test(a.value))
+    if(!/^\d+$/.test(a.value))
     {
     a.value = a.value.substring(0,a.value.length-1000);
     }
@@ -463,6 +470,35 @@ function allowNumbersOnly(a, event) {
   }
 
   $(function () {
+    <?php foreach($js_soal as $js_soal){ if($js_soal['TIPE'] == 'YA_TIDAK'){?>
+      $('input:radio[name="<?php echo $js_soal['IDSOAL'] ?>-radio"]').change(function(){
+        if($(this).val() == 'Ya'){
+          $('#<?php echo $js_soal['IDSOAL'] ?>').val('Ya');
+        } else {
+          $('#<?php echo $js_soal['IDSOAL']?>').val('Tidak');
+        }
+      });
+    <?php } else if($js_soal['TIPE'] == "CHECKBOX"){?> 
+      $('input:checkbox[name="<?php echo $js_soal['IDSOAL'] ?>-cekbox"]').change(function(){
+          
+          var final = '';
+          // if($(this).is(':checked')){
+          //   $('#<?php echo $js_soal['IDSOAL'] ?>').val(isi);
+          // } else {
+          //   $('#<?php echo $js_soal['IDSOAL'] ?>').val('');
+          // }
+          $('.cekbox:checked').each(function(){
+              var isi = $(this).val();
+              final += isi+',';
+          })
+          $('#<?php echo $js_soal['IDSOAL'] ?>').val(final);
+      });
+
+      $('input[name="<?php echo $js_soal['IDSOAL']?>-text"]').on('keyup', function(){
+        var a = $(this).val();
+        $('#<?php echo $js_soal['IDSOAL']?>').val(a)
+      })
+    <?php } else {  } }?>
     $('#btncari').on('click',function(){
       var ktp = $('#ktp').val();
       var obj = document.forms.namedItem("regForm")
