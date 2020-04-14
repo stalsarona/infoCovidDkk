@@ -20,16 +20,21 @@ class Screening_c extends CI_Controller {
 	 */
 	public function index()
 	{
-		$data['js_soal_detail'] = $this->get_pertanyaan_detail_();
+		// $data['js_soal_detail'] = $this->get_pertanyaan_detail_();
 		$data['soal'] = $this->tampilan_pertanyaan();
 		$data['js_soal'] = $this->get_pertanyaan();
 		$this->load->view('screening_new', $data);
 	}
 
-	public function get_soal()
+	public function test()
 	{
 		// $data = $this->db->get('CORONA_SOALH')->result();
 		// $this->output->set_content_type('application/json')->set_output(json_encode($data));
+		$data = 'Semarang';
+		$new = explode(',', $data);
+		foreach ($new as $key) {
+			echo $key;
+		}
 		
 	}
 
