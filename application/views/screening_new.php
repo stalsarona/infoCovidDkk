@@ -288,16 +288,16 @@ input.invalid {
                 <?php foreach ($js_soal as $js_soal1) { if($js_soal1['TIPE'] == 'YA_TIDAK'){?>
                 <div class="col-md-12">
                   <div class="form-group">
-                    <input type="text" placeholder="" name="<?php echo $js_soal1['IDSOAL']?>" id="<?php echo $js_soal1['IDSOAL']?>" autocomplete="off" class="form-control reset validate">
+                    <input type="hidden" placeholder="" name="<?php echo $js_soal1['IDSOAL']?>" id="<?php echo $js_soal1['IDSOAL']?>" autocomplete="off" class="form-control reset validate">
                   </div>
                 </div>
                 <?php } else if($js_soal1['TIPE'] == 'CHECKBOX'){ ?>
                   <div class="form-group">
-                    <input type="text" placeholder="" name="<?php echo $js_soal1['IDSOAL']?>" id="<?php echo $js_soal1['IDSOAL']?>" autocomplete="off" class="form-control reset">
+                    <input type="hidden" placeholder="" name="<?php echo $js_soal1['IDSOAL']?>" id="<?php echo $js_soal1['IDSOAL']?>" autocomplete="off" class="form-control reset">
                   </div>
                 <?php } else {?>
                   <div class="form-group">
-                    <input type="text" placeholder="" name="<?php echo $js_soal1['IDSOAL']?>" id="<?php echo $js_soal1['IDSOAL']?>" autocomplete="off" class="form-control reset">
+                    <input type="hidden" placeholder="" name="<?php echo $js_soal1['IDSOAL']?>" id="<?php echo $js_soal1['IDSOAL']?>" autocomplete="off" class="form-control reset">
                   </div>
                 <?php } } ?>
               </div>
