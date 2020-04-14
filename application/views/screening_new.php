@@ -416,7 +416,7 @@ function nextPrev(n) {
     },
     success: function (response) {
         $('.overlay').css('display', 'none');
-        window.location.reload()
+        //window.location.reload()
     }
     });
     //return false;

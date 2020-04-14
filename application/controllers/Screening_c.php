@@ -30,7 +30,7 @@ class Screening_c extends CI_Controller {
 	{
 		// $data = $this->db->get('CORONA_SOALH')->result();
 		// $this->output->set_content_type('application/json')->set_output(json_encode($data));
-		$data = 'Semarang';
+		$data = 'Semarang,kendal,jakarta';
 		$new = explode(',', $data);
 		foreach ($new as $key) {
 			echo $key;
