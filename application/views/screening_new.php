@@ -138,7 +138,7 @@ input.invalid {
       <a href="<?php echo base_url('#');?>" class="navbar-brand">
         <img src="<?php echo base_url('assets/dist/img/logo.png');?>" alt="RSUD TUGUREJO" class="brand-image img-circle elevation-3"
              style="opacity: .8">
-        <span class="brand-text font-weight-light"><strong>Screening</strong> Covid_19 RSUD Tugurejo</span>
+        <span class="brand-text font-weight-light"><strong>Dewoc19</strong> RSUD Tugurejo</span>
       </a>
       
       <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -155,11 +155,11 @@ input.invalid {
       <div class="container">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark"> Form <small>Screening Mandiri</small></h1>
+            <!-- <h1 class="m-0 text-dark"> Form <small>Deteksi Awal</small></h1> -->
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <!-- <li class="breadcrumb-item"><a href="#">Home</a></li> -->
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -174,8 +174,8 @@ input.invalid {
 				</div>
 			</div>
 	        <div class="alert alert-danger alert-dismissible">
-              <h5><i class="icon fas fa-exclamation-triangle"></i> Perhatian</h5>
-				       Identitas pengisi akan dirahasiakan. Silahkan menjawab Screening Covid_19 ini dengan sebenar-benarnya.
+          <marquee onmouseout="this.start()" onmouseover="this.stop()"><h5><i class="icon fas fa-exclamation-triangle"></i> Deteksi awal Covid-19 RSUD Tugurejo, ketahuilah status covid anda saat ini !!!</h5></marquee>
+				       Dengan BERANI & JUJUR anda telah menyelamatkan tenaga kesehatan dan keluarga kami di rumah, serta penduduk Indonesia.
           </div>
 				</div>
 		</div>
@@ -187,8 +187,8 @@ input.invalid {
 		  <!-- /.col-md-12 -->
           <div class="col-lg-12">
             <div class="card card-primary card-outline">
-              <div class="card-header">
-                <h5 class="card-title m-0">Form Screening Mandiri</h5>
+              <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;">
+                <h1 class="card-title m-0" style="text-align: center;font-size: 34px;">" Bersama Lawan Corona "</h1>
               </div>
             <div class="card-body">
               <form id="regForm">
@@ -303,8 +303,8 @@ input.invalid {
               </div>
               <div class="tab">
                 <div class="col-sm-12" style="text-align:center;">
-                    <div class="information" style="text-align: center;">
-                        <div>
+                    <div class="col-md-12 information" style="text-align: center;">
+                        <div class=="">
                           Ktp : <label id="ktp_peserta">---</label> <br>
                           Nama : <label id="nama_lengkap">---</label> <br>
                           Alamat : <label id="alamat_lengkap">---</label> <br>
@@ -416,7 +416,7 @@ function nextPrev(n) {
     },
     success: function (response) {
         $('.overlay').css('display', 'none');
-        //window.location.reload()
+        window.location.reload()
     }
     });
     //return false;

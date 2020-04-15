@@ -21,9 +21,9 @@ class Screening_c extends CI_Controller {
 	public function index()
 	{
 		// $data['js_soal_detail'] = $this->get_pertanyaan_detail_();
-		$data['soal'] = $this->tampilan_pertanyaan();
+		$data['soal'] = $this->tampilan_pertanyaan_new();
 		$data['js_soal'] = $this->get_pertanyaan();
-		$this->load->view('screening_new', $data);
+		$this->load->view('screening', $data);
 	}
 
 	public function test()
@@ -120,6 +120,43 @@ class Screening_c extends CI_Controller {
         $data = json_decode($this->get_cors($url), TRUE);
        
 		return $data;
+	}
+
+	public function tampilan_pertanyaan_new()
+	{
+		$pertanyaan = $this->get_pertanyaan();
+		$contenku = '';
+		foreach ($pertanyaan as $pertanyaan ) {
+		
+			if($pertanyaan['STATUS'] == 'A'){
+				if($pertanyaan['TIPE'] == 'YA_TIDAK'){
+					$contenku .= '<div class="card card-warning card-outline">
+									<div class="card-header">
+										<div class="card-body">
+											<div class="row">
+											<div class="col-md-12">
+											<label>'.$pertanyaan['SOAL'].'</label>';
+					$pertanyaan_detail = $this->get_pertanyaan_detail($pertanyaan['IDSOAL']);
+					foreach ($pertanyaan_detail as $pertanyaan_detail) {						
+					$contenku .=			'<div class="col-sm-10">
+												<div class="form-check">
+												<input class="form-check-input validate" type="radio" name="'.$pertanyaan_detail['IDSOAL'].'-radio" id="'.$pertanyaan_detail['IDSOALDTL'].'" value="'.$pertanyaan_detail['DESCR'].'">
+													<label class="form-check-label" for="gridRadios1">
+													'.$pertanyaan_detail['DESCR'].'
+													</label>
+												</div>
+											</div>';
+					}												
+					$contenku .= 			'</div>
+											</div>
+										</div>
+									</div>
+								</div>';
+				}
+			}
+		}
+
+		return $contenku;
 	}
 
 	function tampilan_pertanyaan(){
