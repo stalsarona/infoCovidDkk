@@ -282,7 +282,7 @@ input.invalid {
               </div>
               </div>
               <div class="tab">
-              <u><h2>Data Screening</h2></u>
+              <u></u>
               <!-- <div class="card card-warning card-outline">
                 <div class="card-header">
                   <div class="card-body">
@@ -323,7 +323,6 @@ input.invalid {
                 <div class="col-sm-12" style="text-align:center;">
                     <div class="col-md-12 information" style="text-align: center;">
                         <div class=="">
-                          Ktp : <label id="ktp_peserta">---</label> <br>
                           Nama : <label id="nama_lengkap">---</label> <br>
                           Alamat : <label id="alamat_lengkap">---</label> <br>
                           No. Telp : <label id="telp_lengkap">---</label>
@@ -434,10 +433,13 @@ function nextPrev(n) {
     },
     success: function (response) {
         $('.overlay').css('display', 'none');
+        var analisa = '<?php echo base_url('screening_c/card_analisa')?>/'+response.ID
+        window.location.replace(analisa);
         //window.location.reload()
+        console.log(response.ID)
     }
     });
-    //return false;
+    return false;
   }
   // Otherwise, display the correct tab:
   showTab(currentTab);
@@ -490,10 +492,8 @@ function allowNumbersOnly(a, event) {
     }
     //ambil data ktp
     var kode = $(this).event;
-    var ktp = $('#ktp').val();
     var telp = $('#telp').val();
     $('#telp_lengkap').html(telp);
-    $('#ktp_peserta').html(ktp)
     var code = (event.which) ? event.which : event.keyCode;
     
     //if(code == 13){

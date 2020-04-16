@@ -129,7 +129,7 @@ class Screening_c extends CI_Controller {
 		$cek = array("Gejala", "Riwayat");
 		foreach ($cek as $cek_status) {
 			if($cek_status == "Gejala"){
-				$contenku .= '<label>'.$cek_status.'</label>';
+				$contenku .= '<h2>'.$cek_status.'</h2>';
 				
 				$pertanyaan = $this->get_pertanyaan();
 				foreach ($pertanyaan as $pertanyaan ) {		
@@ -161,7 +161,7 @@ class Screening_c extends CI_Controller {
 					}
 				}
 			} else {
-				$contenku .= '<label>'.$cek_status.'</label>';
+				$contenku .= '<h2>'.$cek_status.'</h2>';
 				$pertanyaan = $this->get_pertanyaan();
 				foreach ($pertanyaan as $pertanyaan ) {		
 					if($pertanyaan['STATUS'] == 'A'){
@@ -237,4 +237,13 @@ class Screening_c extends CI_Controller {
 
 		return $contenku;
 	}
+
+	public function card_analisa($id)
+	{
+		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wsrstugu/rstugu/covid/analisa/".$id;
+        $data['header'] = json_decode($this->get_cors($url), TRUE);
+		$this->load->view('card_analisa', $data);
+		
+	}
+
 }
