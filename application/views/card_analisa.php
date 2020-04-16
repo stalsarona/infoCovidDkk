@@ -237,7 +237,7 @@ input.invalid {
   <!-- Main Footer -->
   <footer class="main-footer">
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2020 <a href="https://rstugurejo.jatengprov.go.id">RSUD Tugurejo</a>.</strong>
+    <strong>Copyright &copy; 2020 <a href="https://rstugurejo.jatengprov.go.id/">RSUD Tugurejo</a>.</strong>
   </footer>
 </div>
 <!-- ./wrapper -->
