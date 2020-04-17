@@ -29,8 +29,31 @@ class Screening_c extends CI_Controller {
 	public function test()
 	{
 		$data = $this->get_pertanyaan();
-
-		
+		$aray = array();
+		foreach($data as $key){
+			if($key['STATUS'] == 'A'){
+				$aray[] = array($key['IDSOAL'] => $key['IDSOAL']);
+			}
+			
+		}
+		$obj = array(
+						'NOKTP' => $this->input->post('ktp'),
+						'NAMA' => $this->input->post('nama'),
+						'ALAMAT' => $this->input->post('alamat'),
+						'KDPROP' => $this->input->post('id_prov'),
+						'NAMAPROP' => $this->input->post('prov'),
+						'KDKOTA' => $this->input->post('id_kota'),
+						'NAMAKOTA' => $this->input->post('kota'),
+						'KDKEC' => $this->input->post('id_kec'),
+						'NAMAKEC' => $this->input->post('kec'),
+						'KDKEL' => $this->input->post('id_kel'),
+						'NAMAKEL' => $this->input->post('kel'),
+						'RT' => $this->input->post('rt'),
+						'RW' => $this->input->post('rw'),
+						'NO_HP' => $this->input->post('telp')					
+			);
+		$gabung = array_merge($aray, $obj);
+		$this->output->set_content_type('application/json')->set_output(json_encode($gabung));
 		
 	}
 
@@ -182,23 +205,32 @@ class Screening_c extends CI_Controller {
 
 	public function simpan()
 	{			
-			$obj = array(
-						'NOKTP' => urlencode($this->input->post('ktp')),
-						'NAMA' => urlencode($this->input->post('nama')),
-						'ALAMAT' => urlencode($this->input->post('alamat')),
-						'KDPROP' => urlencode($this->input->post('id_prov')),
-						'NAMAPROP' => urlencode($this->input->post('prov')),
-						'KDKOTA' => urlencode($this->input->post('id_kota')),
-						'NAMAKOTA' => urlencode($this->input->post('kota')),
-						'KDKEC' => urlencode($this->input->post('id_kec')),
-						'NAMAKEC' => urlencode($this->input->post('kec')),
-						'KDKEL' => urlencode($this->input->post('id_kel')),
-						'NAMAKEL' => urlencode($this->input->post('kel')),
-						'RT' => urlencode($this->input->post('rt')),
-						'RW' => urlencode($this->input->post('rw')),
-						'NO_HP' => urlencode($this->input->post('telp'))					
+			$data = $this->get_pertanyaan();
+			$aray = array();
+			foreach($data as $key){
+				if($key['STATUS'] == 'A'){
+					$aray[] = array($key['IDSOAL'] => $key['IDSOAL']);
+				}
+				
+			}
+			//$gabungan = array_merge($obj, $aray);
+			$aray[] = array(
+				'NOKTP' => urlencode($this->input->post('ktp')),
+				'NAMA' => urlencode($this->input->post('nama')),
+				'ALAMAT' => urlencode($this->input->post('alamat')),
+				'KDPROP' => urlencode($this->input->post('id_prov')),
+				'NAMAPROP' => urlencode($this->input->post('prov')),
+				'KDKOTA' => urlencode($this->input->post('id_kota')),
+				'NAMAKOTA' => urlencode($this->input->post('kota')),
+				'KDKEC' => urlencode($this->input->post('id_kec')),
+				'NAMAKEC' => urlencode($this->input->post('kec')),
+				'KDKEL' => urlencode($this->input->post('id_kel')),
+				'NAMAKEL' => urlencode($this->input->post('kel')),
+				'RT' => urlencode($this->input->post('rt')),
+				'RW' => urlencode($this->input->post('rw')),
+				'NO_HP' => urlencode($this->input->post('telp'))					
 			);
-			
+
 			$curl = curl_init();
 
 			curl_setopt_array($curl, array(
@@ -210,7 +242,7 @@ class Screening_c extends CI_Controller {
 			  CURLOPT_FOLLOWLOCATION => true,
 			  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 			  CURLOPT_CUSTOMREQUEST => "POST",
-			  CURLOPT_POSTFIELDS => $obj,
+			  CURLOPT_POSTFIELDS => $gabungan,
 			  
 			));
 			

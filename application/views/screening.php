@@ -455,8 +455,8 @@ function nextPrev(n) {
     var obj = document.forms.namedItem("regForm")
     $.ajax({
     type: "POST",
-    //url: "<?php echo base_url('Screening_c/simpan') ?>",
-    url: "http://api.rstugurejo.jatengprov.go.id:8000/wsrstugu/rstugu/covid/simpan_pendataan",
+    url: "<?php echo base_url('Screening_c/simpan') ?>",
+    //url: "http://api.rstugurejo.jatengprov.go.id:8000/wsrstugu/rstugu/covid/test",
     processData:false,
     contentType:false,
     cache:false,
@@ -470,7 +470,7 @@ function nextPrev(n) {
     success: function (response) {
         $('.overlay').css('display', 'none');
         var analisa = '<?php echo base_url('screening_c/card_analisa')?>/'+response.ID
-        window.location.replace(analisa);
+        //window.location.replace(analisa);
         //window.location.reload()
         console.log(response.ID)
     }
