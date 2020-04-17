@@ -42,6 +42,9 @@ input.invalid {
   background-color: #ffdddd;
 }
 
+.cardku {
+  background-color: #ffdddd;
+}
 /* Hide all steps by default: */
 .tab {
   display: none;
@@ -127,6 +130,35 @@ input.invalid {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+/* Back to top button */
+.back-to-top {
+  position: fixed;
+  display: none;
+  background: #18d26e;
+  color: #fff;
+  display: inline-block;
+  width: 44px;
+  height: 44px;
+  text-align: center;
+  line-height: 1;
+  font-size: 16px;
+  border-radius: 50%;
+  right: 15px;
+  bottom: 15px;
+  transition: background 0.5s;
+  z-index: 11;
+}
+
+.back-to-top i {
+  padding-top: 12px;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .back-to-top {
+    bottom: 15px;
+  }
+}
   </style>
 </head>
 <body class="hold-transition layout-top-nav">
@@ -200,6 +232,7 @@ input.invalid {
                   <!-- select -->
                   <div class="form-group">
                     <label>No KTP : <code>(* Silahkan cari atau isi secara manual ) </code> </label>
+                    <input type="hidden" id="private_key" name="private_key" value="<?php echo $token ?>" class="form-control validate">
                     <input type="text" placeholder="No. KTP" name="ktp" id="ktp" autocomplete="off" onkeyup="allowNumbersOnly(this, event)" maxlength="16" class="form-control validate" required autofocus>
                   </div>
                 </div>
@@ -314,7 +347,7 @@ input.invalid {
                 <?php foreach ($js_soal as $js_soal1) { if($js_soal1['STATUS'] == 'A') {if($js_soal1['TIPE'] == 'YA_TIDAK'){?>
                 <div class="col-md-12">
                   <div class="form-group">
-                    <input type="hidden" placeholder="" name="<?php echo $js_soal1['IDSOAL']?>" id="<?php echo $js_soal1['IDSOAL']?>" autocomplete="off" class="form-control reset validate">
+                    <input type="text" placeholder="" name="<?php echo $js_soal1['IDSOAL']?>" id="<?php echo $js_soal1['IDSOAL']?>" autocomplete="off" class="form-control reset validate">
                   </div>
                 </div>
                 <?php } } }?>
@@ -348,6 +381,7 @@ input.invalid {
               </div>
             </div>
           </div>
+          <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
           <!-- /.col-md-6 -->
         </div>
         <!-- /.row -->
@@ -420,6 +454,7 @@ function nextPrev(n) {
     var obj = document.forms.namedItem("regForm")
     $.ajax({
     type: "POST",
+    //url: "<?php echo base_url('Screening_c/simpan') ?>",
     url: "http://api.rstugurejo.jatengprov.go.id:8000/wsrstugu/rstugu/covid/simpan_pendataan",
     processData:false,
     contentType:false,
@@ -434,7 +469,7 @@ function nextPrev(n) {
     success: function (response) {
         $('.overlay').css('display', 'none');
         var analisa = '<?php echo base_url('screening_c/card_analisa')?>/'+response.ID
-        window.location.replace(analisa);
+        //window.location.replace(analisa);
         //window.location.reload()
         console.log(response.ID)
     }
@@ -447,8 +482,9 @@ function nextPrev(n) {
 
 function validateForm() {
   // This function deals with validation of the form fields
-  var x, y, i, valid = true;
+  var x, y, i, a, valid = true;
   x = document.getElementsByClassName("tab");
+  z = x[currentTab].getElementsByClassName("validate-card");
   y = x[currentTab].getElementsByClassName("validate");
   // A loop that checks every input field in the current tab:
   for (i = 0; i < y.length; i++) {
@@ -456,8 +492,14 @@ function validateForm() {
     if (y[i].value == "") {
       // add an "invalid" class to the field:
       y[i].className += " invalid";
+      var idku = y[i].id
+      console.log(idku)
+      $('.'+idku).css("background-color", "yellow");
       // and set the current valid status to false
       valid = false;
+    } else {
+      var idku = y[i].id
+      $('.'+idku).css("background-color", "white");
     }
   }
   // If the valid status is true, mark the step as finished and valid:
@@ -502,6 +544,17 @@ function allowNumbersOnly(a, event) {
   }
 
   $(function () {
+    $(window).scroll(function() {
+      if ($(this).scrollTop() > 100) {
+        $('.back-to-top').fadeIn('slow');
+      } else {
+        $('.back-to-top').fadeOut('slow');
+      }
+    });
+    $('.back-to-top').click(function(){
+      $('html, body').animate({scrollTop : 0},1500);
+      return false;
+    });
 
     $('#nama').on('keyup', function(){
       var nama = $(this).val();
@@ -512,6 +565,7 @@ function allowNumbersOnly(a, event) {
       var alamat = $(this).val();
       $('#alamat_lengkap').html(alamat)
     })
+
     <?php foreach($js_soal as $js_soal){ if($js_soal['STATUS'] == 'A') { if($js_soal['TIPE'] == 'YA_TIDAK'){?>
       $('input:radio[name="<?php echo $js_soal['IDSOAL'] ?>-radio"]').change(function(){
         if($(this).val() == 'Ya'){

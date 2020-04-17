@@ -100,7 +100,7 @@ input.invalid {
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="<?php echo base_url()?>">Home</a></li>
               <li class="breadcrumb-item active">404 Error Page</li>
             </ol>
           </div>
@@ -118,20 +118,20 @@ input.invalid {
 
           <p>
             We could not find the page you were looking for.
-            Meanwhile, you may <a href="<?php echo base_url('assets/index.html');?>">return to dashboard</a> or try using the search form.
+            Meanwhile, you may <a href="<?php echo base_url();?>">return to home</a>.
           </p>
 
-          <form class="search-form">
-            <div class="input-group">
+          <!-- <form class="search-form"> -->
+            <!-- <div class="input-group">
               <input type="text" name="search" class="form-control" placeholder="Search">
 
               <div class="input-group-append">
                 <button type="submit" name="submit" class="btn btn-warning"><i class="fas fa-search"></i>
                 </button>
               </div>
-            </div>
+            </div> -->
             <!-- /.input-group -->
-          </form>
+          <!-- </form> -->
         </div>
         <!-- /.error-content -->
       </div>

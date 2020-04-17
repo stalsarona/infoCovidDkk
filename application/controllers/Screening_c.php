@@ -20,7 +20,7 @@ class Screening_c extends CI_Controller {
 	 */
 	public function index()
 	{
-		// $data['js_soal_detail'] = $this->get_pertanyaan_detail_();
+		$data['token'] = $this->private_token();
 		$data['soal'] = $this->tampilan_pertanyaan_new();
 		$data['js_soal'] = $this->get_pertanyaan();
 		$this->load->view('screening', $data);
@@ -28,13 +28,9 @@ class Screening_c extends CI_Controller {
 
 	public function test()
 	{
-		// $data = $this->db->get('CORONA_SOALH')->result();
-		// $this->output->set_content_type('application/json')->set_output(json_encode($data));
-		$data = 'Semarang,kendal,jakarta';
-		$new = explode(',', $data);
-		foreach ($new as $key) {
-			echo $key;
-		}
+		$data = $this->get_pertanyaan();
+
+		
 		
 	}
 
@@ -52,7 +48,51 @@ class Screening_c extends CI_Controller {
         $exec0 	 = curl_exec ($ch0);
         curl_close ($ch0); 
         return $exec0;
-    }
+	}
+	
+	public function post_keservice()
+	{
+		$url = 'http://api.rstugurejo.jatengprov.go.id:8000/wsrstugu/rstugu/covid/test';
+		$obj = array(
+				'NOKTP' => urlencode($this->input->post('ktp')),
+				'NAMA' => urlencode($this->input->post('nama')),
+				'ALAMAT' => urlencode($this->input->post('alamat')),
+				'KDPROP' => urlencode($this->input->post('id_prov')),
+				'NAMAPROP' => urlencode($this->input->post('prov')),
+				'KDKOTA' => urlencode($this->input->post('id_kota')),
+				'NAMAKOTA' => urlencode($this->input->post('kota')),
+				'KDKEC' => urlencode($this->input->post('id_kec')),
+				'NAMAKEC' => urlencode($this->input->post('kec')),
+				'KDKEL' => urlencode($this->input->post('id_kel')),
+				'NAMAKEL' => urlencode($this->input->post('kel')),
+				'RT' => urlencode($this->input->post('rt')),
+				'RW' => urlencode($this->input->post('rw')),
+				'NO_HP' => urlencode($this->input->post('telp'))					
+		);
+
+		$payload = json_encode($obj);
+		
+		// Prepare new cURL resource
+		$ch = curl_init('http://api.rstugurejo.jatengprov.go.id:8000/wsrstugu/rstugu/covid/test');
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+		
+		// Set HTTP Header for POST request 
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+			'Content-Type: application/json',
+			'Content-Length: ' . strlen($payload))
+		);
+		
+		// Submit the POST request
+		$result = curl_exec($ch);
+		
+		// Close cURL session handle
+		curl_close($ch);
+		$this->output->set_content_type('application/json')->set_output(json_encode($result));
+		
+	}
 
 	public function get_js()
     {
@@ -122,9 +162,68 @@ class Screening_c extends CI_Controller {
 		return $data;
 	}
 
-	public function tampilan_pertanyaan_new()
+	public function get_detail_pertanyaan_tipe($idsoal, $jawaban)
 	{
 		
+		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wsrstugu/rstugu/covid/get_detail_pertanyaan_tipe/".$idsoal.'/'.$jawaban;
+        $data = json_decode($this->get_cors($url), TRUE);
+		//$this->output->set_content_type('application/json')->set_output(json_encode($data));
+		return $data;
+	}
+
+	public function get_kode()
+	{
+		
+		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wsrstugu/rstugu/covid/get_kode";
+        $data = json_decode($this->get_cors($url), TRUE);
+		//$this->output->set_content_type('application/json')->set_output(json_encode($data));
+		return $data;
+	}
+
+	public function simpan()
+	{			
+			$obj = array(
+						'NOKTP' => urlencode($this->input->post('ktp')),
+						'NAMA' => urlencode($this->input->post('nama')),
+						'ALAMAT' => urlencode($this->input->post('alamat')),
+						'KDPROP' => urlencode($this->input->post('id_prov')),
+						'NAMAPROP' => urlencode($this->input->post('prov')),
+						'KDKOTA' => urlencode($this->input->post('id_kota')),
+						'NAMAKOTA' => urlencode($this->input->post('kota')),
+						'KDKEC' => urlencode($this->input->post('id_kec')),
+						'NAMAKEC' => urlencode($this->input->post('kec')),
+						'KDKEL' => urlencode($this->input->post('id_kel')),
+						'NAMAKEL' => urlencode($this->input->post('kel')),
+						'RT' => urlencode($this->input->post('rt')),
+						'RW' => urlencode($this->input->post('rw')),
+						'NO_HP' => urlencode($this->input->post('telp'))					
+			);
+			
+			$curl = curl_init();
+
+			curl_setopt_array($curl, array(
+			  CURLOPT_URL => "http://api.rstugurejo.jatengprov.go.id:8000/wsrstugu/rstugu/covid/test",
+			  CURLOPT_RETURNTRANSFER => true,
+			  CURLOPT_ENCODING => "",
+			  CURLOPT_MAXREDIRS => 10,
+			  CURLOPT_TIMEOUT => 0,
+			  CURLOPT_FOLLOWLOCATION => true,
+			  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			  CURLOPT_CUSTOMREQUEST => "POST",
+			  CURLOPT_POSTFIELDS => $obj,
+			  
+			));
+			
+			$response = curl_exec($curl);
+			
+			curl_close($curl);
+			echo $response;
+			
+	}
+
+	public function tampilan_pertanyaan_new()
+	{
+		 //background-image: linear-gradient(to right, rgba(255,0,0,0), rgba(255,0,0,1));
 		$contenku = '';
 		$cek = array("Gejala", "Riwayat");
 		foreach ($cek as $cek_status) {
@@ -136,7 +235,7 @@ class Screening_c extends CI_Controller {
 					if($pertanyaan['STATUS'] == 'A'){
 						if($pertanyaan['SUBGROUP'] == 'GEJALA'){
 							$contenku .= '<div class="card card-warning card-outline">
-											<div class="card-header">
+											<div class="card-header '.$pertanyaan['IDSOAL'].' validate-card" style="">
 												<div class="card-body">
 													<div class="row">
 													<div class="col-md-12">
@@ -167,7 +266,7 @@ class Screening_c extends CI_Controller {
 					if($pertanyaan['STATUS'] == 'A'){
 						if($pertanyaan['SUBGROUP'] == 'RIWAYAT'){
 							$contenku .= '<div class="card card-danger card-outline">
-											<div class="card-header">
+											<div class="card-header '.$pertanyaan['IDSOAL'].' validate-card" style="">
 												<div class="card-body">
 													<div class="row">
 													<div class="col-md-12">
@@ -236,6 +335,14 @@ class Screening_c extends CI_Controller {
 		}
 
 		return $contenku;
+	}
+
+	public function private_token()
+	{
+		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wsrstugu/rstugu/covid/private_token/";
+        $data = json_decode($this->get_cors($url), TRUE);
+       
+		return $data;
 	}
 
 	public function card_analisa($id)
