@@ -438,6 +438,7 @@ function showTab(n) {
 }
 
 function nextPrev(n) {
+  //$('html, body').animate({scrollTop : 0},900);
   // This function will figure out which tab to display
   var x = document.getElementsByClassName("tab");
   // Exit the function if any field in the current tab is invalid:
@@ -469,7 +470,7 @@ function nextPrev(n) {
     success: function (response) {
         $('.overlay').css('display', 'none');
         var analisa = '<?php echo base_url('screening_c/card_analisa')?>/'+response.ID
-        //window.location.replace(analisa);
+        window.location.replace(analisa);
         //window.location.reload()
         console.log(response.ID)
     }
