@@ -468,11 +468,16 @@ function nextPrev(n) {
         $('.overlay').css('display', 'block');
     },
     success: function (response) {
-        $('.overlay').css('display', 'none');
+      $('.overlay').css('display', 'none');
+      if(response.status == false){
+        var exp = '<?php echo base_url('404_override')?>';
+        window.location.replace(exp);
+      }else {        
         var analisa = '<?php echo base_url('analisa')?>/'+response.ID
         window.location.replace(analisa);
         //window.location.reload()
         console.log(response.ID)
+      }
     }
     });
     return false;

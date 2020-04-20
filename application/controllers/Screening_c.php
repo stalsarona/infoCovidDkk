@@ -81,50 +81,6 @@ class Screening_c extends CI_Controller {
         curl_close ($ch0); 
         return $exec0;
 	}
-	
-	public function post_keservice()
-	{
-		$url = 'http://api.rstugurejo.jatengprov.go.id:8000/wsrstugu/rstugu/covid/test';
-		$obj = array(
-				'NOKTP' => urlencode($this->input->post('ktp')),
-				'NAMA' => urlencode($this->input->post('nama')),
-				'ALAMAT' => urlencode($this->input->post('alamat')),
-				'KDPROP' => urlencode($this->input->post('id_prov')),
-				'NAMAPROP' => urlencode($this->input->post('prov')),
-				'KDKOTA' => urlencode($this->input->post('id_kota')),
-				'NAMAKOTA' => urlencode($this->input->post('kota')),
-				'KDKEC' => urlencode($this->input->post('id_kec')),
-				'NAMAKEC' => urlencode($this->input->post('kec')),
-				'KDKEL' => urlencode($this->input->post('id_kel')),
-				'NAMAKEL' => urlencode($this->input->post('kel')),
-				'RT' => urlencode($this->input->post('rt')),
-				'RW' => urlencode($this->input->post('rw')),
-				'NO_HP' => urlencode($this->input->post('telp'))					
-		);
-
-		$payload = json_encode($obj);
-		
-		// Prepare new cURL resource
-		$ch = curl_init('http://api.rstugurejo.jatengprov.go.id:8000/wsrstugu/rstugu/covid/test');
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLINFO_HEADER_OUT, true);
-		curl_setopt($ch, CURLOPT_POST, true);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
-		
-		// Set HTTP Header for POST request 
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-			'Content-Type: application/json',
-			'Content-Length: ' . strlen($payload))
-		);
-		
-		// Submit the POST request
-		$result = curl_exec($ch);
-		
-		// Close cURL session handle
-		curl_close($ch);
-		$this->output->set_content_type('application/json')->set_output(json_encode($result));
-		
-	}
 
 	public function get_js()
     {
