@@ -470,7 +470,7 @@ function nextPrev(n) {
     success: function (response) {
         $('.overlay').css('display', 'none');
         var analisa = '<?php echo base_url('screening_c/card_analisa')?>/'+response.ID
-        //window.location.replace(analisa);
+        window.location.replace(analisa);
         //window.location.reload()
         console.log(response.ID)
     }

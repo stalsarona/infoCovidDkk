@@ -33,9 +33,18 @@ class Screening_c extends CI_Controller {
 		foreach($data as $key){
 			if($key['STATUS'] == 'A'){
 				$aray[] = array($key['IDSOAL'] => $key['IDSOAL']);
+				
 			}
 			
 		}
+		//both arrays will be merged including duplicates
+		//$result = array_merge( $array1, $array2 );
+		//duplicate objects will be removed
+		$result = array_map("unserialize", array_unique(array_map("serialize", $result)));
+		//array is sorted on the bases of id
+		sort( $result );
+		$ok = array('coba' => 'coba', 'pol' => 'pol');
+		$obj_merged = (object) array_merge((array) $aray, (array) $ok);
 		$obj = array(
 						'NOKTP' => $this->input->post('ktp'),
 						'NAMA' => $this->input->post('nama'),
@@ -52,8 +61,8 @@ class Screening_c extends CI_Controller {
 						'RW' => $this->input->post('rw'),
 						'NO_HP' => $this->input->post('telp')					
 			);
-		$gabung = array_merge($aray, $obj);
-		$this->output->set_content_type('application/json')->set_output(json_encode($gabung));
+		$gabung = array_merge($ok, $obj);
+		$this->output->set_content_type('application/json')->set_output(json_encode($obj_merged));
 		
 	}
 
@@ -205,16 +214,8 @@ class Screening_c extends CI_Controller {
 
 	public function simpan()
 	{			
-			$data = $this->get_pertanyaan();
-			$aray = array();
-			foreach($data as $key){
-				if($key['STATUS'] == 'A'){
-					$aray[] = array($key['IDSOAL'] => $key['IDSOAL']);
-				}
-				
-			}
-			//$gabungan = array_merge($obj, $aray);
-			$aray[] = array(
+			$obj = array(
+				'private_key' => $this->input->post('private_key'),
 				'NOKTP' => urlencode($this->input->post('ktp')),
 				'NAMA' => urlencode($this->input->post('nama')),
 				'ALAMAT' => urlencode($this->input->post('alamat')),
@@ -228,13 +229,20 @@ class Screening_c extends CI_Controller {
 				'NAMAKEL' => urlencode($this->input->post('kel')),
 				'RT' => urlencode($this->input->post('rt')),
 				'RW' => urlencode($this->input->post('rw')),
-				'NO_HP' => urlencode($this->input->post('telp'))					
+				'NO_HP' => urlencode($this->input->post('telp')),
+				'Q200400011' => urlencode($this->input->post('Q200400011')),
+				'Q200400012' => urlencode($this->input->post('Q200400012')),
+				'Q200400013' => urlencode($this->input->post('Q200400013')),
+				'Q200400014' => urlencode($this->input->post('Q200400014')),
+				'Q200400015' => urlencode($this->input->post('Q200400015')),
+				'Q200400016' => urlencode($this->input->post('Q200400016')),
+				'Q200400017' => urlencode($this->input->post('Q200400017'))				
 			);
 
 			$curl = curl_init();
 
 			curl_setopt_array($curl, array(
-			  CURLOPT_URL => "http://api.rstugurejo.jatengprov.go.id:8000/wsrstugu/rstugu/covid/test",
+			  CURLOPT_URL => "http://api.rstugurejo.jatengprov.go.id:8000/wsrstugu/rstugu/covid/simpan_withJWT",
 			  CURLOPT_RETURNTRANSFER => true,
 			  CURLOPT_ENCODING => "",
 			  CURLOPT_MAXREDIRS => 10,
@@ -242,7 +250,7 @@ class Screening_c extends CI_Controller {
 			  CURLOPT_FOLLOWLOCATION => true,
 			  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 			  CURLOPT_CUSTOMREQUEST => "POST",
-			  CURLOPT_POSTFIELDS => $gabungan,
+			  CURLOPT_POSTFIELDS => $obj,
 			  
 			));
 			
