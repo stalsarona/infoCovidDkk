@@ -410,6 +410,7 @@ input.invalid {
 <script src="<?php echo base_url('assets/dist/js/adminlte.min.js');?>"></script>
 <!-- bs-custom-file-input -->
 <script src="<?php echo base_url('assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js');?>"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 <script>
 var currentTab = 0; // Current tab is set to be the first tab (0)
 showTab(currentTab); // Display the current tab
@@ -472,7 +473,7 @@ function nextPrev(n) {
       if(response.status == false){
         var exp = '<?php echo base_url('404_override')?>';
         window.location.replace(exp);
-      }else {        
+      }else {     
         var analisa = '<?php echo base_url('analisa')?>/'+response.ID
         window.location.replace(analisa);
         //window.location.reload()
@@ -501,6 +502,8 @@ function validateForm() {
       var idku = y[i].id
       console.log(idku)
       $('.'+idku).css("background-color", "yellow");
+      $('html, body').animate({scrollTop : 0},600);
+      swal('Informasi','Ada form yang belum di isi.','info')
       // and set the current valid status to false
       valid = false;
     } else {
