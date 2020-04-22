@@ -26,43 +26,26 @@ class Screening_c extends CI_Controller {
 		$this->load->view('screening', $data);
 	}
 
-	public function test()
+	public function logika()
 	{
-		$data = $this->get_pertanyaan();
-		$aray = array();
-		foreach($data as $key){
-			if($key['STATUS'] == 'A'){
-				$aray[] = array($key['IDSOAL'] => $key['IDSOAL']);
-				
-			}
+		// $status = 'Apel';
+		// switch ($status) {
+		// 	case 'Apel':
+		// 		echo 'Buah Apel';
+		// 		break;
+		// 	case 'Anggur':
+		// 		echo 'Buah Anggur';
+		// 		break;
+		// 	default:
+		// 		echo 'Buah Jeruk';
+		// 		break;
+		// }
+		$a = 20;
+		for($a=1;$a<=23;$a++)
+		{
 			
 		}
-		//both arrays will be merged including duplicates
-		//$result = array_merge( $array1, $array2 );
-		//duplicate objects will be removed
-		$result = array_map("unserialize", array_unique(array_map("serialize", $result)));
-		//array is sorted on the bases of id
-		sort( $result );
-		$ok = array('coba' => 'coba', 'pol' => 'pol');
-		$obj_merged = (object) array_merge((array) $aray, (array) $ok);
-		$obj = array(
-						'NOKTP' => $this->input->post('ktp'),
-						'NAMA' => $this->input->post('nama'),
-						'ALAMAT' => $this->input->post('alamat'),
-						'KDPROP' => $this->input->post('id_prov'),
-						'NAMAPROP' => $this->input->post('prov'),
-						'KDKOTA' => $this->input->post('id_kota'),
-						'NAMAKOTA' => $this->input->post('kota'),
-						'KDKEC' => $this->input->post('id_kec'),
-						'NAMAKEC' => $this->input->post('kec'),
-						'KDKEL' => $this->input->post('id_kel'),
-						'NAMAKEL' => $this->input->post('kel'),
-						'RT' => $this->input->post('rt'),
-						'RW' => $this->input->post('rw'),
-						'NO_HP' => $this->input->post('telp')					
-			);
-		$gabung = array_merge($ok, $obj);
-		$this->output->set_content_type('application/json')->set_output(json_encode($obj_merged));
+		echo $a;
 		
 	}
 
