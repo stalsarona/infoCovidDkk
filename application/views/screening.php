@@ -567,11 +567,17 @@ function allowNumbersOnly(a, event) {
 
     $('#nama').on('keyup', function(){
       var nama = $(this).val();
+      if(!/^[a-zA-Z\s0-9]*$/.test(nama)){
+        $('#nama').val('')
+      }
       $('#nama_lengkap').html(nama)
     })
 
     $('#alamat').on('keyup', function(){
       var alamat = $(this).val();
+      if(/[`~<>;':"/[\]|{}()=_+]/.test(alamat)){
+        $('#alamat').val('')
+      }
       $('#alamat_lengkap').html(alamat)
     })
 
