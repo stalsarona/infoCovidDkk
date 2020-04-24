@@ -591,6 +591,45 @@ function allowNumbersOnly(a, event) {
       });
    
     <?php } } }?>
+
+    $('#ktp').keyup(function(e){
+        e.preventDefault();
+        var ktp = $(this).val();
+        if(e.keyCode == 13){
+          $.ajax({
+            type: "POST",
+            url: "<?php echo base_url('screening_c/get_js')?>",
+            data: {ktp : ktp},
+            dataType: "json",
+            beforeSend: function() {
+              $('.overlay').css('display', 'block');
+            },
+            success: function (response) {
+              $('.overlay').css('display', 'none');
+              if(response == null || response == ""){
+                $('.reset').val('')
+                //alert(response.content.RESPON)
+              } else if(response.content.RESPON) {
+                $('.reset').val('')
+              } else {
+                $('#nama').val(response.content[0].NAMA_LGKP)
+                $('#prov').val(response.content[0].NAMA_PROP)
+                $('#id_prov').val(response.content[0].NO_PROP)
+                $('#kota').val(response.content[0].NAMA_KAB)
+                $('#id_kota').val(response.content[0].NO_KAB)
+                $('#kec').val(response.content[0].NAMA_KEC)
+                $('#id_kec').val(response.content[0].NO_KEC)
+                $('#kel').val(response.content[0].NAMA_KEL)
+                $('#id_kel').val(response.content[0].NO_KEL)
+                $('#alamat').val(response.content[0].ALAMAT)
+                $('#rt').val(response.content[0].NO_RT)
+                $('#rw').val(response.content[0].NO_RW)
+              }
+            }
+          });
+        }
+    })
+
     $('#btncari').on('click',function(){
       var ktp = $('#ktp').val();
       var obj = document.forms.namedItem("regForm")
