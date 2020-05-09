@@ -433,7 +433,7 @@ input.invalid {
           </div>
           <!-- PDP -->
           <div class="col-lg-6">
-            <div class="card card-primary card-outline">
+            <div class="card card-success card-outline">
               <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;background: linear-gradient(90deg, rgb(234, 232, 245) 0%, rgb(40, 167, 69) 100%);">
                 <h1 class="card-title m-0" style="text-align: center;font-size: 34px;"><i class="fa fa-user" style="color: orange;"></i>  &nbsp; PDP Covid-19</h1>
               </div>
@@ -445,7 +445,7 @@ input.invalid {
               <div class="">
              <div class="row">
                 <div class="col-md-12">
-                    <div class="card card-primary card-outline">
+                    <div class="card card-success card-outline">
                         <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;">
                             <h1 class="card-title m-0" style="text-align: center;font-size: 25px;"> &nbsp;Dewasa</h1>
                         </div>
@@ -513,7 +513,7 @@ input.invalid {
                             </div>                          
                         </div>
                     </div>
-                    <div class="card card-primary card-outline">
+                    <div class="card card-success card-outline">
                         <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;">
                             <h1 class="card-title m-0" style="text-align: center;font-size: 25px;"> &nbsp;Anak</h1>
                         </div>
