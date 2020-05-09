@@ -120,11 +120,11 @@ input.invalid {
 
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
-    <div class="container">
+    <div class="">
       <a href="<?php echo base_url('#');?>" class="navbar-brand">
         <img src="<?php echo base_url('assets/dist/img/logo.png');?>" alt="RSUD TUGUREJO" class="brand-image img-circle elevation-3"
              style="opacity: .8">
-        <span class="brand-text font-weight-light"><strong>Informasi Covid-19</strong> RSUD Tugurejo</span>
+        <span class="brand-text font-weight-light" style="font-size: larger;"><strong>Informasi Covid-19</strong> RSUD Tugurejo</span>
       </a>
       
       <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -154,113 +154,199 @@ input.invalid {
     <!-- /.content-header -->
 	<div class="content">
       <div class="container">
-      <div class="overlay">
-				<div class="overlay-content">
-					<div class="loader"></div>
-				</div>
-			</div>
-	        <div class="alert alert-danger alert-dismissible">
+     
+	        <!-- <div class="alert alert-danger alert-dismissible">
           <marquee onmouseout="this.start()" onmouseover="this.stop()"><h5><i class="icon fas fa-exclamation-triangle"></i> Deteksi awal Covid-19 RSUD Tugurejo, ketahuilah status covid anda saat ini !!!</h5></marquee>
 				       Dengan BERANI & JUJUR anda telah menyelamatkan tenaga kesehatan dan keluarga kami di rumah, serta penduduk Indonesia.
-          </div>
+          </div> -->
 				</div>
 		</div>
     <!-- Main content -->
     <div class="content">
-      <div class="container">
+      <div class="">
         <div class="row">
 
-		  <!-- /.col-md-12 -->
+          <!-- /.col-md-12 -->
           <div class="col-lg-12">
             <div class="card card-danger card-outline">
               <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;">
+                <h1 class="card-title m-0" style="text-align: center;font-size: 34px;"><i class="fa fa-user" style="color: red;"></i> &nbsp; TOTAL PASIEN</h1>
+              </div>
+              <h1 class="card-title m-0" style="text-align: center;font-size: 34px;">78</h1>
+            <div class="card-body">
+              
+              <!-- One "tab" for each step in the form: -->
+              
+              
+              
+              
+              <!-- Circles which indicates the steps of the form: -->
+              
+              <div style="overflow:auto; display:none">
+                <div style="float:right;">
+                  <button type="button" class="btn btn-warning" id="prevBtn" onclick="nextPrev(-1)">Sebelumnya</button>
+                  <button type="button" class="btn btn-primary" id="nextBtn" onclick="nextPrev(1)">Selanjutnya</button>
+                </div>
+              </div>
+              <!-- Circles which indicates the steps of the form: -->
+                <div style="text-align:center;margin-top:40px; display:none;">
+                    <span class="step"></span>
+                    <span class="step"></span>
+                    <span class="step"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card card-danger card-outline">
+              <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;background: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(169, 7, 44) 100%);">
                 <h1 class="card-title m-0" style="text-align: center;font-size: 34px;"><i class="fa fa-user" style="color: red;"></i> &nbsp; Positif Covid-19</h1>
               </div>
-              <h1 class="card-title m-0" style="text-align: center;font-size: 34px;">900</h1>
+              <h1 class="card-title m-0" style="text-align: center;font-size: 34px;"></h1>
             <div class="card-body">
               
               <!-- One "tab" for each step in the form: -->
               
               <div class="tab">
              <div class="row">
-                <div class="col-md-4">
-                <div class="card card-danger card-outline">
-                    <div class="card-header">
-                    <div class="card-body">
-                        <div class="row">
-                        <div class="col-md-12 text-center">
-                        <h4>Dirawat</h4>
-                            <div class="col-md-12">
-                            <div class="form-check">
-                                <h4>128</h4>
-                            </div>
-                            </div>
-                            <!-- <div class="col-sm-10">
-                            <div class="form-check">
-                                <input class="form-check-input validate" type="radio" name="" id="" value="">
-                                <label class="form-check-label" for="gridRadios1">
-                                Tidak
-                                </label>
-                            </div>
-                            </div> -->
+                <div class="col-md-12">
+                    <div class="card card-danger card-outline">
+                        <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;">
+                            <h1 class="card-title m-0" style="text-align: center;font-size: 25px;"> &nbsp;Dewasa</h1>
                         </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                </div>
-                <div class="col-md-4">
-                <div class="card card-danger card-outline">
-                    <div class="card-header">
-                    <div class="card-body">
-                        <div class="row">
-                        <div class="col-md-12 text-center">
-                        <h4>Sembuh</h4>
-                            <div class="col-md-12">
-                            <div class="form-check">
-                                <h4>128</h4>
-                            </div>
-                            </div>
-                            <!-- <div class="col-sm-10">
-                            <div class="form-check">
-                                <input class="form-check-input validate" type="radio" name="" id="" value="">
-                                <label class="form-check-label" for="gridRadios1">
-                                Tidak
-                                </label>
-                            </div>
-                            </div> -->
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                </div>
-                <div class="col-md-4">
-                <div class="card card-danger card-outline">
-                    <div class="card-header">
-                    <div class="card-body">
-                        <div class="row">
-                        <div class="col-md-12 text-center">
-                        <h4>Meninggal</h4>
-                            <div class="col-md-12">
-                            <div class="form-check">
-                                <h4>128</h4>
-                            </div>
-                            </div>
-                            <!-- <div class="col-sm-10">
-                            <div class="form-check">
-                                <input class="form-check-input validate" type="radio" name="" id="" value="">
-                                <label class="form-check-label" for="gridRadios1">
-                                Tidak
-                                </label>
-                            </div>
-                            </div> -->
-                        </div>
+
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="card card-danger card-outline">
+                                        <div class="card-header">
+                                        <div class="card-body">
+                                            <div class="row">
+                                            <div class="col-md-12 text-center">
+                                            <h4>Dirawat</h4>
+                                                <div class="col-md-12">
+                                                <div class="form-check">
+                                                    <h4>-</h4>
+                                                </div>
+                                                </div>
+                                            
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card card-danger card-outline">
+                                        <div class="card-header">
+                                        <div class="card-body">
+                                            <div class="row">
+                                            <div class="col-md-12 text-center">
+                                            <h4>Sembuh</h4>
+                                                <div class="col-md-12">
+                                                <div class="form-check">
+                                                    <h4>5</h4>
+                                                </div>
+                                                </div>
+                                            
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card card-danger card-outline">
+                                        <div class="card-header">
+                                        <div class="card-body">
+                                            <div class="row">
+                                            <div class="col-md-12 text-center">
+                                            <h4>Meninggal</h4>
+                                                <div class="col-md-12">
+                                                <div class="form-check">
+                                                    <h4>-</h4>
+                                                </div>
+                                                </div>
+                                            
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>                          
                         </div>
                     </div>
+                    <div class="card card-danger card-outline">
+                        <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;">
+                            <h1 class="card-title m-0" style="text-align: center;font-size: 25px;"> &nbsp;Anak</h1>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="card card-danger card-outline">
+                                        <div class="card-header">
+                                        <div class="card-body">
+                                            <div class="row">
+                                            <div class="col-md-12 text-center">
+                                            <h4>Dirawat</h4>
+                                                <div class="col-md-12">
+                                                <div class="form-check">
+                                                    <h4>-</h4>
+                                                </div>
+                                                </div>
+                                            
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card card-danger card-outline">
+                                        <div class="card-header">
+                                        <div class="card-body">
+                                            <div class="row">
+                                            <div class="col-md-12 text-center">
+                                            <h4>Sembuh</h4>
+                                                <div class="col-md-12">
+                                                <div class="form-check">
+                                                    <h4>-</h4>
+                                                </div>
+                                                </div>
+                                            
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card card-danger card-outline">
+                                        <div class="card-header">
+                                        <div class="card-body">
+                                            <div class="row">
+                                            <div class="col-md-12 text-center">
+                                            <h4>Meninggal</h4>
+                                                <div class="col-md-12">
+                                                <div class="form-check">
+                                                    <h4>-</h4>
+                                                </div>
+                                                </div>
+                                            
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>                          
+                        </div>
+
                     </div>
                 </div>
-                </div>
+                    
              </div>
               
               </div>
@@ -275,105 +361,165 @@ input.invalid {
                 </div>
               </div>
               <!-- Circles which indicates the steps of the form: -->
-              <div style="text-align:center;margin-top:40px; display:none;">
-                <span class="step"></span>
-                <span class="step"></span>
-                <span class="step"></span>
-              </div>
+                <div style="text-align:center;margin-top:40px; display:none;">
+                    <span class="step"></span>
+                    <span class="step"></span>
+                    <span class="step"></span>
+                </div>
               </div>
             </div>
           </div>
           <!-- PDP -->
-          <div class="col-lg-12">
+          <div class="col-lg-6">
             <div class="card card-primary card-outline">
-              <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;">
+              <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;background: linear-gradient(90deg, rgb(185, 178, 239) 0%, rgb(81, 41, 160) 100%);">
                 <h1 class="card-title m-0" style="text-align: center;font-size: 34px;"><i class="fa fa-user" style="color: orange;"></i>  &nbsp; PDP Covid-19</h1>
               </div>
-              <h1 class="card-title m-0" style="text-align: center;font-size: 34px;">900</h1>
-            <div class="card-body">
+              <h1 class="card-title m-0" style="text-align: center;font-size: 34px;"></h1>
+              <div class="card-body">
               
               <!-- One "tab" for each step in the form: -->
               
               <div class="">
              <div class="row">
-                <div class="col-md-4">
-                <div class="card card-warning card-outline">
-                    <div class="card-header">
-                    <div class="card-body">
-                        <div class="row">
-                        <div class="col-md-12 text-center">
-                        <h4>Dirawat</h4>
-                            <div class="col-md-12">
-                            <div class="form-check">
-                                <h4>128</h4>
-                            </div>
-                            </div>
-                            <!-- <div class="col-sm-10">
-                            <div class="form-check">
-                                <input class="form-check-input validate" type="radio" name="" id="" value="">
-                                <label class="form-check-label" for="gridRadios1">
-                                Tidak
-                                </label>
-                            </div>
-                            </div> -->
+                <div class="col-md-12">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;">
+                            <h1 class="card-title m-0" style="text-align: center;font-size: 25px;"> &nbsp;Dewasa</h1>
                         </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                </div>
-                <div class="col-md-4">
-                <div class="card card-warning card-outline">
-                    <div class="card-header">
-                    <div class="card-body">
-                        <div class="row">
-                        <div class="col-md-12 text-center">
-                        <h4>Sembuh</h4>
-                            <div class="col-md-12">
-                            <div class="form-check">
-                                <h4>128</h4>
-                            </div>
-                            </div>
-                            <!-- <div class="col-sm-10">
-                            <div class="form-check">
-                                <input class="form-check-input validate" type="radio" name="" id="" value="">
-                                <label class="form-check-label" for="gridRadios1">
-                                Tidak
-                                </label>
-                            </div>
-                            </div> -->
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                </div>
-                <div class="col-md-4">
-                <div class="card card-warning card-outline">
-                    <div class="card-header">
-                    <div class="card-body">
-                        <div class="row">
-                        <div class="col-md-12 text-center">
-                        <h4>Meninggal</h4>
-                            <div class="col-md-12">
-                            <div class="form-check">
-                                <h4>128</h4>
-                            </div>
-                            </div>
-                            <!-- <div class="col-sm-10">
-                            <div class="form-check">
-                                <input class="form-check-input validate" type="radio" name="" id="" value="">
-                                <label class="form-check-label" for="gridRadios1">
-                                Tidak
-                                </label>
-                            </div>
-                            </div> -->
-                        </div>
+
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="card card-primary card-outline">
+                                        <div class="card-header">
+                                        <div class="card-body">
+                                            <div class="row">
+                                            <div class="col-md-12 text-center">
+                                            <h4>Dirawat</h4>
+                                                <div class="col-md-12">
+                                                <div class="form-check">
+                                                    <h4>8</h4>
+                                                </div>
+                                                </div>
+                                            
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card card-primary card-outline">
+                                        <div class="card-header">
+                                        <div class="card-body">
+                                            <div class="row">
+                                            <div class="col-md-12 text-center">
+                                            <h4>Sembuh</h4>
+                                                <div class="col-md-12">
+                                                <div class="form-check">
+                                                    <h4>36</h4>
+                                                </div>
+                                                </div>
+                                            
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card card-primary card-outline">
+                                        <div class="card-header">
+                                        <div class="card-body">
+                                            <div class="row">
+                                            <div class="col-md-12 text-center">
+                                            <h4>Meninggal</h4>
+                                                <div class="col-md-12">
+                                                <div class="form-check">
+                                                    <h4>13</h4>
+                                                </div>
+                                                </div>
+                                            
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>                          
                         </div>
                     </div>
+                    <div class="card card-primary card-outline">
+                        <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;">
+                            <h1 class="card-title m-0" style="text-align: center;font-size: 25px;"> &nbsp;Anak</h1>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="card card-primary card-outline">
+                                        <div class="card-header">
+                                        <div class="card-body">
+                                            <div class="row">
+                                            <div class="col-md-12 text-center">
+                                            <h4>Dirawat</h4>
+                                                <div class="col-md-12">
+                                                <div class="form-check">
+                                                    <h4>-</h4>
+                                                </div>
+                                                </div>
+                                            
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card card-primary card-outline">
+                                        <div class="card-header">
+                                        <div class="card-body">
+                                            <div class="row">
+                                            <div class="col-md-12 text-center">
+                                            <h4>Sembuh</h4>
+                                                <div class="col-md-12">
+                                                <div class="form-check">
+                                                    <h4>11</h4>
+                                                </div>
+                                                </div>
+                                            
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card card-primary card-outline">
+                                        <div class="card-header">
+                                        <div class="card-body">
+                                            <div class="row">
+                                            <div class="col-md-12 text-center">
+                                            <h4>Meninggal</h4>
+                                                <div class="col-md-12">
+                                                <div class="form-check">
+                                                    <h4>-</h4>
+                                                </div>
+                                                </div>
+                                            
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>                          
+                        </div>
+
                     </div>
                 </div>
-                </div>
+                    
              </div>
               
               </div>
@@ -388,17 +534,17 @@ input.invalid {
                 </div>
               </div>
               <!-- Circles which indicates the steps of the form: -->
-              <div style="text-align:center;margin-top:40px; display:none;">
-                <span class="step"></span>
-                <span class="step"></span>
-                <span class="step"></span>
-              </div>
+                <div style="text-align:center;margin-top:40px; display:none;">
+                    <span class="step"></span>
+                    <span class="step"></span>
+                    <span class="step"></span>
+                </div>
               </div>
             </div>
           </div>
           <!-- PDP -->
           <!-- ODP -->
-          <div class="col-lg-12">
+          <div class="col-lg-12" style="display:none;">
             <div class="card card-warning card-outline">
               <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;">
                 <h1 class="card-title m-0" style="text-align: center;font-size: 34px;"><i class="fa fa-user" style="color: blue;"></i>  &nbsp; ODP Covid-19</h1>
@@ -499,7 +645,7 @@ input.invalid {
   <!-- Main Footer -->
   <footer class="main-footer">
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2020 <a href="https://rstugurejo.jatengprov.go.id">RSUD Tugurejo</a>.</strong>
+    <h4>Copyright &copy; 2020 <a href="https://rstugurejo.jatengprov.go.id">RSUD Tugurejo</a>.</h4>
   </footer>
 </div>
 <!-- ./wrapper -->
@@ -669,103 +815,7 @@ function allowNumbersOnly(a, event) {
       return false;
     });
 
-    $('#nama').on('keyup', function(){
-      var nama = $(this).val();
-      if(!/^[a-zA-Z\s0-9]*$/.test(nama)){
-        $('#nama').val('')
-      }
-      $('#nama_lengkap').html(nama)
-    })
-
-    $('#alamat').on('keyup', function(){
-      var alamat = $(this).val();
-      if(/[`~<>;':"/[\]|{}()=_+]/.test(alamat)){
-        $('#alamat').val('')
-      }
-      $('#alamat_lengkap').html(alamat)
-    })
-
-  
-
-    $('#ktp').keyup(function(e){
-        e.preventDefault();
-        var ktp = $(this).val();
-        if(e.keyCode == 13){
-          $.ajax({
-            type: "POST",
-            url: "<?php echo base_url('screening_c/get_js')?>",
-            data: {ktp : ktp},
-            dataType: "json",
-            beforeSend: function() {
-              $('.overlay').css('display', 'block');
-            },
-            success: function (response) {
-              $('.overlay').css('display', 'none');
-              if(response == null || response == ""){
-                $('.reset').val('')
-                //alert(response.content.RESPON)
-              } else if(response.content.RESPON) {
-                $('.reset').val('')
-              } else {
-                $('#nama').val(response.content[0].NAMA_LGKP)
-                $('#prov').val(response.content[0].NAMA_PROP)
-                $('#id_prov').val(response.content[0].NO_PROP)
-                $('#kota').val(response.content[0].NAMA_KAB)
-                $('#id_kota').val(response.content[0].NO_KAB)
-                $('#kec').val(response.content[0].NAMA_KEC)
-                $('#id_kec').val(response.content[0].NO_KEC)
-                $('#kel').val(response.content[0].NAMA_KEL)
-                $('#id_kel').val(response.content[0].NO_KEL)
-                $('#alamat').val(response.content[0].ALAMAT)
-                $('#rt').val(response.content[0].NO_RT)
-                $('#rw').val(response.content[0].NO_RW)
-              }
-            }
-          });
-        }
-    })
-
-    $('#btncari').on('click',function(){
-      var ktp = $('#ktp').val();
-      var obj = document.forms.namedItem("regForm")
-      $.ajax({
-        type: "POST",
-        url: "<?php echo base_url('screening_c/get_js')?>",
-        //data : {ktp : ktp},
-        processData:false,
-        contentType:false,
-        cache:false,
-        async:true,
-        crossOrigin : true,
-        data: new FormData(obj),
-        dataType: "json",
-        beforeSend: function() {
-          $('.overlay').css('display', 'block');
-        },
-        success: function (response) {
-          $('.overlay').css('display', 'none');
-          if(response == null || response == ""){
-            $('.reset').val('')
-            //alert(response.content.RESPON)
-          } else if(response.content.RESPON) {
-            $('.reset').val('')
-          } else {
-            $('#nama').val(response.content[0].NAMA_LGKP)
-            $('#prov').val(response.content[0].NAMA_PROP)
-            $('#id_prov').val(response.content[0].NO_PROP)
-            $('#kota').val(response.content[0].NAMA_KAB)
-            $('#id_kota').val(response.content[0].NO_KAB)
-            $('#kec').val(response.content[0].NAMA_KEC)
-            $('#id_kec').val(response.content[0].NO_KEC)
-            $('#kel').val(response.content[0].NAMA_KEL)
-            $('#id_kel').val(response.content[0].NO_KEL)
-            $('#alamat').val(response.content[0].ALAMAT)
-            $('#rt').val(response.content[0].NO_RT)
-            $('#rw').val(response.content[0].NO_RW)
-          }
-        }
-      });
-    })
+   
   });
 </script>
 </body>
