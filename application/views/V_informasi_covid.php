@@ -170,9 +170,9 @@ input.invalid {
           <div class="col-lg-12">
             <div class="card card-danger card-outline">
               <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;">
-                <h1 class="card-title m-0" style="text-align: center;font-size: 34px;"><i class="fa fa-user" style="color: red;"></i> &nbsp; TOTAL KASUS</h1>
+                <h1 class="card-title m-0" style="text-align: center;font-size: 34px;">&nbsp;Informasi Pasien Covid-19 </h1> <h3>(9 Mei 2020 06:30)</h3>
               </div>
-              <h1 class="card-title m-0" style="text-align: center;font-size: 60px;"> &nbsp; 75</h1>
+              <h1 class="card-title m-0" style="text-align: center;font-size: 60px;"> &nbsp; <i class="fa fa-user" style="color: red;"></i> <b>TOTAL KASUS 75</b></h1>
             <div class="card-body">
               
               <!-- One "tab" for each step in the form: -->
@@ -347,8 +347,8 @@ input.invalid {
                             <div class="row">
                                 
                                 <div class="col-md-4">
-                                    <div class="card card-danger card-outline">
-                                        <div class="card-header">
+                                    <div class="card card-success card-outline">
+                                        <div class="card-header" style="background:#28a745; color:white; font-size:45px;">
                                         <div class="card-body">
                                             <div class="row">
                                             <div class="col-md-12 text-center">
@@ -366,7 +366,7 @@ input.invalid {
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="card card-danger card-outline">
+                                    <div class="card card-warning card-outline">
                                         <div class="card-header" style="background: orange; color:white;font-size:45px;">
                                         <div class="card-body">
                                             <div class="row">
@@ -434,7 +434,7 @@ input.invalid {
           <!-- PDP -->
           <div class="col-lg-6">
             <div class="card card-primary card-outline">
-              <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;background: linear-gradient(90deg, rgb(185, 178, 239) 0%, rgb(81, 41, 160) 100%);">
+              <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;background: linear-gradient(90deg, rgb(234, 232, 245) 0%, rgb(40, 167, 69) 100%);">
                 <h1 class="card-title m-0" style="text-align: center;font-size: 34px;"><i class="fa fa-user" style="color: orange;"></i>  &nbsp; PDP Covid-19</h1>
               </div>
               <h1 class="card-title m-0" style="text-align: center;font-size: 34px;"></h1>
@@ -453,27 +453,8 @@ input.invalid {
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <div class="card card-primary card-outline">
-                                        <div class="card-header">
-                                        <div class="card-body">
-                                            <div class="row">
-                                            <div class="col-md-12 text-center">
-                                            <h4>Dirawat</h4>
-                                                <div class="col-md-12">
-                                                <div class="form-check">
-                                                    <h4>8</h4>
-                                                </div>
-                                                </div>
-                                            
-                                            </div>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card card-primary card-outline">
-                                        <div class="card-header">
+                                    <div class="card card-success card-outline">
+                                        <div class="card-header" style="background:#28a745; color:white; font-size:45px;">
                                         <div class="card-body">
                                             <div class="row">
                                             <div class="col-md-12 text-center">
@@ -491,8 +472,28 @@ input.invalid {
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="card card-primary card-outline">
-                                        <div class="card-header">
+                                    <div class="card card-warning card-outline">
+                                        <div class="card-header" style="background: orange; color:white;font-size:45px;">
+                                        <div class="card-body">
+                                            <div class="row">
+                                            <div class="col-md-12 text-center">
+                                            <h4>Dirawat</h4>
+                                                <div class="col-md-12">
+                                                <div class="form-check">
+                                                    <h4>8</h4>
+                                                </div>
+                                                </div>
+                                            
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-4">
+                                    <div class="card card-danger card-outline">
+                                        <div class="card-header" style="background:#dc3545; color:white;font-size:45px;">
                                         <div class="card-body">
                                             <div class="row">
                                             <div class="col-md-12 text-center">
@@ -520,27 +521,8 @@ input.invalid {
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <div class="card card-primary card-outline">
-                                        <div class="card-header">
-                                        <div class="card-body">
-                                            <div class="row">
-                                            <div class="col-md-12 text-center">
-                                            <h4>Dirawat</h4>
-                                                <div class="col-md-12">
-                                                <div class="form-check">
-                                                    <h4>-</h4>
-                                                </div>
-                                                </div>
-                                            
-                                            </div>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="card card-primary card-outline">
-                                        <div class="card-header">
+                                    <div class="card card-success card-outline">
+                                        <div class="card-header" style="background:#28a745; color:white; font-size:45px;">
                                         <div class="card-body">
                                             <div class="row">
                                             <div class="col-md-12 text-center">
@@ -558,8 +540,28 @@ input.invalid {
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="card card-primary card-outline">
-                                        <div class="card-header">
+                                    <div class="card card-warning card-outline">
+                                        <div class="card-header" style="background: orange; color:white;font-size:45px;">
+                                        <div class="card-body">
+                                            <div class="row">
+                                            <div class="col-md-12 text-center">
+                                            <h4>Dirawat</h4>
+                                                <div class="col-md-12">
+                                                <div class="form-check">
+                                                    <h4>-</h4>
+                                                </div>
+                                                </div>
+                                            
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                                <div class="col-md-4">
+                                    <div class="card card-danger card-outline">
+                                        <div class="card-header" style="background:#dc3545; color:white;font-size:45px;">
                                         <div class="card-body">
                                             <div class="row">
                                             <div class="col-md-12 text-center">
