@@ -53,4 +53,5 @@ $route['default_controller'] = 'screening_c';
 $route['analisa/(:any)'] = 'screening_c/card_analisa/$1';
 $route['404_override'] = 'screening_c/error';
 $route['informasi-covid19'] = 'Covid_informasi';
+$route['pendataan'] = 'Covid_informasi/pendataan';
 $route['translate_uri_dashes'] = FALSE;

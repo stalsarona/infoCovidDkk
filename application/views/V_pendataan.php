@@ -171,12 +171,13 @@ input.invalid {
       <a href="<?php echo base_url('#');?>" class="navbar-brand">
         <img src="<?php echo base_url('assets/dist/img/logo.png');?>" alt="RSUD TUGUREJO" class="brand-image img-circle elevation-3"
              style="opacity: .8">
-        <span class="brand-text font-weight-light"><strong>Dewoc19</strong> RSUD Tugurejo</span>
+        <span class="brand-text font-weight-light"><strong>Dewoc19</strong> RSUD Tugurejo</span><?php echo $this->session->userdata('username')?>
       </a>
       
       <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+      s
     </div>
   </nav>
   <!-- /.navbar -->
@@ -257,21 +258,21 @@ input.invalid {
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>Sembuh :</label>
-                                                            <input type="text" placeholder="Sembuh" name="cov_dws_sembuh" id="cov_dws_sembuh" autocomplete="off" class="form-control reset validate">
+                                                            <input type="text" placeholder="Sembuh" name="cov_dws_sembuh" id="cov_dws_sembuh" autocomplete="off" class="form-control reset ">
                                                         </div>
                                                     </div>  
                                                     <div class="col-md-4">
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>Dirawat :</label>
-                                                            <input type="text" placeholder="Di Rawat" name="cov_dws_dirawat" id="cov_dws_dirawat" autocomplete="off" class="form-control reset validate">
+                                                            <input type="text" placeholder="Di Rawat" name="cov_dws_dirawat" id="cov_dws_dirawat" autocomplete="off" class="form-control reset ">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>Meninggal :</label>
-                                                            <input type="text" placeholder="Meninggal" name="cov_dws_meninggal" id="cov_dws_meninggal" autocomplete="off" class="form-control reset validate">
+                                                            <input type="text" placeholder="Meninggal" name="cov_dws_meninggal" id="cov_dws_meninggal" autocomplete="off" class="form-control reset ">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -300,21 +301,21 @@ input.invalid {
                                                     <!-- select -->
                                                     <div class="form-group">
                                                         <label>Sembuh :</label>
-                                                        <input type="text" placeholder="Sembuh" name="cov_ank_sembuh" id="cov_ank_sembuh" autocomplete="off" class="form-control reset validate">
+                                                        <input type="text" placeholder="Sembuh" name="cov_ank_sembuh" id="cov_ank_sembuh" autocomplete="off" class="form-control reset ">
                                                     </div>
                                                 </div>  
                                                 <div class="col-md-4">
                                                     <!-- select -->
                                                     <div class="form-group">
                                                         <label>Dirawat :</label>
-                                                        <input type="text" placeholder="Di Rawat" name="cov_ank_dirawat" id="cov_ank_dirawat" autocomplete="off" class="form-control reset validate">
+                                                        <input type="text" placeholder="Di Rawat" name="cov_ank_dirawat" id="cov_ank_dirawat" autocomplete="off" class="form-control reset ">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <!-- select -->
                                                     <div class="form-group">
                                                         <label>Meninggal :</label>
-                                                        <input type="text" placeholder="Meninggal" name="cov_ank_meninggal" id="cov_ank_meninggal" autocomplete="off" class="form-control reset validate">
+                                                        <input type="text" placeholder="Meninggal" name="cov_ank_meninggal" id="cov_ank_meninggal" autocomplete="off" class="form-control reset ">
                                                     </div>
                                                 </div>
                                             </div>
@@ -352,21 +353,21 @@ input.invalid {
                                                     <!-- select -->
                                                     <div class="form-group">
                                                         <label>Sembuh :</label>
-                                                        <input type="text" placeholder="Sembuh" name="pdp_dws_sembuh" id="pdp_dws_sembuh" autocomplete="off" class="form-control reset validate">
+                                                        <input type="text" placeholder="Sembuh" name="pdp_dws_sembuh" id="pdp_dws_sembuh" autocomplete="off" class="form-control reset ">
                                                     </div>
                                                 </div>  
                                                 <div class="col-md-4">
                                                     <!-- select -->
                                                     <div class="form-group">
                                                         <label>Dirawat :</label>
-                                                        <input type="text" placeholder="Di Rawat" name="pdp_dws_dirawat" id="pdp_dws_dirawat" autocomplete="off" class="form-control reset validate">
+                                                        <input type="text" placeholder="Di Rawat" name="pdp_dws_dirawat" id="pdp_dws_dirawat" autocomplete="off" class="form-control reset ">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <!-- select -->
                                                     <div class="form-group">
                                                         <label>Meninggal :</label>
-                                                        <input type="text" placeholder="Meninggal" name="pdp_dws_meninggal" id="pdp_dws_meninggal" autocomplete="off" class="form-control reset validate">
+                                                        <input type="text" placeholder="Meninggal" name="pdp_dws_meninggal" id="pdp_dws_meninggal" autocomplete="off" class="form-control reset ">
                                                     </div>
                                                 </div>
                                             </div>
@@ -395,21 +396,21 @@ input.invalid {
                                                     <!-- select -->
                                                     <div class="form-group">
                                                         <label>Sembuh :</label>
-                                                        <input type="text" placeholder="Sembuh" name="pdp_ank_sembuh" id="pdp_ank_sembuh" autocomplete="off" class="form-control reset validate">
+                                                        <input type="text" placeholder="Sembuh" name="pdp_ank_sembuh" id="pdp_ank_sembuh" autocomplete="off" class="form-control reset ">
                                                     </div>
                                                 </div>  
                                                 <div class="col-md-4">
                                                     <!-- select -->
                                                     <div class="form-group">
                                                         <label>Dirawat :</label>
-                                                        <input type="text" placeholder="Di Rawat" name="pdp_ank_dirawat" id="pdp_ank_dirawat" autocomplete="off" class="form-control reset validate">
+                                                        <input type="text" placeholder="Di Rawat" name="pdp_ank_dirawat" id="pdp_ank_dirawat" autocomplete="off" class="form-control reset ">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <!-- select -->
                                                     <div class="form-group">
                                                         <label>Meninggal :</label>
-                                                        <input type="text" placeholder="Meninggal" name="pdp_ank_meninggal" id="pdp_ank_meninggal" autocomplete="off" class="form-control reset validate">
+                                                        <input type="text" placeholder="Meninggal" name="pdp_ank_meninggal" id="pdp_ank_meninggal" autocomplete="off" class="form-control reset ">
                                                     </div>
                                                 </div>
                                             </div>
@@ -418,7 +419,103 @@ input.invalid {
                                 </div>                       
                             </div>
                         </div>
-                    </div>     
+                    </div> 
+                    
+                    <div class="col-md-12">
+                        <div class="card card-info card-outline">
+                            <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;">
+                                <h1 class="card-title m-0" style="text-align: center;font-size: 20px;">Orang Dalam Pengawasan (ODP)</h1>
+                            </div>
+                            <div class="card-body">
+                            <!-- One "tab" for each step in the form: -->
+                                <div class="">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="card card-success">
+                                                    <div class="card-header" style="background:#17a2b8; color:white; font-size:45px;">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-md-12 text-center">
+                                                                Dewasa
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <!-- select -->
+                                                    <div class="form-group">
+                                                        <label>Sembuh :</label>
+                                                        <input type="text" placeholder="Sembuh" name="odp_dws_sembuh" id="odp_dws_sembuh" autocomplete="off" class="form-control reset ">
+                                                    </div>
+                                                </div>  
+                                                <div class="col-md-4">
+                                                    <!-- select -->
+                                                    <div class="form-group">
+                                                        <label>Dirawat :</label>
+                                                        <input type="text" placeholder="Di Rawat" name="odp_dws_dirawat" id="odp_dws_dirawat" autocomplete="off" class="form-control reset ">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <!-- select -->
+                                                    <div class="form-group">
+                                                        <label>Meninggal :</label>
+                                                        <input type="text" placeholder="Meninggal" name="odp_dws_meninggal" id="odp_dws_meninggal" autocomplete="off" class="form-control reset ">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 batas"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="card card-success">
+                                                <div class="card-header" style="background:#17a2b8; color:white; font-size:45px;">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-md-12 text-center">
+                                                            Anak
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <!-- select -->
+                                                    <div class="form-group">
+                                                        <label>Sembuh :</label>
+                                                        <input type="text" placeholder="Sembuh" name="odp_ank_sembuh" id="odp_ank_sembuh" autocomplete="off" class="form-control reset ">
+                                                    </div>
+                                                </div>  
+                                                <div class="col-md-4">
+                                                    <!-- select -->
+                                                    <div class="form-group">
+                                                        <label>Dirawat :</label>
+                                                        <input type="text" placeholder="Di Rawat" name="odp_ank_dirawat" id="odp_ank_dirawat" autocomplete="off" class="form-control reset ">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <!-- select -->
+                                                    <div class="form-group">
+                                                        <label>Meninggal :</label>
+                                                        <input type="text" placeholder="Meninggal" name="odp_ank_meninggal" id="odp_ank_meninggal" autocomplete="off" class="form-control reset ">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                       
+                            </div>
+                        </div>
+                    </div>
                 </div>
               </div>
             
@@ -497,7 +594,7 @@ function nextPrev(n) {
   // This function will figure out which tab to display
   var x = document.getElementsByClassName("tab");
   // Exit the function if any field in the current tab is invalid:
-  if (n == 1 && !validateForm()) return false;
+  if (n == 1 && !Form()) return false;
   // Hide the current tab:
   x[currentTab].style.display = "none";
   // Increase or decrease the current tab by 1:
@@ -510,7 +607,7 @@ function nextPrev(n) {
     var obj = document.forms.namedItem("regForm")
     $.ajax({
     type: "POST",
-    url: "<?php echo base_url('Screening_c/simpan') ?>",
+    url: "<?php echo base_url('covid_informasi/simpan_total') ?>",
     //url: "http://api.rstugurejo.jatengprov.go.id:8000/wsrstugu/rstugu/covid/test",
     processData:false,
     contentType:false,
@@ -526,12 +623,10 @@ function nextPrev(n) {
       $('.overlay').css('display', 'none');
       if(response.status == false){
         var exp = '<?php echo base_url('404_override')?>';
-        window.location.replace(exp);
+        //window.location.replace(exp);
       }else {     
-        var analisa = '<?php echo base_url('analisa')?>/'+response.ID
-        window.location.replace(analisa);
-        //window.location.reload()
-        console.log(response.ID)
+        var pendataan = '<?php echo base_url('pendataan')?>/'
+        //window.location.replace(pendataan);
       }
     }
     });
@@ -541,12 +636,12 @@ function nextPrev(n) {
   showTab(currentTab);
 }
 
-function validateForm() {
+function Form() {
   // This function deals with validation of the form fields
   var x, y, i, a, valid = true;
   x = document.getElementsByClassName("tab");
-  z = x[currentTab].getElementsByClassName("validate-card");
-  y = x[currentTab].getElementsByClassName("validate");
+  z = x[currentTab].getElementsByClassName("-card");
+  y = x[currentTab].getElementsByClassName("");
   // A loop that checks every input field in the current tab:
   for (i = 0; i < y.length; i++) {
     // If a field is empty...

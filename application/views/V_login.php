@@ -18,8 +18,63 @@
   <link rel="stylesheet" href="<?php echo base_url()?>assets/dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <style>
+.overlay {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.9);
+  overflow-y: hidden;
+  transition: 0.5s;
+  display: none;
+}
+
+.overlay-content {
+  position: relative;
+  top: 25%;
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+  
+}
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #dc3545;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+  position: fixed;
+  z-index: 100;
+  right: 50%;
+  left: 45%;
+  top: 50%;
+  bottom: 0px;
+  display: block;
+}
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+  </style>
 </head>
 <body class="hold-transition login-page">
+<div class="overlay">
+  <div class="overlay-content">
+    <div class="loader"></div>
+  </div>
+</div>
 <div class="login-box">
   <div class="login-logo">
     <a href="<?php echo base_url()?>"><img src="<?php echo base_url()?>assets/images/logo.png" alt="" style="width: 20%;height: auto;">
@@ -30,9 +85,9 @@
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in to start your session</p>
 
-      <form action="<?php echo base_url()?>" method="post">
+      <form id="formlogin">
         <div class="input-group mb-3">
-          <input type="username" class="form-control" placeholder="Username">
+          <input type="username" class="form-control" placeholder="Username" name="username" id="username">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -40,7 +95,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password">
+          <input type="password" class="form-control" placeholder="Password" name="password" id="password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -56,13 +111,14 @@
               </label>
             </div>
           </div>
+          </form>
           <!-- /.col -->
           <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            <button id="btnlogin" type="button" class="btn btn-primary">Sign In</button>
           </div>
           <!-- /.col -->
         </div>
-      </form>
+      
 
       <!-- <div class="social-auth-links text-center mb-3">
         <p>- OR -</p>
@@ -93,6 +149,32 @@
 <script src="<?php echo base_url()?>assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url()?>assets/dist/js/adminlte.min.js"></script>
-
+<script>
+  $(document).ready(function () {
+    $('#btnlogin').click(function(){
+      var username = $('#username').val();
+      var password = $('#password').val();
+      $.ajax({
+        type: "POST",
+        url: "<?php echo base_url('AuthCovid/login_pendataan')?>",
+        data: {username:username, password:password},
+        dataType: "json",
+        beforeSend: function() {
+            $('.overlay').css('display', 'block');
+        },
+        success: function (response) {
+          //console.log(response[0]['kode']).
+          if(response[0]['kode'] == '200'){
+            var pendataan = '<?php echo base_url('pendataan')?>/'
+            window.location.replace(pendataan);
+          } else {
+            var exp = '<?php echo base_url('404_override')?>';
+            window.location.replace(exp);
+          }
+        }
+      });
+    })
+  });
+</script>
 </body>
 </html>
