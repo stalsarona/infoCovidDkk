@@ -175,7 +175,7 @@ input.invalid {
               <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;">
                 <h1 class="card-title m-0" style="text-align: center;font-size: 34px;">&nbsp;Informasi Pasien Covid-19 </h1> <h3>(9 Mei 2020 06:30)</h3>
               </div>
-              <h1 class="card-title m-0" style="text-align: center;font-size: 60px;"> &nbsp; <i class="fa fa-user" style="color: red;"></i> <b>TOTAL KASUS 73</b></h1>
+              <h1 class="card-title m-0" style="text-align: center;font-size: 60px;"> &nbsp; <i class="fa fa-user" style="color: red;"></i> <b>TOTAL KASUS 74</b></h1>
             <div class="card-body">
               
               <!-- One "tab" for each step in the form: -->
@@ -209,7 +209,7 @@ input.invalid {
                                     Dirawat
                                         <div class="col-md-12">
                                         <div class="">
-                                            8
+                                            9
                                         </div>
                                         </div>
                                     
@@ -263,6 +263,7 @@ input.invalid {
             <div class="card card-danger card-outline">
               <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;background: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(169, 7, 44) 100%);">
                 <h1 class="card-title m-0" style="text-align: center;font-size: 34px;"><i class="fa fa-user" style="color: red;"></i> &nbsp; Positif Covid-19</h1>
+                <h1 class="card-title m-0" style="text-align: center;font-size: 34px;"> &nbsp; Total 6</h1>
               </div>
               <h1 class="card-title m-0" style="text-align: center;font-size: 34px;"></h1>
             <div class="card-body">
@@ -275,11 +276,12 @@ input.invalid {
                     <div class="card card-danger card-outline">
                         <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;">
                             <h1 class="card-title m-0" style="text-align: center;font-size: 25px;"> &nbsp;Dewasa</h1>
+                            <h1 class="card-title m-0" style="text-align: center;font-size: 25px;"> &nbsp; Total 6</h1>
                         </div>
 
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="card card-success" >
                                         <div class="card-header" style="background:#28a745; color:white; font-size:45px;">
                                         <div class="card-body body-padding">
@@ -298,14 +300,13 @@ input.invalid {
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="col-md-4">
-                                    <div class="card card-warning">
-                                        <div class="card-header" style="background: orange; color:white;font-size:45px;">
+                                <div class="col-md-3">
+                                    <div class="card card-success" >
+                                        <div class="card-header" style="background:#8b9cea; color:white; font-size:45px;">
                                         <div class="card-body body-padding">
                                             <div class="row">
                                             <div class="col-md-12 text-center">
-                                            <h4>Dirawat</h4>
+                                            <h4>Isolasi Non Rs</h4>
                                                 <div class="col-md-12">
                                                 <div class="">
                                                     <h4>-</h4>
@@ -318,8 +319,27 @@ input.invalid {
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-3">
+                                    <div class="card card-warning">
+                                        <div class="card-header" style="background: orange; color:white;font-size:45px;">
+                                        <div class="card-body body-padding">
+                                            <div class="row">
+                                            <div class="col-md-12 text-center">
+                                            <h4>Dirawat</h4>
+                                                <div class="col-md-12">
+                                                <div class="">
+                                                    <h4>1</h4>
+                                                </div>
+                                                </div>
+                                            
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="card card-danger">
                                         <div class="card-header" style="background:#dc3545; color:white;font-size:45px;">
                                         <div class="card-body body-padding">
@@ -344,12 +364,13 @@ input.invalid {
                     <div class="card card-danger card-outline">
                         <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;">
                             <h1 class="card-title m-0" style="text-align: center;font-size: 25px;"> &nbsp;Anak</h1>
+                            <h1 class="card-title m-0" style="text-align: center;font-size: 25px;"> &nbsp; Total 0</h1>
                         </div>
 
                         <div class="card-body">
                             <div class="row">
                                 
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="card card-success">
                                         <div class="card-header" style="background:#28a745; color:white; font-size:45px;">
                                         <div class="card-body body-padding">
@@ -368,7 +389,26 @@ input.invalid {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
+                                    <div class="card card-success" >
+                                        <div class="card-header" style="background:#8b9cea; color:white; font-size:45px;">
+                                        <div class="card-body body-padding">
+                                            <div class="row">
+                                            <div class="col-md-12 text-center">
+                                            <h4>Isolasi Non Rs</h4>
+                                                <div class="col-md-12">
+                                                <div class="">
+                                                    <h4>-</h4>
+                                                </div>
+                                                </div>
+                                            
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
                                     <div class="card card-warning">
                                         <div class="card-header" style="background: orange; color:white;font-size:45px;">
                                         <div class="card-body body-padding">
@@ -387,7 +427,7 @@ input.invalid {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="card card-danger">
                                         <div class="card-header" style="background:#dc3545; color:white;font-size:45px;">
                                         <div class="card-body body-padding">
@@ -438,7 +478,8 @@ input.invalid {
           <div class="col-lg-6">
             <div class="card card-warning card-outline">
               <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;background: linear-gradient(90deg, rgb(247, 247, 247) 0%, rgb(255, 165, 0) 100%);">
-                <h1 class="card-title m-0" style="text-align: center;font-size: 34px;"><i class="fa fa-user" style="color: orange;"></i>  &nbsp; PDP Covid-19</h1>
+                <h1 class="card-title m-0" style="text-align: center;font-size: 34px;"><i class="fa fa-user" style="color: orange;"></i>  &nbsp; PDP</h1>
+                <h1 class="card-title m-0" style="text-align: center;font-size: 34px;"> &nbsp; Total 68</h1>
               </div>
               <h1 class="card-title m-0" style="text-align: center;font-size: 34px;"></h1>
               <div class="card-body">
@@ -451,6 +492,7 @@ input.invalid {
                     <div class="card card-warning card-outline">
                         <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;">
                             <h1 class="card-title m-0" style="text-align: center;font-size: 25px;"> &nbsp;Dewasa</h1>
+                            <h1 class="card-title m-0" style="text-align: center;font-size: 25px;"> &nbsp; Total 57</h1>
                         </div>
 
                         <div class="card-body">
@@ -519,6 +561,7 @@ input.invalid {
                     <div class="card card-warning card-outline">
                         <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;">
                             <h1 class="card-title m-0" style="text-align: center;font-size: 25px;"> &nbsp;Anak</h1>
+                            <h1 class="card-title m-0" style="text-align: center;font-size: 25px;"> &nbsp; Total 0</h1>
                         </div>
 
                         <div class="card-body">
