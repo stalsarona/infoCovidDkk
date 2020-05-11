@@ -437,7 +437,7 @@ input.invalid {
           <!-- PDP -->
           <div class="col-lg-6">
             <div class="card card-warning card-outline">
-              <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;background: linear-gradient(90deg, rgb(234, 232, 245) 0%, rgb(255, 165, 0) 100%);">
+              <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;background: linear-gradient(90deg, rgb(247, 247, 247) 0%, rgb(255, 165, 0) 100%);">
                 <h1 class="card-title m-0" style="text-align: center;font-size: 34px;"><i class="fa fa-user" style="color: orange;"></i>  &nbsp; PDP Covid-19</h1>
               </div>
               <h1 class="card-title m-0" style="text-align: center;font-size: 34px;"></h1>
