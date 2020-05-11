@@ -31,7 +31,56 @@ class Covid_informasi extends CI_Controller {
         $data = json_decode($this->get_cors($url), TRUE);
        
 		return $data;
-	}
+    }
+    
+    public function simpan_total()
+    {
+        $obj = array(
+            'private_key' => $this->input->post('private_key'),
+            'NOKTP' => urlencode($this->input->post('ktp')),
+            'NAMA' => urlencode($this->input->post('nama')),
+            'ALAMAT' => urlencode($this->input->post('alamat')),
+            'KDPROP' => urlencode($this->input->post('id_prov')),
+            'NAMAPROP' => urlencode($this->input->post('prov')),
+            'KDKOTA' => urlencode($this->input->post('id_kota')),
+            'NAMAKOTA' => urlencode($this->input->post('kota')),
+            'KDKEC' => urlencode($this->input->post('id_kec')),
+            'NAMAKEC' => urlencode($this->input->post('kec')),
+            'KDKEL' => urlencode($this->input->post('id_kel')),
+            'NAMAKEL' => urlencode($this->input->post('kel')),
+            'RT' => urlencode($this->input->post('rt')),
+            'RW' => urlencode($this->input->post('rw')),
+            'NO_HP' => urlencode($this->input->post('telp')),
+            'Q200400011' => urlencode($this->input->post('Q200400011')),
+            'Q200400012' => urlencode($this->input->post('Q200400012')),
+            'Q200400013' => urlencode($this->input->post('Q200400013')),
+            'Q200400014' => urlencode($this->input->post('Q200400014')),
+            'Q200400015' => urlencode($this->input->post('Q200400015')),
+            'Q200400016' => urlencode($this->input->post('Q200400016')),
+            'Q200400017' => urlencode($this->input->post('Q200400017'))				
+        );
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => "http://api.rstugurejo.jatengprov.go.id:8000/wsrstugu/rstugu/covid/simpan_withJWT",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => "",
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "POST",
+          CURLOPT_POSTFIELDS => $obj,
+          
+        ));
+        
+        $response = curl_exec($curl);
+        
+        curl_close($curl);
+        echo $response;
+        
+    }
 
 }
 

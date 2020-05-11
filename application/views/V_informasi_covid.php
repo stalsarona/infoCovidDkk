@@ -263,7 +263,7 @@ input.invalid {
             <div class="card card-danger card-outline">
               <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;background: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(169, 7, 44) 100%);">
                 <h1 class="card-title m-0" style="text-align: center;font-size: 34px;"><i class="fa fa-user" style="color: red;"></i> &nbsp; Positif Covid-19</h1>
-                <h1 class="card-title m-0" style="text-align: center;font-size: 34px;"> &nbsp; Total 6</h1>
+                <h1 class="card-title m-0" style="text-align: center;font-size: 34px;"> &nbsp; Total 5</h1>
               </div>
               <h1 class="card-title m-0" style="text-align: center;font-size: 34px;"></h1>
             <div class="card-body">
