@@ -209,7 +209,7 @@ input.invalid {
                                     Dirawat
                                         <div class="col-md-12">
                                         <div class="">
-                                            9
+                                            8
                                         </div>
                                         </div>
                                     
@@ -276,7 +276,7 @@ input.invalid {
                     <div class="card card-danger card-outline">
                         <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;">
                             <h1 class="card-title m-0" style="text-align: center;font-size: 25px;"> &nbsp;Dewasa</h1>
-                            <h1 class="card-title m-0" style="text-align: center;font-size: 25px;"> &nbsp; Total 6</h1>
+                            <h1 class="card-title m-0" style="text-align: center;font-size: 25px;"> &nbsp; Total 5</h1>
                         </div>
 
                         <div class="card-body">
@@ -328,7 +328,7 @@ input.invalid {
                                             <h4>Dirawat</h4>
                                                 <div class="col-md-12">
                                                 <div class="">
-                                                    <h4>1</h4>
+                                                    <h4>-</h4>
                                                 </div>
                                                 </div>
                                             
@@ -561,7 +561,7 @@ input.invalid {
                     <div class="card card-warning card-outline">
                         <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;">
                             <h1 class="card-title m-0" style="text-align: center;font-size: 25px;"> &nbsp;Anak</h1>
-                            <h1 class="card-title m-0" style="text-align: center;font-size: 25px;"> &nbsp; Total 0</h1>
+                            <h1 class="card-title m-0" style="text-align: center;font-size: 25px;"> &nbsp; Total 11</h1>
                         </div>
 
                         <div class="card-body">
