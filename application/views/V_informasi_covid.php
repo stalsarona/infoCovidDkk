@@ -712,7 +712,7 @@ input.invalid {
   <!-- Main Footer -->
   <footer class="main-footer text-center">
     <!-- Default to the left -->
-    <h4>Copyright &copy; 2020 <a href="https://rstugurejo.jatengprov.go.id">RSUD Tugurejo</a>.</h4>
+    <h4>Copyright &copy; 2020 <a href="https://rstugurejo.jatengprov.go.id">RSUD Tugurejo Provinsi Jawa Tengah</a>.</h4>
   </footer>
 </div>
 <!-- ./wrapper -->
