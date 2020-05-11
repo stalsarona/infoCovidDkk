@@ -302,7 +302,7 @@ input.invalid {
                                 </div>
                                 <div class="col-md-3">
                                     <div class="card card-success" >
-                                        <div class="card-header" style="background:#8b9cea; color:white; font-size:45px;">
+                                        <div class="card-header" style="background:#6c84f1; color:white; font-size:45px;">
                                         <div class="card-body body-padding">
                                             <div class="row">
                                             <div class="col-md-12 text-center">
@@ -391,7 +391,7 @@ input.invalid {
                                 </div>
                                 <div class="col-md-3">
                                     <div class="card card-success" >
-                                        <div class="card-header" style="background:#8b9cea; color:white; font-size:45px;">
+                                        <div class="card-header" style="background:#6c84f1; color:white; font-size:45px;">
                                         <div class="card-body body-padding">
                                             <div class="row">
                                             <div class="col-md-12 text-center">
