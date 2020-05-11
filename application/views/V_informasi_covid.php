@@ -113,6 +113,9 @@ input.invalid {
     bottom: 15px;
   }
 }
+.body-padding{
+  padding : 10px;
+}
   </style>
 </head>
 <body class="hold-transition layout-top-nav">
@@ -172,21 +175,21 @@ input.invalid {
               <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;">
                 <h1 class="card-title m-0" style="text-align: center;font-size: 34px;">&nbsp;Informasi Pasien Covid-19 </h1> <h3>(9 Mei 2020 06:30)</h3>
               </div>
-              <h1 class="card-title m-0" style="text-align: center;font-size: 60px;"> &nbsp; <i class="fa fa-user" style="color: red;"></i> <b>TOTAL KASUS 75</b></h1>
+              <h1 class="card-title m-0" style="text-align: center;font-size: 60px;"> &nbsp; <i class="fa fa-user" style="color: red;"></i> <b>TOTAL KASUS 73</b></h1>
             <div class="card-body">
               
               <!-- One "tab" for each step in the form: -->
                 <div class="row">
                     
                     <div class="col-md-4">
-                        <div class="card card-success card-outline">
+                        <div class="card card-success">
                             <div class="card-header" style="background:#28a745; color:white; font-size:45px;">
                                 <div class="card-body">
                                     <div class="row">
                                     <div class="col-md-12 text-center">
                                     Sembuh
                                         <div class="col-md-12">
-                                        <div class="form-check">
+                                        <div class="">
                                             52
                                         </div>
                                         </div>
@@ -198,14 +201,14 @@ input.invalid {
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="card card-warning card-outline">
+                        <div class="card card-warning">
                             <div class="card-header" style="background: orange; color:white;font-size:45px;">
                                 <div class="card-body">
                                     <div class="row">
                                     <div class="col-md-12 text-center">
                                     Dirawat
                                         <div class="col-md-12">
-                                        <div class="form-check">
+                                        <div class="">
                                             8
                                         </div>
                                         </div>
@@ -217,14 +220,14 @@ input.invalid {
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="card card-danger card-outline">
+                        <div class="card card-danger">
                             <div class="card-header" style="background:#dc3545; color:white;font-size:45px;">
                                 <div class="card-body">
                                     <div class="row">
                                     <div class="col-md-12 text-center">
                                     Meninggal
                                         <div class="col-md-12">
-                                        <div class="form-check">
+                                        <div class="">
                                             13
                                         </div>
                                         </div>
@@ -277,14 +280,14 @@ input.invalid {
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <div class="card card-success card-outline" >
+                                    <div class="card card-success" >
                                         <div class="card-header" style="background:#28a745; color:white; font-size:45px;">
-                                        <div class="card-body">
+                                        <div class="card-body body-padding">
                                             <div class="row">
                                             <div class="col-md-12 text-center">
                                             <h4>Sembuh</h4>
                                                 <div class="col-md-12">
-                                                <div class="form-check">
+                                                <div class="">
                                                     <h4>5</h4>
                                                 </div>
                                                 </div>
@@ -297,14 +300,14 @@ input.invalid {
                                 </div>
 
                                 <div class="col-md-4">
-                                    <div class="card card-warning card-outline">
+                                    <div class="card card-warning">
                                         <div class="card-header" style="background: orange; color:white;font-size:45px;">
-                                        <div class="card-body">
+                                        <div class="card-body body-padding">
                                             <div class="row">
                                             <div class="col-md-12 text-center">
                                             <h4>Dirawat</h4>
                                                 <div class="col-md-12">
-                                                <div class="form-check">
+                                                <div class="">
                                                     <h4>-</h4>
                                                 </div>
                                                 </div>
@@ -317,14 +320,14 @@ input.invalid {
                                 </div>
                                 
                                 <div class="col-md-4">
-                                    <div class="card card-danger card-outline">
+                                    <div class="card card-danger">
                                         <div class="card-header" style="background:#dc3545; color:white;font-size:45px;">
-                                        <div class="card-body">
+                                        <div class="card-body body-padding">
                                             <div class="row">
                                             <div class="col-md-12 text-center">
                                             <h4>Meninggal</h4>
                                                 <div class="col-md-12">
-                                                <div class="form-check">
+                                                <div class="">
                                                     <h4>-</h4>
                                                 </div>
                                                 </div>
@@ -347,14 +350,14 @@ input.invalid {
                             <div class="row">
                                 
                                 <div class="col-md-4">
-                                    <div class="card card-success card-outline">
+                                    <div class="card card-success">
                                         <div class="card-header" style="background:#28a745; color:white; font-size:45px;">
-                                        <div class="card-body">
+                                        <div class="card-body body-padding">
                                             <div class="row">
                                             <div class="col-md-12 text-center">
                                             <h4>Sembuh</h4>
                                                 <div class="col-md-12">
-                                                <div class="form-check">
+                                                <div class="">
                                                     <h4>-</h4>
                                                 </div>
                                                 </div>
@@ -366,14 +369,14 @@ input.invalid {
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="card card-warning card-outline">
+                                    <div class="card card-warning">
                                         <div class="card-header" style="background: orange; color:white;font-size:45px;">
-                                        <div class="card-body">
+                                        <div class="card-body body-padding">
                                             <div class="row">
                                             <div class="col-md-12 text-center">
                                             <h4>Dirawat</h4>
                                                 <div class="col-md-12">
-                                                <div class="form-check">
+                                                <div class="">
                                                     <h4>-</h4>
                                                 </div>
                                                 </div>
@@ -385,14 +388,14 @@ input.invalid {
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="card card-danger card-outline">
+                                    <div class="card card-danger">
                                         <div class="card-header" style="background:#dc3545; color:white;font-size:45px;">
-                                        <div class="card-body">
+                                        <div class="card-body body-padding">
                                             <div class="row">
                                             <div class="col-md-12 text-center">
                                             <h4>Meninggal</h4>
                                                 <div class="col-md-12">
-                                                <div class="form-check">
+                                                <div class="">
                                                     <h4>-</h4>
                                                 </div>
                                                 </div>
@@ -433,8 +436,8 @@ input.invalid {
           </div>
           <!-- PDP -->
           <div class="col-lg-6">
-            <div class="card card-success card-outline">
-              <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;background: linear-gradient(90deg, rgb(234, 232, 245) 0%, rgb(40, 167, 69) 100%);">
+            <div class="card card-warning card-outline">
+              <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;background: linear-gradient(90deg, rgb(234, 232, 245) 0%, rgb(255, 165, 0) 100%);">
                 <h1 class="card-title m-0" style="text-align: center;font-size: 34px;"><i class="fa fa-user" style="color: orange;"></i>  &nbsp; PDP Covid-19</h1>
               </div>
               <h1 class="card-title m-0" style="text-align: center;font-size: 34px;"></h1>
@@ -445,7 +448,7 @@ input.invalid {
               <div class="">
              <div class="row">
                 <div class="col-md-12">
-                    <div class="card card-success card-outline">
+                    <div class="card card-warning card-outline">
                         <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;">
                             <h1 class="card-title m-0" style="text-align: center;font-size: 25px;"> &nbsp;Dewasa</h1>
                         </div>
@@ -453,14 +456,14 @@ input.invalid {
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <div class="card card-success card-outline">
+                                    <div class="card card-success">
                                         <div class="card-header" style="background:#28a745; color:white; font-size:45px;">
-                                        <div class="card-body">
+                                        <div class="card-body body-padding">
                                             <div class="row">
                                             <div class="col-md-12 text-center">
                                             <h4>Sembuh</h4>
                                                 <div class="col-md-12">
-                                                <div class="form-check">
+                                                <div class="">
                                                     <h4>36</h4>
                                                 </div>
                                                 </div>
@@ -472,14 +475,14 @@ input.invalid {
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="card card-warning card-outline">
+                                    <div class="card card-warning">
                                         <div class="card-header" style="background: orange; color:white;font-size:45px;">
-                                        <div class="card-body">
+                                        <div class="card-body body-padding">
                                             <div class="row">
                                             <div class="col-md-12 text-center">
                                             <h4>Dirawat</h4>
                                                 <div class="col-md-12">
-                                                <div class="form-check">
+                                                <div class="">
                                                     <h4>8</h4>
                                                 </div>
                                                 </div>
@@ -492,14 +495,14 @@ input.invalid {
                                 </div>
                                 
                                 <div class="col-md-4">
-                                    <div class="card card-danger card-outline">
+                                    <div class="card card-danger">
                                         <div class="card-header" style="background:#dc3545; color:white;font-size:45px;">
-                                        <div class="card-body">
+                                        <div class="card-body body-padding">
                                             <div class="row">
                                             <div class="col-md-12 text-center">
                                             <h4>Meninggal</h4>
                                                 <div class="col-md-12">
-                                                <div class="form-check">
+                                                <div class="">
                                                     <h4>13</h4>
                                                 </div>
                                                 </div>
@@ -513,7 +516,7 @@ input.invalid {
                             </div>                          
                         </div>
                     </div>
-                    <div class="card card-success card-outline">
+                    <div class="card card-warning card-outline">
                         <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;">
                             <h1 class="card-title m-0" style="text-align: center;font-size: 25px;"> &nbsp;Anak</h1>
                         </div>
@@ -521,14 +524,14 @@ input.invalid {
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <div class="card card-success card-outline">
+                                    <div class="card card-success">
                                         <div class="card-header" style="background:#28a745; color:white; font-size:45px;">
-                                        <div class="card-body">
+                                        <div class="card-body body-padding">
                                             <div class="row">
                                             <div class="col-md-12 text-center">
                                             <h4>Sembuh</h4>
                                                 <div class="col-md-12">
-                                                <div class="form-check">
+                                                <div class="">
                                                     <h4>11</h4>
                                                 </div>
                                                 </div>
@@ -540,14 +543,14 @@ input.invalid {
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="card card-warning card-outline">
+                                    <div class="card card-warning">
                                         <div class="card-header" style="background: orange; color:white;font-size:45px;">
-                                        <div class="card-body">
+                                        <div class="card-body body-padding">
                                             <div class="row">
                                             <div class="col-md-12 text-center">
                                             <h4>Dirawat</h4>
                                                 <div class="col-md-12">
-                                                <div class="form-check">
+                                                <div class="">
                                                     <h4>-</h4>
                                                 </div>
                                                 </div>
@@ -560,14 +563,14 @@ input.invalid {
                                 </div>
                                
                                 <div class="col-md-4">
-                                    <div class="card card-danger card-outline">
+                                    <div class="card card-danger">
                                         <div class="card-header" style="background:#dc3545; color:white;font-size:45px;">
-                                        <div class="card-body">
+                                        <div class="card-body body-padding">
                                             <div class="row">
                                             <div class="col-md-12 text-center">
                                             <h4>Meninggal</h4>
                                                 <div class="col-md-12">
-                                                <div class="form-check">
+                                                <div class="">
                                                     <h4>-</h4>
                                                 </div>
                                                 </div>
@@ -628,14 +631,14 @@ input.invalid {
                         <div class="col-md-12 text-center">
                         <h4>Dirawat</h4>
                             <div class="col-md-12">
-                            <div class="form-check">
+                            <div class="">
                                 <h4>128</h4>
                             </div>
                             </div>
                             <!-- <div class="col-sm-10">
-                            <div class="form-check">
-                                <input class="form-check-input validate" type="radio" name="" id="" value="">
-                                <label class="form-check-label" for="gridRadios1">
+                            <div class="">
+                                <input class="-input validate" type="radio" name="" id="" value="">
+                                <label class="-label" for="gridRadios1">
                                 Tidak
                                 </label>
                             </div>
@@ -654,14 +657,14 @@ input.invalid {
                         <div class="col-md-12 text-center">
                         <h4>Sembuh</h4>
                             <div class="col-md-12">
-                            <div class="form-check">
+                            <div class="">
                                 <h4>128</h4>
                             </div>
                             </div>
                             <!-- <div class="col-sm-10">
-                            <div class="form-check">
-                                <input class="form-check-input validate" type="radio" name="" id="" value="">
-                                <label class="form-check-label" for="gridRadios1">
+                            <div class="">
+                                <input class="-input validate" type="radio" name="" id="" value="">
+                                <label class="-label" for="gridRadios1">
                                 Tidak
                                 </label>
                             </div>
@@ -707,7 +710,7 @@ input.invalid {
 
 
   <!-- Main Footer -->
-  <footer class="main-footer">
+  <footer class="main-footer text-center">
     <!-- Default to the left -->
     <h4>Copyright &copy; 2020 <a href="https://rstugurejo.jatengprov.go.id">RSUD Tugurejo</a>.</h4>
   </footer>
