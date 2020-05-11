@@ -175,7 +175,7 @@ input.invalid {
               <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;">
                 <h1 class="card-title m-0" style="text-align: center;font-size: 34px;">&nbsp;Informasi Pasien Covid-19 </h1> <h3>(9 Mei 2020 06:30)</h3>
               </div>
-              <h1 class="card-title m-0" style="text-align: center;font-size: 60px;"> &nbsp; <i class="fa fa-user" style="color: red;"></i> <b>TOTAL KASUS 74</b></h1>
+              <h1 class="card-title m-0" style="text-align: center;font-size: 60px;"> &nbsp; <i class="fa fa-user" style="color: red;"></i> <b>TOTAL KASUS 73</b></h1>
             <div class="card-body">
               
               <!-- One "tab" for each step in the form: -->
