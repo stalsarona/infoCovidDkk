@@ -168,7 +168,7 @@ input.invalid {
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
     <div class="container">
-      <a href="<?php echo base_url('#');?>" class="navbar-brand">
+      <a href="<?php echo base_url('informasi-covid19');?>" class="navbar-brand">
         <img src="<?php echo base_url('assets/dist/img/logo.png');?>" alt="RSUD TUGUREJO" class="brand-image img-circle elevation-3"
              style="opacity: .8">
         <span class="brand-text font-weight-light"><strong>Dewoc19</strong> RSUD Tugurejo</span>
