@@ -3,26 +3,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class AuthCovid extends CI_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/user_guide/general/urls.html
-	 */
+	
+	public function __construct()
+	{
+		parent::__construct();
+		//Do your magic here
+		$this->load->library('session');
+	}
+	
 	public function index()
 	{
-		$this->load->view('V_login');
+		if ($this->session->userdata('status_log') !=TRUE) {
+			$this->load->view('V_login');
+		} else {
+			redirect('pendataan','refresh');
+		}
 	}
-
+	
 	public function login_pendataan()
 	{
 		$curl = curl_init();
@@ -48,18 +45,26 @@ class AuthCovid extends CI_Controller {
 		$response = curl_exec($curl);
 		$dec_response = json_decode($response);
 		foreach($dec_response as $key){}
-		if($key->kode == 200){
-			
+		if($key->kode == 200){	
 			$array = array(
-				'status_log' => true,
+				'status_log' => TRUE,
 				'username' => $key->USERNM
 			);
-			
-			$this->session->set_userdata( $array );
-			
-		} else {}
+			$this->session->set_userdata( $array );	
+		} 
 		curl_close($curl);
 		echo $response;
 		//print_r($key->kode);
+	}
+
+	public function signout_pendataan()
+	{
+		$this->session->sess_destroy();
+		redirect('signin');
+	}
+
+	public function test()
+	{
+		echo json_encode($this->session->userdata('username'));
 	}
 }

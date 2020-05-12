@@ -81,7 +81,7 @@
     <b>RSUD</b> Tugurejo</a>
   </div>
   <!-- /.login-logo -->
-  <div class="card">
+          
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in to start your session</p>
 
@@ -105,7 +105,7 @@
         <div class="row">
           <div class="col-8">
             <div class="icheck-primary">
-              <input type="checkbox" id="remember">
+              <input type="checkbox" id="remember" required>
               <label for="remember">
                 Remember Me
               </label>
@@ -149,30 +149,46 @@
 <script src="<?php echo base_url()?>assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url()?>assets/dist/js/adminlte.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 <script>
   $(document).ready(function () {
+    //if($("#remember").prop('checked'))
+        //console.log('cek')  // checked
+    //else
+        //console.log('rak')  // uncheck
     $('#btnlogin').click(function(){
       var username = $('#username').val();
       var password = $('#password').val();
-      $.ajax({
-        type: "POST",
-        url: "<?php echo base_url('AuthCovid/login_pendataan')?>",
-        data: {username:username, password:password},
-        dataType: "json",
-        beforeSend: function() {
-            $('.overlay').css('display', 'block');
-        },
-        success: function (response) {
-          //console.log(response[0]['kode']).
-          if(response[0]['kode'] == '200'){
-            var pendataan = '<?php echo base_url('pendataan')?>/'
-            window.location.replace(pendataan);
-          } else {
-            var exp = '<?php echo base_url('404_override')?>';
-            window.location.replace(exp);
-          }
+      if(username == "" || password == ""){
+        swal('Username / Password','harus di isi','info');
+      } else {
+        if($('#remember').prop('checked')){
+          $.ajax({
+            type: "POST",
+            url: "<?php echo base_url('AuthCovid/login_pendataan')?>",
+            data: {username:username, password:password},
+            dataType: "json",
+            beforeSend: function() {
+                $('.overlay').css('display', 'block');
+            },
+            success: function (response) {
+              //console.log(response[0]['kode']).
+              if(response[0]['kode'] == '200'){
+                var pendataan = '<?php echo base_url('pendataan')?>/'
+                window.location.replace(pendataan);
+              } else if(response[0]['kode'] == '400' || response[0]['kode'] == '300'){
+                swal("username / password salah ",'','info');
+                $('.overlay').css('display', 'none');
+              } else {
+                var exp = '<?php echo base_url('404_override')?>';
+                window.location.replace(exp);
+              }
+            }
+          });
+        } else {
+          swal('Chexbox','harus di isi','info');
         }
-      });
+      }
     })
   });
 </script>

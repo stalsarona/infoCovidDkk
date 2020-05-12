@@ -171,13 +171,35 @@ input.invalid {
       <a href="<?php echo base_url('#');?>" class="navbar-brand">
         <img src="<?php echo base_url('assets/dist/img/logo.png');?>" alt="RSUD TUGUREJO" class="brand-image img-circle elevation-3"
              style="opacity: .8">
-        <span class="brand-text font-weight-light"><strong>Dewoc19</strong> RSUD Tugurejo</span><?php echo $this->session->userdata('username')?>
+        <span class="brand-text font-weight-light"><strong>Dewoc19</strong> RSUD Tugurejo</span>
       </a>
+    
+      <ul class="menu navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+          <?php echo $this->session->userdata('username')?>
+          <img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBpZD0iQ2FwYV8xIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA1MTIgNTEyIiBoZWlnaHQ9IjUxMnB4IiB2aWV3Qm94PSIwIDAgNTEyIDUxMiIgd2lkdGg9IjUxMnB4Ij48Zz48cGF0aCBkPSJtMjU2IDAtMTYwLjM5OCAyNTYgMTYwLjM5OCAyNTZjMTQxLjM4NSAwIDI1Ni0xMTQuNjE1IDI1Ni0yNTZzLTExNC42MTUtMjU2LTI1Ni0yNTZ6IiBmaWxsPSIjMjhhYmZhIi8+PHBhdGggZD0ibTAgMjU2YzAgMTQxLjM4NSAxMTQuNjE1IDI1NiAyNTYgMjU2di01MTJjLTE0MS4zODUgMC0yNTYgMTE0LjYxNS0yNTYgMjU2eiIgZmlsbD0iIzE0Y2ZmZiIvPjxwYXRoIGQ9Im0yNTYgNjAtNjUuNzg4IDEwNSA2NS43ODggMTA1YzU3Ljk5IDAgMTA1LTQ3LjAxIDEwNS0xMDVzLTQ3LjAxLTEwNS0xMDUtMTA1eiIgZmlsbD0iIzM3M2U5ZiIvPjxwYXRoIGQ9Im0xNTEgMTY1YzAgNTcuOTkgNDcuMDEgMTA1IDEwNSAxMDV2LTIxMGMtNTcuOTkgMC0xMDUgNDcuMDEtMTA1IDEwNXoiIGZpbGw9IiM2MjQxZWEiLz48cGF0aCBkPSJtNDI0LjY0OSAzMzUuNDQzYy0xOS45MzMtMjIuNTI1LTQ4LjYtMzUuNDQzLTc4LjY0OS0zNS40NDNoLTkwbC02MCA3NiA2MCA3NmM3MC4zMjIgMCAxMzUuNjM2LTM4LjAxIDE3MC40NTQtOTkuMTk4bDUuMzA2LTkuMzI1eiIgZmlsbD0iIzM3M2U5ZiIvPjxwYXRoIGQ9Im0xNjYgMzAwYy0zMC4wNDkgMC01OC43MTYgMTIuOTE4LTc4LjY0OSAzNS40NDNsLTcuMTEgOC4wMzUgNS4zMDYgOS4zMjVjMzQuODE3IDYxLjE4NyAxMDAuMTMxIDk5LjE5NyAxNzAuNDUzIDk5LjE5N3YtMTUyeiIgZmlsbD0iIzYyNDFlYSIvPjwvZz48L3N2Zz4K"
+          alt="RSUD TUGUREJO" class="brand-image img-circle elevation-3" style="opacity: .8" />
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="position: absolute;">
+            <a href="<?php echo site_url('signout')?>" class="dropdown-item">
+              <!-- Message Start -->
+              <div class="media">
+                <img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBoZWlnaHQ9IjEyOHB4IiB2aWV3Qm94PSItNDQgMCA1MTIgNTEyIiB3aWR0aD0iMTI4cHgiPjxwYXRoIGQ9Im0yMTEuODYzMjgxIDUxMmMtMTE2LjgyMDMxMiAwLTIxMS44NjMyODEtOTUuMDM1MTU2LTIxMS44NjMyODEtMjExLjg2MzI4MSAwLTk1LjE1MjM0NCA2NC4wMDc4MTItMTc5LjE3MTg3NSAxNTUuNjY0MDYyLTIwNC4zMjgxMjUgOS4zODY3MTktMi41MzEyNSAxOS4xMDkzNzYgMi45NDkyMTggMjEuNjk5MjE5IDEyLjM2MzI4MSAyLjU3NDIxOSA5LjM5ODQzNy0yLjk0OTIxOSAxOS4xMjEwOTQtMTIuMzU1NDY5IDIxLjY5MTQwNi03Ni4zNTkzNzQgMjAuOTY0ODQ0LTEyOS42OTkyMTggOTAuOTgwNDY5LTEyOS42OTkyMTggMTcwLjI3MzQzOCAwIDk3LjM0Mzc1IDc5LjE5OTIxOCAxNzYuNTU0Njg3IDE3Ni41NTQ2ODcgMTc2LjU1NDY4NyA5Ny4zNTE1NjMgMCAxNzYuNTUwNzgxLTc5LjIxMDkzNyAxNzYuNTUwNzgxLTE3Ni41NTQ2ODcgMC03Ny40Mjk2ODgtNTEuNzU3ODEyLTE0Ni45OTYwOTQtMTI1Ljg2MzI4MS0xNjkuMTcxODc1LTkuMzQzNzUtMi43OTI5NjktMTQuNjQ0NTMxLTEyLjYzNjcxOS0xMS44NTE1NjItMjEuOTgwNDY5IDIuODAwNzgxLTkuMzI4MTI1IDEyLjY2NDA2Mi0xNC42MjEwOTQgMjEuOTcyNjU2LTExLjg0Mzc1IDg4LjkzNzUgMjYuNjE3MTg3IDE1MS4wNTA3ODEgMTEwLjA4MjAzMSAxNTEuMDUwNzgxIDIwMi45OTYwOTQgMCAxMTYuODI4MTI1LTk1LjAzOTA2MiAyMTEuODYzMjgxLTIxMS44NTkzNzUgMjExLjg2MzI4MXptMCAwIiBmaWxsPSIjMDAwMDAwIi8+PHBhdGggZD0ibTIxMS44NjMyODEgMjI5LjUxNTYyNWMtOS43NSAwLTE3LjY1NjI1LTcuODk0NTMxLTE3LjY1NjI1LTE3LjY1MjM0NHYtMTk0LjIwNzAzMWMwLTkuNzYxNzE5IDcuOTA2MjUtMTcuNjU2MjUgMTcuNjU2MjUtMTcuNjU2MjVzMTcuNjUyMzQ0IDcuODk0NTMxIDE3LjY1MjM0NCAxNy42NTYyNXYxOTQuMjA3MDMxYzAgOS43NTc4MTMtNy45MDIzNDQgMTcuNjUyMzQ0LTE3LjY1MjM0NCAxNy42NTIzNDR6bTAgMCIgZmlsbD0iIzAwMDAwMCIvPjwvc3ZnPgo="
+                 alt="User Avatar" class="img-size-50 mr-3 img-circle" style="height: 20px;">
+                <div class="media-body">
+                  <h3 class="dropdown-item-title">
+                    Signout
+                    <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+                  </h3>
+                 </div>
+              </div>
+              <!-- Message End -->
+            </a>
+        </div>
+        </li>
+      </ul>
       
-      <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      s
     </div>
   </nav>
   <!-- /.navbar -->
@@ -549,7 +571,9 @@ input.invalid {
   <!-- Main Footer -->
   <footer class="main-footer">
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2020 <a href="https://rstugurejo.jatengprov.go.id">RSUD Tugurejo Provinsi Jawa Tengah</a>.</strong>
+    <div class="text-center">
+      <strong>Copyright &copy; 2020 <a href="https://rstugurejo.jatengprov.go.id">RSUD Tugurejo Provinsi Jawa Tengah</a>.</strong>
+    </div>
   </footer>
 </div>
 <!-- ./wrapper -->

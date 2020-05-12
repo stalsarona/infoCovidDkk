@@ -3,6 +3,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Covid_informasi extends CI_Controller {
 
+    
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->library('session');
+        if (!$this->session->userdata('status_log')) {
+			$this->session->set_flashdata('errorMessage', '<div class="alert alert-danger">Silahkan Sign In</div>');
+					redirect('signin');
+		}
+    }
+    
+
     public function index()
     {
         $this->load->view('V_informasi_covid');
@@ -89,6 +101,19 @@ class Covid_informasi extends CI_Controller {
         echo $response;
         
     }
+
+    public function test()
+	{
+		$newdata = array(
+            'username'  => 'johndoe',
+            'email'     => 'johndoe@some-site.com',
+            'logged_in' => TRUE
+        );
+        
+        $this->session->set_userdata($newdata);
+		//echo $this->session->userdata('username');
+	}
+
 
 }
 
