@@ -8,10 +8,6 @@ class Covid_informasi extends CI_Controller {
     {
         parent::__construct();
         $this->load->library('session');
-        if (!$this->session->userdata('status_log')) {
-			$this->session->set_flashdata('errorMessage', '<div class="alert alert-danger">Silahkan masuk dahulu !</div>');
-					redirect('signin');
-		}
     }
     
 
@@ -22,6 +18,10 @@ class Covid_informasi extends CI_Controller {
 
     public function pendataan()
     {
+        if (!$this->session->userdata('status_log')) {
+			$this->session->set_flashdata('errorMessage', '<div class="alert alert-danger">Silahkan masuk dahulu !</div>');
+					redirect('signin');
+		}
         $data['token'] = $this->private_token();
         //$data['total'] = $this->get_total_data();
         $this->load->view('V_pendataan', $data);       
