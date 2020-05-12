@@ -77,7 +77,7 @@
 </div>
 <div class="login-box">
   <div class="login-logo">
-    <a href="<?php echo base_url()?>"><img src="<?php echo base_url()?>assets/images/logo.png" alt="" style="width: 20%;height: auto;">
+    <a href="<?php echo base_url('informasi-covid19')?>"><img src="<?php echo base_url()?>assets/images/logo.png" alt="" style="width: 20%;height: auto;">
     <b>RSUD</b> Tugurejo</a>
   </div>
   <!-- /.login-logo -->
