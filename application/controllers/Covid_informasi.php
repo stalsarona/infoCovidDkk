@@ -9,7 +9,7 @@ class Covid_informasi extends CI_Controller {
         parent::__construct();
         $this->load->library('session');
         if (!$this->session->userdata('status_log')) {
-			$this->session->set_flashdata('errorMessage', '<div class="alert alert-danger">Silahkan Sign In</div>');
+			$this->session->set_flashdata('errorMessage', '<div class="alert alert-danger">Silahkan masuk dahulu !</div>');
 					redirect('signin');
 		}
     }

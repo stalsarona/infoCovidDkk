@@ -81,7 +81,7 @@
     <b>RSUD</b> Tugurejo</a>
   </div>
   <!-- /.login-logo -->
-          
+  <div class="col-md-12 text-center"><?php echo $this->session->flashdata('errorMessage');?></div>     
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in to start your session</p>
 
