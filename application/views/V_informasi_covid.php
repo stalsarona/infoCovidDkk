@@ -129,10 +129,11 @@ input.invalid {
 <body class="hold-transition layout-top-nav">
 <div class="wrapper">
 <?php 
-$total_cov_dws = $data['status']['COV_DWS_SMB']+$data['status']['COV_DWS_RWT']+$data['status']['COV_DWS_MNG'];
-$total_cov_anak = $data['status']['COV_ANK_SMB']+$data['status']['COV_ANK_RWT']+$data['status']['COV_ANK_MNG'];
+$total_cov_dws = $data['status']['COV_DWS_SMB']+$data['status']['COV_DWS_RWT']+$data['status']['COV_DWS_MNG']+$data['status']['COV_DWS_ISO'];
+$total_cov_anak = $data['status']['COV_ANK_SMB']+$data['status']['COV_ANK_RWT']+$data['status']['COV_ANK_MNG']+$data['status']['COV_ANK_ISO'];
 $total_pdp_dws = $data['status']['PDP_DWS_SMB']+$data['status']['PDP_DWS_RWT']+$data['status']['PDP_DWS_MNG'];
 $total_pdp_anak = $data['status']['PDP_ANK_SMB']+$data['status']['PDP_ANK_RWT']+$data['status']['PDP_ANK_MNG'];
+$global = $total_cov_anak+$total_cov_dws+$total_pdp_anak+$total_pdp_dws;
 ?>
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
@@ -209,7 +210,7 @@ $total_pdp_anak = $data['status']['PDP_ANK_SMB']+$data['status']['PDP_ANK_RWT']+
               <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;">
                 <h1 class="card-title m-0" style="text-align: center;font-size: 34px;">&nbsp;Informasi Pasien Covid-19 </h1> <h3><?php echo date('d-m-Y H:i:s')?></h3>
               </div>
-              <h1 class="card-title m-0" style="text-align: center;font-size: 60px; color:red;"> &nbsp; <i class="fa fa-user" style="color: red;"></i> <b>TOTAL KASUS 73 </b></h1>
+              <h1 class="card-title m-0" style="text-align: center;font-size: 60px; color:red;"> &nbsp; <i class="fa fa-user" style="color: red;"></i> <b>TOTAL KASUS <?php echo $global ?> </b></h1>
             <div class="card-body">
               
               <!-- One "tab" for each step in the form: -->
