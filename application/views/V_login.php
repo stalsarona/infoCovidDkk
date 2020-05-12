@@ -88,6 +88,7 @@
       <form id="formlogin">
         <div class="input-group mb-3">
           <input type="username" class="form-control" placeholder="Username" name="username" id="username">
+          <input type="hidden" class="form-control" placeholder="Username" name="private_token" id="private_token" value="<?php echo $token; ?>">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -159,6 +160,7 @@
     $('#btnlogin').click(function(){
       var username = $('#username').val();
       var password = $('#password').val();
+      var private_token = $('#private_token').val();
       if(username == "" || password == ""){
         swal('Username / Password','harus di isi','info');
       } else {
@@ -166,7 +168,7 @@
           $.ajax({
             type: "POST",
             url: "<?php echo base_url('AuthCovid/login_pendataan')?>",
-            data: {username:username, password:password},
+            data: {username:username, password:password, private_token:private_token},
             dataType: "json",
             beforeSend: function() {
                 $('.overlay').css('display', 'block');

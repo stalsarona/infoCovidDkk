@@ -13,12 +13,14 @@ class Covid_informasi extends CI_Controller {
 
     public function index()
     {
-        $this->load->view('V_informasi_covid');
+        $data['private_token'] = $this->private_token();
+        $data['data'] = $this->get_total_data();
+        $this->load->view('V_informasi_covid', $data);
     }
 
     public function pendataan()
     {
-        if (!$this->session->userdata('status_log')) {
+        if ($this->session->userdata('status_log') != TRUE) {
 			$this->session->set_flashdata('errorMessage', '<div class="alert alert-danger">Silahkan masuk dahulu !</div>');
 					redirect('signin');
 		}
@@ -52,8 +54,8 @@ class Covid_informasi extends CI_Controller {
 		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wsrstugu/rstugu/covid/get_data_terakhir";
         $data = json_decode($this->get_cors($url), TRUE);
         
-        print_r($data);
-		//return $data;
+        //print_r($data['status']['ID']);
+		return $data;
 	}
     
     public function simpan_total()
@@ -62,9 +64,11 @@ class Covid_informasi extends CI_Controller {
             'COV_DWS_SMB' => $this->input->post('cov_dws_sembuh'),
             'COV_DWS_RWT' => urlencode($this->input->post('cov_dws_dirawat')),
             'COV_DWS_MNG' => urlencode($this->input->post('cov_dws_meninggal')),
+            'COV_DWS_ISO' => urlencode($this->input->post('cov_dws_iso')),
             'COV_ANK_SMB' => urlencode($this->input->post('cov_ank_sembuh')),
             'COV_ANK_RWT' => urlencode($this->input->post('cov_ank_dirawat')),
             'COV_ANK_MNG' => urlencode($this->input->post('cov_ank_meninggal')),
+            'COV_ANK_ISO' => urlencode($this->input->post('cov_ank_iso')),
             'PDP_DWS_SMB' => urlencode($this->input->post('pdp_dws_sembuh')),
             'PDP_DWS_RWT' => urlencode($this->input->post('pdp_dws_dirawat')),
             'PDP_DWS_MNG' => urlencode($this->input->post('pdp_dws_meninggal')),
@@ -77,7 +81,8 @@ class Covid_informasi extends CI_Controller {
             'ODP_ANK_SMB' => urlencode($this->input->post('odp_ank_sembuh')),
             'ODP_ANK_RWT' => urlencode($this->input->post('odp_ank_dirawat')),
             'ODP_ANK_MNG' => urlencode($this->input->post('odp_ank_meninggal')),
-          
+            'USER_INPUT' => urlencode($this->session->userdata('username')),
+            'private_key' => $this->input->post('private_token')
         );
 
         $curl = curl_init();

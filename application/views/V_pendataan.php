@@ -280,21 +280,29 @@ input.invalid {
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>Sembuh :</label>
-                                                            <input type="text" placeholder="Sembuh" name="cov_dws_sembuh" id="cov_dws_sembuh" autocomplete="off" class="form-control reset ">
+                                                            <input type="text" placeholder="Sembuh" onkeyup="allowNumbersOnly(this, event)" name="cov_dws_sembuh" id="cov_dws_sembuh" autocomplete="off" class="form-control reset ">
+                                                            <input type="hidden" placeholder="" onkeyup="allowNumbersOnly(this, event)" name="private_token" id="private_token" autocomplete="off" value="<?php echo $token?>" class=" reset ">
                                                         </div>
                                                     </div>  
                                                     <div class="col-md-4">
                                                         <!-- select -->
                                                         <div class="form-group">
+                                                            <label>Isolasi Non RS :</label>
+                                                            <input type="text" placeholder="Sembuh" onkeyup="allowNumbersOnly(this, event)" name="cov_dws_iso" id="cov_dws_iso" autocomplete="off" class="form-control reset ">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <!-- select -->
+                                                        <div class="form-group">
                                                             <label>Dirawat :</label>
-                                                            <input type="text" placeholder="Di Rawat" name="cov_dws_dirawat" id="cov_dws_dirawat" autocomplete="off" class="form-control reset ">
+                                                            <input type="text" placeholder="Di Rawat" onkeyup="allowNumbersOnly(this, event)" name="cov_dws_dirawat" id="cov_dws_dirawat" autocomplete="off" class="form-control reset ">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>Meninggal :</label>
-                                                            <input type="text" placeholder="Meninggal" name="cov_dws_meninggal" id="cov_dws_meninggal" autocomplete="off" class="form-control reset ">
+                                                            <input type="text" placeholder="Meninggal" onkeyup="allowNumbersOnly(this, event)" name="cov_dws_meninggal" id="cov_dws_meninggal" autocomplete="off" class="form-control reset ">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -323,21 +331,28 @@ input.invalid {
                                                     <!-- select -->
                                                     <div class="form-group">
                                                         <label>Sembuh :</label>
-                                                        <input type="text" placeholder="Sembuh" name="cov_ank_sembuh" id="cov_ank_sembuh" autocomplete="off" class="form-control reset ">
+                                                        <input type="text" placeholder="Sembuh" onkeyup="allowNumbersOnly(this, event)" name="cov_ank_sembuh" id="cov_ank_sembuh" autocomplete="off" class="form-control reset ">
                                                     </div>
-                                                </div>  
+                                                </div>
+                                                <div class="col-md-4">
+                                                        <!-- select -->
+                                                        <div class="form-group">
+                                                            <label>Isolasi Non RS :</label>
+                                                            <input type="text" placeholder="Sembuh" onkeyup="allowNumbersOnly(this, event)" name="cov_ank_iso" id="cov_ank_iso" autocomplete="off" class="form-control reset ">
+                                                        </div>
+                                                    </div>  
                                                 <div class="col-md-4">
                                                     <!-- select -->
                                                     <div class="form-group">
                                                         <label>Dirawat :</label>
-                                                        <input type="text" placeholder="Di Rawat" name="cov_ank_dirawat" id="cov_ank_dirawat" autocomplete="off" class="form-control reset ">
+                                                        <input type="text" placeholder="Di Rawat" onkeyup="allowNumbersOnly(this, event)" name="cov_ank_dirawat" id="cov_ank_dirawat" autocomplete="off" class="form-control reset ">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <!-- select -->
                                                     <div class="form-group">
                                                         <label>Meninggal :</label>
-                                                        <input type="text" placeholder="Meninggal" name="cov_ank_meninggal" id="cov_ank_meninggal" autocomplete="off" class="form-control reset ">
+                                                        <input type="text" placeholder="Meninggal" onkeyup="allowNumbersOnly(this, event)" name="cov_ank_meninggal" id="cov_ank_meninggal" autocomplete="off" class="form-control reset ">
                                                     </div>
                                                 </div>
                                             </div>
@@ -375,21 +390,21 @@ input.invalid {
                                                     <!-- select -->
                                                     <div class="form-group">
                                                         <label>Sembuh :</label>
-                                                        <input type="text" placeholder="Sembuh" name="pdp_dws_sembuh" id="pdp_dws_sembuh" autocomplete="off" class="form-control reset ">
+                                                        <input type="text" placeholder="Sembuh" onkeyup="allowNumbersOnly(this, event)" name="pdp_dws_sembuh" id="pdp_dws_sembuh" autocomplete="off" class="form-control reset ">
                                                     </div>
                                                 </div>  
                                                 <div class="col-md-4">
                                                     <!-- select -->
                                                     <div class="form-group">
                                                         <label>Dirawat :</label>
-                                                        <input type="text" placeholder="Di Rawat" name="pdp_dws_dirawat" id="pdp_dws_dirawat" autocomplete="off" class="form-control reset ">
+                                                        <input type="text" placeholder="Di Rawat" onkeyup="allowNumbersOnly(this, event)" name="pdp_dws_dirawat" id="pdp_dws_dirawat" autocomplete="off" class="form-control reset ">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <!-- select -->
                                                     <div class="form-group">
                                                         <label>Meninggal :</label>
-                                                        <input type="text" placeholder="Meninggal" name="pdp_dws_meninggal" id="pdp_dws_meninggal" autocomplete="off" class="form-control reset ">
+                                                        <input type="text" placeholder="Meninggal" onkeyup="allowNumbersOnly(this, event)" name="pdp_dws_meninggal" id="pdp_dws_meninggal" autocomplete="off" class="form-control reset ">
                                                     </div>
                                                 </div>
                                             </div>
@@ -418,21 +433,21 @@ input.invalid {
                                                     <!-- select -->
                                                     <div class="form-group">
                                                         <label>Sembuh :</label>
-                                                        <input type="text" placeholder="Sembuh" name="pdp_ank_sembuh" id="pdp_ank_sembuh" autocomplete="off" class="form-control reset ">
+                                                        <input type="text" placeholder="Sembuh" onkeyup="allowNumbersOnly(this, event)" name="pdp_ank_sembuh" id="pdp_ank_sembuh" autocomplete="off" class="form-control reset ">
                                                     </div>
                                                 </div>  
                                                 <div class="col-md-4">
                                                     <!-- select -->
                                                     <div class="form-group">
                                                         <label>Dirawat :</label>
-                                                        <input type="text" placeholder="Di Rawat" name="pdp_ank_dirawat" id="pdp_ank_dirawat" autocomplete="off" class="form-control reset ">
+                                                        <input type="text" placeholder="Di Rawat" onkeyup="allowNumbersOnly(this, event)" name="pdp_ank_dirawat" id="pdp_ank_dirawat" autocomplete="off" class="form-control reset ">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <!-- select -->
                                                     <div class="form-group">
                                                         <label>Meninggal :</label>
-                                                        <input type="text" placeholder="Meninggal" name="pdp_ank_meninggal" id="pdp_ank_meninggal" autocomplete="off" class="form-control reset ">
+                                                        <input type="text" placeholder="Meninggal" onkeyup="allowNumbersOnly(this, event)" name="pdp_ank_meninggal" id="pdp_ank_meninggal" autocomplete="off" class="form-control reset ">
                                                     </div>
                                                 </div>
                                             </div>
@@ -442,8 +457,7 @@ input.invalid {
                             </div>
                         </div>
                     </div> 
-                    
-                    <div class="col-md-12">
+                    <div class="col-md-12" style="display:none;">
                         <div class="card card-info card-outline">
                             <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;">
                                 <h1 class="card-title m-0" style="text-align: center;font-size: 20px;">Orang Dalam Pengawasan (ODP)</h1>
@@ -471,21 +485,21 @@ input.invalid {
                                                     <!-- select -->
                                                     <div class="form-group">
                                                         <label>Sembuh :</label>
-                                                        <input type="text" placeholder="Sembuh" name="odp_dws_sembuh" id="odp_dws_sembuh" autocomplete="off" class="form-control reset ">
+                                                        <input type="text" placeholder="Sembuh" onkeyup="allowNumbersOnly(this, event)" name="odp_dws_sembuh" id="odp_dws_sembuh" autocomplete="off" class="form-control reset ">
                                                     </div>
                                                 </div>  
                                                 <div class="col-md-4">
                                                     <!-- select -->
                                                     <div class="form-group">
                                                         <label>Dirawat :</label>
-                                                        <input type="text" placeholder="Di Rawat" name="odp_dws_dirawat" id="odp_dws_dirawat" autocomplete="off" class="form-control reset ">
+                                                        <input type="text" placeholder="Di Rawat" onkeyup="allowNumbersOnly(this, event)" name="odp_dws_dirawat" id="odp_dws_dirawat" autocomplete="off" class="form-control reset ">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <!-- select -->
                                                     <div class="form-group">
                                                         <label>Meninggal :</label>
-                                                        <input type="text" placeholder="Meninggal" name="odp_dws_meninggal" id="odp_dws_meninggal" autocomplete="off" class="form-control reset ">
+                                                        <input type="text" placeholder="Meninggal" onkeyup="allowNumbersOnly(this, event)" name="odp_dws_meninggal" id="odp_dws_meninggal" autocomplete="off" class="form-control reset ">
                                                     </div>
                                                 </div>
                                             </div>
@@ -514,21 +528,116 @@ input.invalid {
                                                     <!-- select -->
                                                     <div class="form-group">
                                                         <label>Sembuh :</label>
-                                                        <input type="text" placeholder="Sembuh" name="odp_ank_sembuh" id="odp_ank_sembuh" autocomplete="off" class="form-control reset ">
+                                                        <input type="text" placeholder="Sembuh" onkeyup="allowNumbersOnly(this, event)" name="odp_ank_sembuh" id="odp_ank_sembuh" autocomplete="off" class="form-control reset ">
                                                     </div>
                                                 </div>  
                                                 <div class="col-md-4">
                                                     <!-- select -->
                                                     <div class="form-group">
                                                         <label>Dirawat :</label>
-                                                        <input type="text" placeholder="Di Rawat" name="odp_ank_dirawat" id="odp_ank_dirawat" autocomplete="off" class="form-control reset ">
+                                                        <input type="text" placeholder="Di Rawat" onkeyup="allowNumbersOnly(this, event)" name="odp_ank_dirawat" id="odp_ank_dirawat" autocomplete="off" class="form-control reset ">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <!-- select -->
                                                     <div class="form-group">
                                                         <label>Meninggal :</label>
-                                                        <input type="text" placeholder="Meninggal" name="odp_ank_meninggal" id="odp_ank_meninggal" autocomplete="off" class="form-control reset ">
+                                                        <input type="text" placeholder="Meninggal" onkeyup="allowNumbersOnly(this, event)" name="odp_ank_meninggal" id="odp_ank_meninggal" autocomplete="off" class="form-control reset ">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                       
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12" style="display:none;">
+                        <div class="card card-info card-outline">
+                            <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;">
+                                <h1 class="card-title m-0" style="text-align: center;font-size: 20px;">Orang Dalam Pengawasan (ODP)</h1>
+                            </div>
+                            <div class="card-body">
+                            <!-- One "tab" for each step in the form: -->
+                                <div class="">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="card card-success">
+                                                    <div class="card-header" style="background:#17a2b8; color:white; font-size:45px;">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-md-12 text-center">
+                                                                Dewasa
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <!-- select -->
+                                                    <div class="form-group">
+                                                        <label>Sembuh :</label>
+                                                        <input type="text" placeholder="Sembuh" onkeyup="allowNumbersOnly(this, event)" name="odp_dws_sembuh" id="odp_dws_sembuh" autocomplete="off" class="form-control reset ">
+                                                    </div>
+                                                </div>  
+                                                <div class="col-md-4">
+                                                    <!-- select -->
+                                                    <div class="form-group">
+                                                        <label>Dirawat :</label>
+                                                        <input type="text" placeholder="Di Rawat" onkeyup="allowNumbersOnly(this, event)" name="odp_dws_dirawat" id="odp_dws_dirawat" autocomplete="off" class="form-control reset ">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <!-- select -->
+                                                    <div class="form-group">
+                                                        <label>Meninggal :</label>
+                                                        <input type="text" placeholder="Meninggal" onkeyup="allowNumbersOnly(this, event)" name="odp_dws_meninggal" id="odp_dws_meninggal" autocomplete="off" class="form-control reset ">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 batas"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="card card-success">
+                                                <div class="card-header" style="background:#17a2b8; color:white; font-size:45px;">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-md-12 text-center">
+                                                            Anak
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <!-- select -->
+                                                    <div class="form-group">
+                                                        <label>Sembuh :</label>
+                                                        <input type="text" placeholder="Sembuh" onkeyup="allowNumbersOnly(this, event)" name="odp_ank_sembuh" id="odp_ank_sembuh" autocomplete="off" class="form-control reset ">
+                                                    </div>
+                                                </div>  
+                                                <div class="col-md-4">
+                                                    <!-- select -->
+                                                    <div class="form-group">
+                                                        <label>Dirawat :</label>
+                                                        <input type="text" placeholder="Di Rawat" onkeyup="allowNumbersOnly(this, event)" name="odp_ank_dirawat" id="odp_ank_dirawat" autocomplete="off" class="form-control reset ">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <!-- select -->
+                                                    <div class="form-group">
+                                                        <label>Meninggal :</label>
+                                                        <input type="text" placeholder="Meninggal" onkeyup="allowNumbersOnly(this, event)" name="odp_ank_meninggal" id="odp_ank_meninggal" autocomplete="off" class="form-control reset ">
                                                     </div>
                                                 </div>
                                             </div>
@@ -647,10 +756,11 @@ function nextPrev(n) {
       $('.overlay').css('display', 'none');
       if(response.status == false){
         var exp = '<?php echo base_url('404_override')?>';
-        //window.location.replace(exp);
+        window.location.replace(exp);
       }else {     
+        swal('Berhasil', 'menyimpan data', 'success');
         var pendataan = '<?php echo base_url('pendataan')?>/'
-        //window.location.replace(pendataan);
+        window.location.replace(pendataan);
       }
     }
     });
