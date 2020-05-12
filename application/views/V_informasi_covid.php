@@ -133,6 +133,11 @@ $total_cov_dws = $data['status']['COV_DWS_SMB']+$data['status']['COV_DWS_RWT']+$
 $total_cov_anak = $data['status']['COV_ANK_SMB']+$data['status']['COV_ANK_RWT']+$data['status']['COV_ANK_MNG']+$data['status']['COV_ANK_ISO'];
 $total_pdp_dws = $data['status']['PDP_DWS_SMB']+$data['status']['PDP_DWS_RWT']+$data['status']['PDP_DWS_MNG'];
 $total_pdp_anak = $data['status']['PDP_ANK_SMB']+$data['status']['PDP_ANK_RWT']+$data['status']['PDP_ANK_MNG'];
+
+$total_sembuh = $data['status']['COV_DWS_SMB']+$data['status']['COV_ANK_SMB']+$data['status']['PDP_ANK_SMB']+$data['status']['PDP_DWS_SMB'];
+$total_isolasi = $data['status']['COV_DWS_ISO']+$data['status']['COV_ANK_ISO'];
+$total_dirawat = $data['status']['COV_DWS_RWT']+$data['status']['COV_ANK_RWT']+$data['status']['PDP_DWS_RWT']+$data['status']['PDP_ANK_RWT'];
+$total_meninggal = $data['status']['COV_DWS_MNG']+$data['status']['COV_ANK_MNG']+$data['status']['PDP_DWS_MNG']+$data['status']['PDP_ANK_MNG'];
 $global = $total_cov_anak+$total_cov_dws+$total_pdp_anak+$total_pdp_dws;
 ?>
   <!-- Navbar -->
@@ -227,7 +232,7 @@ $global = $total_cov_anak+$total_cov_dws+$total_pdp_anak+$total_pdp_dws;
                                       </div>
                                       <div class="col-md-12">
                                         <div class="title-text" style="font-size:90px;">
-                                          <b> 52 </b>
+                                          <b> <?php echo $total_sembuh ?> </b>
                                         </div>
                                       </div>
                                     
@@ -248,7 +253,7 @@ $global = $total_cov_anak+$total_cov_dws+$total_pdp_anak+$total_pdp_dws;
                                   </div>
                                   <div class="col-md-12">
                                     <div class="title-total" style="font-size:90px;">
-                                      <b> 0 </b>
+                                      <b> <?php echo $total_isolasi ?> </b>
                                     </div>
                                   </div>
                                 
@@ -269,7 +274,7 @@ $global = $total_cov_anak+$total_cov_dws+$total_pdp_anak+$total_pdp_dws;
                                       </div>
                                       <div class="col-md-12">
                                         <div class="title-total" style="font-size:90px;">
-                                            <b> 8 </b>
+                                            <b> <?php echo $total_dirawat ?> </b>
                                         </div>
                                       </div>
                                     
@@ -290,7 +295,7 @@ $global = $total_cov_anak+$total_cov_dws+$total_pdp_anak+$total_pdp_dws;
                                       </div>
                                       <div class="col-md-12">
                                         <div class="title-total" style="font-size:90px;">
-                                          <b> 13 </b>
+                                          <b> <?php echo $total_meninggal ?> </b>
                                         </div>
                                       </div>
                                     
