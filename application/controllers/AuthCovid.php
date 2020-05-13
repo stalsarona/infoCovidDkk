@@ -44,8 +44,8 @@ class AuthCovid extends CI_Controller {
 	{
 		$curl = curl_init();
 
-		$username = $this->input->post('username');
-		$password = $this->input->post('password');
+		$username = htmlentities($this->input->post('username', TRUE));
+		$password = htmlentities($this->input->post('password', TRUE));
 		$token = $this->input->post('private_token');
 		curl_setopt_array($curl, array(
 		CURLOPT_URL => "http://api.rstugurejo.jatengprov.go.id:8000/wsrstugu/rstugu/covid/login_pendataan",
