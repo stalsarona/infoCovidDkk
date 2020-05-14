@@ -288,7 +288,7 @@ input.invalid {
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>Isolasi Non RS :</label>
-                                                            <input type="text" placeholder="Sembuh" onkeyup="allowNumbersOnly(this, event)" name="cov_dws_iso" id="cov_dws_iso" autocomplete="off" class="form-control reset ">
+                                                            <input type="text" placeholder="Isolasi Non RS" onkeyup="allowNumbersOnly(this, event)" name="cov_dws_iso" id="cov_dws_iso" autocomplete="off" class="form-control reset ">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
@@ -338,7 +338,7 @@ input.invalid {
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>Isolasi Non RS :</label>
-                                                            <input type="text" placeholder="Sembuh" onkeyup="allowNumbersOnly(this, event)" name="cov_ank_iso" id="cov_ank_iso" autocomplete="off" class="form-control reset ">
+                                                            <input type="text" placeholder="Isolasi Non RS" onkeyup="allowNumbersOnly(this, event)" name="cov_ank_iso" id="cov_ank_iso" autocomplete="off" class="form-control reset ">
                                                         </div>
                                                     </div>  
                                                 <div class="col-md-4">
