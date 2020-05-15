@@ -107,7 +107,9 @@ input.invalid {
   padding-top: 12px;
   color: #fff;
 }
-
+.title-total{
+    font-size:90px;
+}
 @media (max-width: 768px) {
   .back-to-top {
     bottom: 15px;
@@ -118,11 +120,57 @@ input.invalid {
     margin: -12px;
   }
 }
+@media(max-width: 375px){
+  .title-total{
+    font-size:64px;
+  }
+}
+@media(max-width: 1920px){
+  .title-tota1l{
+    font-size:54px;
+  }
+}
 .body-padding{
   padding : 7px;
 }
 .body-padding2{
   padding : 10px;
+}
+.font-badge{
+  font-size: 30px;
+  background-color: white;
+}
+@media(max-width : 1420px){
+  .badge-sembuh{
+    font-size: 19px;
+  }
+  .badge-iso{
+    font-size: 19px;
+  }
+  .badge-drawat{
+    font-size: 19px;
+  }
+  .badge-mnggl{
+    font-size: 19px;
+  }
+ 
+}
+
+.badge-sembuh{
+  
+  color: #28a745;
+}
+.badge-iso{
+  
+  color: #6c84f1;
+}
+.badge-drawat{
+  
+  color: #ffa500;
+}
+.badge-mnggl{
+  
+  color: #dc3545;
 }
   </style>
 </head>
@@ -139,6 +187,11 @@ $total_isolasi = $data['status']['COV_DWS_ISO']+$data['status']['COV_ANK_ISO'];
 $total_dirawat = $data['status']['COV_DWS_RWT']+$data['status']['COV_ANK_RWT']+$data['status']['PDP_DWS_RWT']+$data['status']['PDP_ANK_RWT'];
 $total_meninggal = $data['status']['COV_DWS_MNG']+$data['status']['COV_ANK_MNG']+$data['status']['PDP_DWS_MNG']+$data['status']['PDP_ANK_MNG'];
 $global = $total_cov_anak+$total_cov_dws+$total_pdp_anak+$total_pdp_dws;
+
+$prsn_total_smbh = $total_sembuh/$global*100;
+$prsn_total_iso = $total_isolasi/$global*100;
+$prsn_total_drawat = $total_dirawat/$global*100;
+$prsn_total_mnggl = $total_meninggal/$global*100;
 ?>
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
@@ -231,8 +284,8 @@ $global = $total_cov_anak+$total_cov_dws+$total_pdp_anak+$total_pdp_dws;
                                         Sembuh
                                       </div>
                                       <div class="col-md-12">
-                                        <div class="title-text" style="font-size:90px;">
-                                          <b> <?php echo $total_sembuh ?> </b>
+                                        <div class="title-total">
+                                          <b> <?php echo $total_sembuh ?> </b><span class="badge badge-sembuh font-badge"><?php echo round($prsn_total_smbh, 2); ?> %</span>
                                         </div>
                                       </div>
                                     
@@ -252,8 +305,8 @@ $global = $total_cov_anak+$total_cov_dws+$total_pdp_anak+$total_pdp_dws;
                                       Isolasi Non Rs
                                   </div>
                                   <div class="col-md-12">
-                                    <div class="title-total" style="font-size:90px;">
-                                      <b> <?php echo $total_isolasi ?> </b>
+                                    <div class="title-total">
+                                      <b> <?php echo $total_isolasi ?> </b><span class="badge badge-iso font-badge"><?php echo round($prsn_total_iso, 2); ?> %</span>
                                     </div>
                                   </div>
                                 
@@ -273,8 +326,8 @@ $global = $total_cov_anak+$total_cov_dws+$total_pdp_anak+$total_pdp_dws;
                                           Dirawat
                                       </div>
                                       <div class="col-md-12">
-                                        <div class="title-total" style="font-size:90px;">
-                                            <b> <?php echo $total_dirawat ?> </b>
+                                        <div class="title-total">
+                                            <b> <?php echo $total_dirawat ?> </b><span class="badge badge-drawat font-badge"><?php echo round($prsn_total_drawat, 2); ?> %</span>
                                         </div>
                                       </div>
                                     
@@ -294,8 +347,8 @@ $global = $total_cov_anak+$total_cov_dws+$total_pdp_anak+$total_pdp_dws;
                                         Meninggal
                                       </div>
                                       <div class="col-md-12">
-                                        <div class="title-total" style="font-size:90px;">
-                                          <b> <?php echo $total_meninggal ?> </b>
+                                        <div class="title-total">
+                                          <b> <?php echo $total_meninggal ?> </b><span class="badge badge-mnggl font-badge"><?php echo round($prsn_total_mnggl, 2); ?> %</span>
                                         </div>
                                       </div>
                                     
