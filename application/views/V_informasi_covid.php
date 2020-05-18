@@ -266,7 +266,7 @@ $prsn_total_mnggl = $total_meninggal/$global*100;
           <div class="col-lg-12">
             <div class="card card-danger card-outline">
               <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;">
-                <h1 class="card-title m-0" style="text-align: center;font-size: 34px;">&nbsp;Informasi Pasien Covid-19 </h1> <h3><?php echo date('d-m-Y H:i:s')?></h3>
+                <h1 class="card-title m-0" style="text-align: center;font-size: 34px;">&nbsp;Informasi Pasien Covid-19 </h1> <h3><?php echo date('d-m-Y H:i:s', strtotime($data['status']['TGLINPUT']))?></h3>
               </div>
               <h1 class="card-title m-0" style="text-align: center;font-size: 60px; color:red;"> &nbsp; <i class="fa fa-user" style="color: red;"></i> <b>TOTAL KASUS <?php echo $global ?> </b></h1>
             <div class="card-body">
