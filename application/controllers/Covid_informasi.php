@@ -8,6 +8,9 @@ class Covid_informasi extends CI_Controller {
     {
         parent::__construct();
         $this->load->library('session');
+        
+        $this->load->model('M_covid');
+        
     }
     
 
@@ -15,6 +18,12 @@ class Covid_informasi extends CI_Controller {
     {
         $data['private_token'] = $this->private_token();
         $data['data'] = $this->get_total_data();
+        
+        // if(count($data1) > 0 ){
+        //     $data['data'] = $data1;          
+        // } else {
+        //     $data['data'] = $this->info_covid_mysql();         
+        // }
         $this->load->view('V_informasi_covid', $data);
     }
 
@@ -117,7 +126,27 @@ class Covid_informasi extends CI_Controller {
         
         $this->session->set_userdata($newdata);
 		//echo $this->session->userdata('username');
-	}
+    }
+    
+    public function info_covid_mysql()
+    {
+       $data = $this->M_covid->info_covid_mysql();
+       foreach($data as $key){}
+       if(count($data) > 0){
+            $response = array('status' => $key,
+                            'message' => 'success',
+                            'code' => 200
+            );	
+        } else {
+            $response = array('status' => false,
+                            'message' => 'failed',
+                            'code' => 403
+            );	
+        }
+       
+        return $response;
+       
+    }
 
 
 }
