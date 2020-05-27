@@ -332,4 +332,26 @@ class Screening_c extends CI_Controller {
 		
 	}
 
+	public function get_data_by_user()
+	{
+		
+		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wsrstugu/rstugu/covid/get_data_by_user";
+        $data = json_decode($this->get_cors($url), TRUE);
+        
+        //print_r($data['status']['ID']);
+		return $data;
+	}
+
+	public function laporan()
+    {
+        if ($this->session->userdata('status_log') != TRUE) {
+			$this->session->set_flashdata('errorMessage', '<div class="alert alert-danger">Silahkan masuk dahulu !</div>');
+					redirect('signin');
+		}
+		$data['token'] = $this->private_token();
+		$data['data'] = $this->get_data_by_user();
+        //$data['total'] = $this->get_total_data();
+        $this->load->view('V_laporan', $data);       
+    }
+
 }

@@ -13,17 +13,16 @@ class Covid_informasi extends CI_Controller {
         
     }
     
-
     public function index()
     {
         $data['private_token'] = $this->private_token();
-        $data['data'] = $this->get_total_data();
+        $data1 = $this->get_total_data();
         
-        // if(count($data1) > 0 ){
-        //     $data['data'] = $data1;          
-        // } else {
-        //     $data['data'] = $this->info_covid_mysql();         
-        // }
+        if(count($data1) > 0 ){
+            $data['data'] = $data1;          
+        } else {
+            $data['data'] = $this->info_covid_mysql();         
+        }
         $this->load->view('V_informasi_covid', $data);
     }
 
