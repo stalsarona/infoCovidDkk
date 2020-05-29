@@ -19,148 +19,188 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/adminlte.min.css');?>">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  
+  <!-- Resources -->
+  <script src="https://www.amcharts.com/lib/4/core.js"></script>
+  <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+  <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+
   <style>
   /* Style the form */
-#regForm {
-  background-color: #ffffff;
-  margin: 0px auto;
-  padding: 0px;
-  width: 100%;
-  min-width: 300px;
-}
+    #regForm {
+      background-color: #ffffff;
+      margin: 0px auto;
+      padding: 0px;
+      width: 100%;
+      min-width: 300px;
+    }
 
-/* Style the input fields */
-/* input {
-  padding: 10px;
-  font-size: 17px;
-  font-family: Raleway;
-  border: 1px solid #aaaaaa;
-} */
+    #chartdiv {
+      width: 100%;
+      height: 500px;
+    }
 
-/* Mark input boxes that gets an error on validation: */
-input.invalid {
-  background-color: #ffdddd;
-}
+    /* Style the input fields */
+    /* input {
+      padding: 10px;
+      font-size: 17px;
+      font-family: Raleway;
+      border: 1px solid #aaaaaa;
+    } */
 
-.cardku {
-  background-color: #ffdddd;
-}
-/* Hide all steps by default: */
-.tab {
-  display: none;
-}
+    /* Mark input boxes that gets an error on validation: */
+    input.invalid {
+      background-color: #ffdddd;
+    }
 
-/* Make circles that indicate the steps of the form: */
-.step {
-  height: 15px;
-  width: 15px;
-  margin: 0 2px;
-  background-color: #bbbbbb;
-  border: none;
-  border-radius: 50%;
-  display: inline-block;
-  opacity: 0.5;
-}
+    .cardku {
+      background-color: #ffdddd;
+    }
+    /* Hide all steps by default: */
+    .tab {
+      display: none;
+    }
 
-/* Mark the active step: */
-.step.active {
-  opacity: 1;
-}
+    /* Make circles that indicate the steps of the form: */
+    .step {
+      height: 15px;
+      width: 15px;
+      margin: 0 2px;
+      background-color: #bbbbbb;
+      border: none;
+      border-radius: 50%;
+      display: inline-block;
+      opacity: 0.5;
+    }
 
-/* Mark the steps that are finished and valid: */
-.step.finish {
-  background-color: #4CAF50;
-}
+    /* Mark the active step: */
+    .step.active {
+      opacity: 1;
+    }
 
-.batas{
-    border-bottom: 1px solid rgba(0,0,0,.125);
-    margin-bottom: 10px;
-}
+    /* Mark the steps that are finished and valid: */
+    .step.finish {
+      background-color: #4CAF50;
+    }
 
-@media(max-width: 599px){
-  	.btn-cari {
-	    padding-top: 0px;
-	  }
-}
-.overlay {
-  height: 100%;
-  width: 100%;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0, 0.9);
-  overflow-y: hidden;
-  transition: 0.5s;
-  display: none;
-}
+    .batas{
+        border-bottom: 1px solid rgba(0,0,0,.125);
+        margin-bottom: 10px;
+    }
 
-.overlay-content {
-  position: relative;
-  top: 25%;
-  width: 100%;
-  text-align: center;
-  margin-top: 30px;
-  
-}
-.loader {
-  border: 16px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 16px solid #dc3545;
-  width: 120px;
-  height: 120px;
-  -webkit-animation: spin 2s linear infinite; /* Safari */
-  animation: spin 2s linear infinite;
-  position: fixed;
-  z-index: 100;
-  right: 50%;
-  left: 45%;
-  top: 50%;
-  bottom: 0px;
-  display: block;
-}
+    @media(max-width: 599px){
+        .btn-cari {
+          padding-top: 0px;
+        }
+    }
+    .overlay {
+      height: 100%;
+      width: 100%;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      background-color: rgb(0,0,0);
+      background-color: rgba(0,0,0, 0.9);
+      overflow-y: hidden;
+      transition: 0.5s;
+      display: none;
+    }
 
-/* Safari */
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
-}
+    .overlay-content {
+      position: relative;
+      top: 25%;
+      width: 100%;
+      text-align: center;
+      margin-top: 30px;
+      
+    }
+    .loader {
+      border: 16px solid #f3f3f3;
+      border-radius: 50%;
+      border-top: 16px solid #dc3545;
+      width: 120px;
+      height: 120px;
+      -webkit-animation: spin 2s linear infinite; /* Safari */
+      animation: spin 2s linear infinite;
+      position: fixed;
+      z-index: 100;
+      right: 50%;
+      left: 45%;
+      top: 50%;
+      bottom: 0px;
+      display: block;
+    }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-/* Back to top button */
-.back-to-top {
-  position: fixed;
-  display: none;
-  background: #18d26e;
-  color: #fff;
-  display: inline-block;
-  width: 44px;
-  height: 44px;
-  text-align: center;
-  line-height: 1;
-  font-size: 16px;
-  border-radius: 50%;
-  right: 15px;
-  bottom: 15px;
-  transition: background 0.5s;
-  z-index: 11;
-}
+    /* Safari */
+    @-webkit-keyframes spin {
+      0% { -webkit-transform: rotate(0deg); }
+      100% { -webkit-transform: rotate(360deg); }
+    }
 
-.back-to-top i {
-  padding-top: 12px;
-  color: #fff;
-}
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    /* Back to top button */
+    .back-to-top {
+      position: fixed;
+      display: none;
+      background: #18d26e;
+      color: #fff;
+      display: inline-block;
+      width: 44px;
+      height: 44px;
+      text-align: center;
+      line-height: 1;
+      font-size: 16px;
+      border-radius: 50%;
+      right: 15px;
+      bottom: 15px;
+      transition: background 0.5s;
+      z-index: 11;
+    }
 
-@media (max-width: 768px) {
-  .back-to-top {
-    bottom: 15px;
-  }
-}
+    .back-to-top i {
+      padding-top: 12px;
+      color: #fff;
+    }
+
+    @media (max-width: 768px) {
+      .back-to-top {
+        bottom: 15px;
+      }
+    }
   </style>
+
+  <!-- Chart code -->
+  <script>
+  am4core.ready(function() {
+
+  // Themes begin
+  am4core.useTheme(am4themes_animated);
+  // Themes end
+
+  // Create chart
+  var chart = am4core.create("chartdiv", am4charts.PieChart);
+  chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+
+  // Set up data source
+  chart.dataSource.url = "http://api.rstugurejo.jatengprov.go.id:8000/wsrstugu/rstugu/covid/get_total_by_hasil";
+
+  var series = chart.series.push(new am4charts.PieSeries());
+  series.dataFields.value = "Jmluser";
+  series.dataFields.radiusValue = "value";
+  series.dataFields.category = "Hasil";
+  series.slices.template.cornerRadius = 6;
+  series.colors.step = 3;
+
+  series.hiddenState.properties.endAngle = -90;
+
+  chart.legend = new am4charts.Legend();
+
+  }); // end am4core.ready()
+  </script>
 </head>
 <body class="hold-transition layout-top-nav">
 <div class="wrapper">
@@ -244,42 +284,61 @@ input.invalid {
           <div class="col-lg-12">
             <div class="card card-primary card-outline">
               <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;">
-                <h1 class="card-title m-0" style="text-align: center;font-size: 34px;">" Bersama Lawan Corona "</h1>
+                <h1 class="card-title m-0" style="text-align: center;font-size: 34px;">" Dashboard Pelaporan Screening Mandiri Covid 19 "</h1>
               </div>
-            <div class="card-body">
-              <form id="regForm">
-              <!-- One "tab" for each step in the form: -->
-              <div class="tab">
-                <h2>Pelaporan Screening Covid 19</h2>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card card-warning card-outline">
-                            <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;">
-                                <h1 class="card-title m-0" style="text-align: center;font-size: 20px;">Total User yang Melakukan Proses Screening</h1>
-                            </div>
-                            <div class="card-body">
-                            <!-- One "tab" for each step in the form: -->
-                                <div class="">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                        <div class="card card-success">
-                                                    <div class="card-header" style="background:#00cc66; color:white; font-size:45px;">
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="col-md-12 text-center">
-                                                                <?php echo $data['status']['JUMLAHINPUTAN']?> user
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                          </div>
+              <div class="card-body">
+                <form id="regForm">
+                <!-- One "tab" for each step in the form: -->
+                <div class="tab">
+                  <!--Tab satu-->
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="card card-success card-outline">
+                        <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;">
+                            <h1 class="card-title m-0" style="text-align: center;font-size: 20px;">Total User yang Melakukan Proses Screening</h1>
+                        </div>
+                        <div class="card-body">
+                        <!-- One "tab" for each step in the form: -->
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="card card-success">
+                                <div class="card-header" style="background:#00cc66; color:white; font-size:45px;">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12 text-center">
+                                              <?php echo $data['status']['JUMLAHINPUTAN']?> USER
+                                            </div>
                                         </div>
                                     </div>
-                                </div>                       
+                                </div>
+                              </div>
                             </div>
-                        </div>
+                          </div>
+                        </div>                       
+                      </div>
                     </div>
+                  </div>
+
+                  <!--Tab dua-->
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="card card-success card-outline">
+                        <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;">
+                            <h1 class="card-title m-0" style="text-align: center;font-size: 20px;">Total Screening Berdasar Status Covid</h1>
+                        </div>
+                        <div class="card-body">
+                        <!-- One "tab" for each step in the form: -->
+                          <div class="row">
+                            <div class="col-md-12">
+                              <!-- HTML -->
+                              <div id="chartdiv"></div>
+                            </div>
+                            </div>
+                          </div>
+                        </div>                       
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             
