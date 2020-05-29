@@ -347,7 +347,6 @@ class Screening_c extends CI_Controller {
 		
 		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wsrstugu/rstugu/covid/get_total_by_hasil";
         $data = json_decode($this->get_cors($url), TRUE);
-        //print_r($data['status']['ID']);
 		return $data;
 	}
 

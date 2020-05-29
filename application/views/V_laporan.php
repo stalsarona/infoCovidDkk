@@ -185,12 +185,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
   var chart = am4core.create("chartdiv", am4charts.PieChart);
   chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 
-  // Set up data source
-  chart.dataSource.url = "http://api.rstugurejo.jatengprov.go.id:8000/wsrstugu/rstugu/covid/get_total_by_hasil";
+  chart.data = [
+    <?php for ($a = 0; $a < count($jmlstatus); $a++) { ?>
+    {
+      Hasil: "<?php echo $jmlstatus[$a]['Hasil']?> ",
+      Jmluser: <?php echo $jmlstatus[$a]['Jmluser']?>
+    },
+    <?php } ?>
+  ];
 
   var series = chart.series.push(new am4charts.PieSeries());
   series.dataFields.value = "Jmluser";
-  series.dataFields.radiusValue = "value";
+  series.dataFields.radiusValue = "Jmluser";
   series.dataFields.category = "Hasil";
   series.slices.template.cornerRadius = 6;
   series.colors.step = 3;
