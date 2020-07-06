@@ -49,15 +49,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'screening_c';
-$route['analisa/(:any)'] = 'screening_c/card_analisa/$1';
-$route['404_override'] = 'screening_c/error';
-$route['informasi-covid19'] = 'Covid_informasi';
-//$route['informasi-covid19'] = 'Covid_informasi/error';
-$route['signin'] = 'AuthCovid';
-$route['signout'] = 'AuthCovid/signout_pendataan';
-$route['pendataan'] = 'Covid_informasi/pendataan';
-$route['laporan'] = 'screening_c/laporan';
-$route['login'] = 'LoginCovid';
-$route['logout'] = 'LoginCovid/signout';
+$route['default_controller'] = 'Login';
+$route['login'] = 'Login';
+$route['Dashboard'] = 'Dashboard';
+$route['Menu'] = 'Menu';
+$route['signout'] = 'Login/signout_pendataan';
 $route['translate_uri_dashes'] = FALSE;
