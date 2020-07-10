@@ -39,7 +39,6 @@
                   <thead>
                     <tr>
                       <th style="width: 10px">#</th>
-                      <th>ID</th>
                       <th>JUDUL MENU</th>
                       <th>CONTROLLER</th>
                       <th>URL</th>
@@ -62,7 +61,6 @@
                         echo "
                         <tr>
                           <td>".$no_urut."</td>
-                          <td><input type='hidden' name='id' id='id' value='".$dt['ID']."'>".$dt['ID']."</td>
                           <td>".$dt['TITLE']."</td>
                           <td>".$dt['CONTROLLER']."</td>
                           <td>".$dt['URL']."</td>
@@ -84,7 +82,7 @@
             <!-- /.card -->
             <div class="card card-default formTambah">
               <div class="card-header">
-                <h3 class="card-title">Form Tambah Jadwal</h3>
+                <h3 class="card-title">Form Tambah Menu</h3>
 
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
@@ -92,77 +90,52 @@
                 </div>
               </div>
               <!-- /.card-header -->
-              <form name="FormSimpanJadwal" role="form" id="FormSimpanJadwal">
+              <form name="FormSimpanMenu" role="form" id="FormSimpanMenu">
                 <div class="card-body">
                   <div class="row">
-                  <input type="hidden" class="form-control" name="private_token" id="private_token" value="<?php echo $token; ?>">
+                    <input type="hidden" class="form-control" name="private_token" id="private_token" value="<?php echo $token; ?>">
                     <div class="col-sm-6">
                       <!-- text input -->
                       <div class="form-group">
-                        <label>ID WAKTU KERJA</label>
-                        <input type="text" class="form-control" name="idwktkerja" id="idwktkerja" placeholder="REG, REGP, REGM, dll" maxlength="5" required autofocus>
+                        <label>JUDUL MENU</label>
+                        <input type="text" class="form-control" name="judul" id="judul" placeholder="Monitoring Presensi, Konfigurasi Menu, dll" required autofocus>
                       </div>
                     </div>
                     <div class="col-sm-6">
                       <div class="form-group">
-                        <div class="row">
-                          <div class="col-6">
-                            <label>JAM MASUK</label>
-                          </div>
-                          <div class="col-6">
-                            <label>MENIT MASUK</label>
-                          </div>
-                        </div>
-                          <div class="row">
-                            <div class="col-6">
-                              <select class="form-control jammasuk" name="jammasuk" id="jammasuk" style="width: 100%; ">
-                                <?php for($a=0; $a<=23; $a++){
-                                  echo "<option value='".sprintf("%02d", $a)."'>".sprintf("%02d", $a)."</option>";
-                                }?>                            
-                              </select>
-                            </div>
-                            <div class="col-6">
-                              <select class="form-control menitmasuk" name="menitmasuk" id="menitmasuk" style="width: 100%;">
-                                <?php for($a=0; $a<=59; $a++){
-                                  echo "<option value='".sprintf("%02d", $a)."'>".sprintf("%02d", $a)."</option>";
-                                }?>                            
-                              </select>
-                            </div>
-                          </div>
+                        <label>CONTROLLER</label>
+                        <input type="text" class="form-control" name="controller" id="controller" placeholder="Dashboard, Menu, User, dll" required>
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-sm-6">
-                      <!-- textarea -->
+                      <!-- text input -->
                       <div class="form-group">
-                        <label>KETERANGAN WAKTU KERJA</label>
-                        <textarea class="form-control" rows="3" name="ketwktkerja" id="ketwktkerja" placeholder="Reguler Pagi, Reguler Sabtu, dll" required></textarea>
+                        <label>URL</label>
+                        <input type="text" class="form-control" name="url" id="url" placeholder="Nama Functionnya" required>
                       </div>
                     </div>
                     <div class="col-sm-6">
                       <div class="form-group">
+                        <label>ICON</label>
+                        <input type="text" class="form-control" name="icon" id="icon" placeholder="fa-calendar, fa-user, dll (Lihat di font awesome)" required>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
                         <div class="row">
                           <div class="col-6">
-                            <label>JAM PULANG</label>
-                          </div>
-                          <div class="col-6">
-                            <label>MENIT PULANG</label>
+                            <label>STATUS MENU</label>
                           </div>
                         </div>
                           <div class="row">
                             <div class="col-6">
-                              <select class="form-control jampulang" name="jampulang" id="jampulang" style="width: 100%;">
-                                <?php for($a=0; $a<=23; $a++){
-                                  echo "<option value='".sprintf("%02d", $a)."'>".sprintf("%02d", $a)."</option>";
-                                }?>                            
-                              </select>
-                            </div>
-                            <div class="col-6">
-                              <select class="form-control menitpulang" name="menitpulang" id="menitpulang" style="width: 100%;">
-                                <?php for($a=0; $a<=59; $a++){
-                                  echo "<option value='".sprintf("%02d", $a)."'>".sprintf("%02d", $a)."</option>";
-                                }?>                            
+                              <select class="form-control status" name="status" id="status" style="width: 100%;">
+                                <option value='1'>AKTIF</option>                           
+                                <option value='0'>TIDAK AKTIF</option>                           
                               </select>
                             </div>
                           </div>
@@ -309,33 +282,16 @@
 <script src="<?= base_url('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js');?>"></script>
 <script src="<?= base_url('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js');?>"></script>
 <script src="<?= base_url('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js');?>"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 <script>
   $(document).ready(function(){
-    $('.jammasuk').select2({
-      theme: 'bootstrap4'
-    })
-    $('.menitmasuk').select2({
-      theme: 'bootstrap4'
-    })
-    $('.jampulang').select2({
-      theme: 'bootstrap4'
-    })
-    $('.menitpulang').select2({
+    $('.status').select2({
       theme: 'bootstrap4'
     })
     $('.jammasukubah').select2({
       theme: 'bootstrap4'
     })
-    $('.menitmasukubah').select2({
-      theme: 'bootstrap4'
-    })
-    $('.jamkeluarubah').select2({
-      theme: 'bootstrap4'
-    })
-    $('.menitkeluarubah').select2({
-      theme: 'bootstrap4'
-    })
-    $("#tabelJadwal").DataTable({
+    $("#tabelMenu").DataTable({
       "responsive": true,
       "autoWidth": false,
     });
@@ -346,42 +302,37 @@
     });
 
     $('#btnsimpan').on('click',function(){
-      var id = $('#idwktkerja').val();
-      if(id == ""){
-        swal('ID Waktu Kerja','harus di isi','info');
-      } else {
-        var obj = document.forms.namedItem("FormSimpanJadwal")
-        $.ajax({
-          type: "POST",
-          url: "<?php echo base_url('Menu/simpan_jadwal')?>",
-          processData:false,
-          contentType:false,
-          cache:false,
-          async:true,
-          crossOrigin : true,
-          data: new FormData(obj), 
-          dataType: "json",
-          beforeSend: function() {
-            $('.overlay').css('display', 'block');
-          },
-          success: function (response) {
-            if(response[0]['CODE'] == '515'){
-              alert("Nilai NULL tidak diperbolehkan");
-              var exp = '<?php echo base_url('Menu/error')?>';
-              window.location.replace(exp);
-            } else if(response[0]['CODE'] == '2627'){
-              alert("ID Waktu Kerja yang Anda masukkan sudah Ada, silahkan masukkan ID yang lain.");
-              var orpeg = '<?php echo base_url('Menu/view_jadwal')?>';
-              window.location.replace(orpeg);
-            }else if(response[0]['CODE'] == '200'){     
-              alert("Berhasil Simpan");
-              var orpeg = '<?php echo base_url('Menu/view_jadwal')?>';
-              window.location.replace(orpeg);
-            }
+      var obj = document.forms.namedItem("FormSimpanMenu")
+      $.ajax({
+        type: "POST",
+        url: "<?php echo base_url('Menu/simpan_menu')?>",
+        processData:false,
+        contentType:false,
+        cache:false,
+        async:true,
+        crossOrigin : true,
+        data: new FormData(obj), 
+        dataType: "json",
+        beforeSend: function() {
+          $('.overlay').css('display', 'block');
+        },
+        success: function (response) {
+          if(response[0]['CODE'] == '515'){
+            swal("Nilai NULL tidak diperbolehkan ",'','info');
+            var exp = '<?php echo base_url('Menu')?>';
+            window.location.replace(exp);
+          } else if(response[0]['CODE'] == '2627'){
+            swal("ID Sudah ada ",'','info');
+            var orpeg = '<?php echo base_url('Menu')?>';
+            window.location.replace(orpeg);
+          }else if(response[0]['CODE'] == '200'){     
+            swal("Berhasil Simpan",'','info');
+            var orpeg = '<?php echo base_url('Menu')?>';
+            window.location.replace(orpeg);
           }
-        });
-        return false;
-      }
+        }
+      });
+      return false;
     });
 
     $('#btn_simpanubah').on('click',function(){

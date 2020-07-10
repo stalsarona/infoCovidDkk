@@ -267,9 +267,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
 <script>
-
   $(document).ready(function () {
-
     $('#btnlogin').click(function(){
       var username = $('#username').val();
       var password = $('#password').val();
@@ -302,7 +300,6 @@
       }
     })
   });
-
 </script>
 
 </body>

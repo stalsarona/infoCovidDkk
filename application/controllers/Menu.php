@@ -8,29 +8,37 @@ class Menu extends CI_Controller {
     {
         parent::__construct();
         $this->load->library('session');
+        is_logged_in(); //helper auth
+        if(!$this->session->userdata('username')){
+            $this->session->set_flashdata('errorMessage', '<div class="alert alert-danger alert-dismissible"><i class="icon fas fa-exclamation-triangle"></i> Silahkan sign in terlebih dahulu !</div>');
+            redirect('login');
+        }else if($this->session->userdata('username') && $this->session->userdata('tipe')!='IT'){
+            $this->session->set_flashdata('errorMessage', '<div class="alert alert-danger alert-dismissible"><i class="icon fas fa-exclamation-triangle"></i> Maaf Anda tidak memiliki akses menu tersebut !</div>');
+            redirect('Dashboard');
+        }
     }
     
     public function index()
     {
-        if ($this->session->userdata('status_log') != TRUE) {
-			$this->session->set_flashdata('errorMessage', '<div class="alert alert-danger">Silahkan masuk dahulu !</div>');
-					redirect('login');
-        }
         $data['menu'] = $this->get_menu();
         $menu['menu'] = $this->get_akses_menu();
         $data['token'] = $this->private_token();
         $this->load->view('V_navigasi',$menu);
-        $this->load->view('V_konfigurasi_menu',$data);
-        
+        $this->load->view('V_konfigurasi_menu',$data);      
+    }
+
+    public function akses_menu(){
+        $menu['menu'] = $this->get_akses_menu();
+        $data['role'] = $this->get_role_user();
+        $data['token'] = $this->private_token();
+        $this->load->view('V_navigasi',$menu);
+        $this->load->view('V_akses_menu',$data);     
     }
 
     public function get_akses_menu(){
         $tipe = $this->session->userdata('tipe');
-
         $url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_akses_menu/";
-
 		$curl = curl_init();
-
 		curl_setopt_array($curl, array(
 		CURLOPT_URL => $url,
 		CURLOPT_RETURNTRANSFER => true,
@@ -50,7 +58,6 @@ class Menu extends CI_Controller {
 		curl_close($curl);
         $data = json_decode($response, TRUE);
         //untuk scraping json harus di decode baru di looping dahulu
-        //$this->output->set_content_type('application/json')->set_output(json_encode($data));
         return $data;
     }
     
@@ -115,6 +122,35 @@ class Menu extends CI_Controller {
         $this->output->set_content_type('application/json')->set_output(json_encode($data));
     }
 
+    public function get_menu_by_role(){
+        $id = $this->input->post('id');
+
+		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_menu_by_role/";
+
+		$curl = curl_init();
+
+		curl_setopt_array($curl, array(
+		CURLOPT_URL => $url,
+		CURLOPT_RETURNTRANSFER => true,
+		CURLOPT_ENCODING => "",
+		CURLOPT_MAXREDIRS => 10,
+		CURLOPT_TIMEOUT => 0,
+		CURLOPT_FOLLOWLOCATION => true,
+		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		CURLOPT_CUSTOMREQUEST => "GET",
+		CURLOPT_HTTPHEADER => array(
+			"X-tipe: ".$id
+			),
+		));
+
+		$response = curl_exec($curl);
+
+		curl_close($curl);
+        $data = json_decode($response, TRUE);
+        //untuk scraping json harus di decode baru di looping dahulu
+        $this->output->set_content_type('application/json')->set_output(json_encode($data));
+    }
+
     public function private_token(){
 		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/private_token/";
         $data = json_decode($this->get_cors($url), TRUE);
@@ -122,30 +158,18 @@ class Menu extends CI_Controller {
 		return $data;
     }
 
-    public function simpan_jadwal(){
-        $jmasuk   = $this->input->post('jammasuk');
-        $mmasuk   = $this->input->post('menitmasuk');
-        $jpulang  = $this->input->post('jampulang');
-        $mpulang  = $this->input->post('menitpulang');
-        $masuk    = ($jmasuk*60)+$mmasuk;
-        $pulang   = ($jpulang*60)+$mpulang;
-        $durasi   = $pulang-$masuk;
+    public function simpan_menu(){
         $obj = array(
-            'JNS_SHIFT'   => urlencode($this->input->post('idwktkerja')),
-            'KET_SHIFT'   => urlencode($this->input->post('ketwktkerja')),
-            'JAM_MASUK'   => $jmasuk,
-            'MENIT_MASUK' => $mmasuk,
-            'JAM_PULANG'  => $jpulang,
-            'MENIT_PULANG'=> $mpulang,
-            'DURASI'      => $durasi,
-            'USER_INPUT'  => urlencode($this->session->userdata('username')),
-            'JAM_INPUT'   => date("Y-m-d H:i:s"),
-            'KOMP_INPUT'  => gethostbyaddr($_SERVER['REMOTE_ADDR']),
+            'judul'   => urlencode($this->input->post('judul')),
+            'controller'   => urlencode($this->input->post('controller')),
+            'url'   => urlencode($this->input->post('url')),
+            'icon'   => urlencode($this->input->post('icon')),
+            'active'   => urlencode($this->input->post('status')),
             'private_key' => $this->input->post('private_token')
         );
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/simpan_jadwal/",
+            CURLOPT_URL => "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/simpan_menu/",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
@@ -172,6 +196,15 @@ class Menu extends CI_Controller {
 		return $data;
     }
     
+    public function get_role_user()
+	{
+		
+		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_role_user";
+        $data = json_decode($this->get_cors($url), TRUE);
+        
+		return $data;
+    }
+
     public function get_total_pegawai_kontrak()
 	{
 		
@@ -231,6 +264,34 @@ class Menu extends CI_Controller {
         echo $response;
     }
 
+    public function ubah_akses_menu(){
+		$obj = array(
+            'menu'   => urlencode($this->input->post('menuId')),
+            'tipe'   => urlencode($this->input->post('roleId')),
+            'komp'  => gethostbyaddr($_SERVER['REMOTE_ADDR']),
+            // 'USER_UBAH'  => urlencode($this->session->userdata('username')),
+            'jam'   => date("Y-m-d H:i:s"),
+            'private_key' => $this->input->post('private_token')
+        );
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/ubah_akses_menu/",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => "",
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "POST",
+          CURLOPT_POSTFIELDS => $obj,
+          
+        ));
+        
+        $response = curl_exec($curl);
+        
+        curl_close($curl);
+        echo $response;
+    }
     
 }
 

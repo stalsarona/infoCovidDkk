@@ -8,30 +8,55 @@ class Dashboard extends CI_Controller {
     {
         parent::__construct();
         $this->load->library('session');
-        
-        // $this->load->model('M_monitoring');
-        
+        // if(!$this->session->userdata('username')){
+        //     $this->session->set_flashdata('errorMessage', '<div class="alert alert-danger alert-dismissible"><i class="icon fas fa-exclamation-triangle"></i> Silahkan sign in terlebih dahulu !</div>');
+        //     redirect('login');
+        // }
+        is_logged_in(); //helper auth
     }
     
-    public function index()
-    {
-        if ($this->session->userdata('status_log') != TRUE) {
-			$this->session->set_flashdata('errorMessage', '<div class="alert alert-danger">Silahkan masuk dahulu !</div>');
-					redirect('login');
-        }
+    public function index(){
         $data['pegawai'] = $this->get_total_pegawai_kontrak();
         $data['pengguna'] = $this->get_total_pengguna();
         $menu['menu'] = $this->get_akses_menu();
+        $data['authmenu'] = $this->get_auth_menu();
         $this->load->view('V_navigasi',$menu);
         $this->load->view('V_content1',$data);
-        
+    }
+
+    public function get_auth_menu(){
+        $tipe = $this->session->userdata('tipe');
+        $menu = $this->uri->segment(1);
+        $url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_auth_menu/";
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => array(
+            "X-tipe: ".$tipe,
+            "X-menu: ".$menu
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        $data = json_decode($response, TRUE);
+        //untuk scraping json harus di decode baru di looping dahulu
+        //$this->output->set_content_type('application/json')->set_output(json_encode($data));
+        return $data;
     }
 
     public function get_akses_menu(){
         $tipe = $this->session->userdata('tipe');
-
         $url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_akses_menu/";
-
 		$curl = curl_init();
 
 		curl_setopt_array($curl, array(
@@ -64,7 +89,6 @@ class Dashboard extends CI_Controller {
 
     public function get_cors($url)
     {
-      
         $ch0 	 = curl_init();
                 curl_setopt($ch0, CURLOPT_URL, $url);
                 curl_setopt ($ch0, CURLOPT_RETURNTRANSFER, 1);
@@ -75,11 +99,10 @@ class Dashboard extends CI_Controller {
     
     //======================ORPEG=======================/
     public function view_jadwal(){
-        if ($this->session->userdata('status_log') != TRUE) {
-			$this->session->set_flashdata('errorMessage', '<div class="alert alert-danger">Silahkan masuk dahulu !</div>');
-					redirect('login');
+        if($this->session->userdata('tipe')!='ADM' && $this->session->userdata('tipe')!='IT'){
+            $this->session->set_flashdata('errorMessage', '<div class="alert alert-danger alert-dismissible"><i class="icon fas fa-exclamation-triangle"></i> Maaf Anda tidak memiliki akses menu tersebut !</div>');
+            redirect('Dashboard');
         }
-        
         $data['data'] = $this->get_jadwal();
         $data['username'] = $this->session->userdata('username');
         $data['nip'] = $this->session->userdata('niplama');
@@ -91,11 +114,8 @@ class Dashboard extends CI_Controller {
 
     public function get_jadwal_by_id(){
         $id = $this->input->post('id');
-
 		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_jadwal_by_id/";
-
 		$curl = curl_init();
-
 		curl_setopt_array($curl, array(
 		CURLOPT_URL => $url,
 		CURLOPT_RETURNTRANSFER => true,
@@ -236,11 +256,10 @@ class Dashboard extends CI_Controller {
 
     //======================MANAJEMEN=======================/
     public function monitoring(){
-        if ($this->session->userdata('status_log') != TRUE) {
-			$this->session->set_flashdata('errorMessage', '<div class="alert alert-danger">Silahkan masuk dahulu !</div>');
-					redirect('login');
+        if($this->session->userdata('tipe')!='MANAJEMEN'){
+            $this->session->set_flashdata('errorMessage', '<div class="alert alert-danger alert-dismissible"><i class="icon fas fa-exclamation-triangle"></i> Maaf Anda tidak memiliki akses menu tersebut !</div>');
+            redirect('Dashboard');
         }
-        
         $data['pegawai'] = $this->get_hirarki_pegawai();
         $data['token'] = $this->private_token();
         $menu['menu'] = $this->get_akses_menu();
@@ -250,11 +269,8 @@ class Dashboard extends CI_Controller {
 
     public function get_hirarki_pegawai(){
         $nip = $this->session->userdata('niplama');
-
 		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_hirarki_pegawai/";
-
 		$curl = curl_init();
-
 		curl_setopt_array($curl, array(
 		CURLOPT_URL => $url,
 		CURLOPT_RETURNTRANSFER => true,
@@ -283,11 +299,8 @@ class Dashboard extends CI_Controller {
         $bulan   = $this->input->post('bulan');
         $tahun   = $this->input->post('tahun');
         $periode = $tahun.''.$bulan;
-
 		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_absen_by_bulannip/";
-
 		$curl = curl_init();
-
 		curl_setopt_array($curl, array(
 		CURLOPT_URL => $url,
 		CURLOPT_RETURNTRANSFER => true,
@@ -308,9 +321,6 @@ class Dashboard extends CI_Controller {
 		curl_close($curl);
         $data = json_decode($response, TRUE);
         $this->output->set_content_type('application/json')->set_output(json_encode($data));
-        //untuk scraping json harus di decode baru di looping dahulu
-        //$this->output->set_content_type('application/json')->set_output(json_encode($data));
-        //return $data;
     }
     
 }
