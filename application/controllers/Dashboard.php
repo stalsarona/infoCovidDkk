@@ -16,12 +16,38 @@ class Dashboard extends CI_Controller {
     }
     
     public function index(){
-        $data['pegawai'] = $this->get_total_pegawai_kontrak();
-        $data['pengguna'] = $this->get_total_pengguna();
+        // $data['pegawai'] = $this->get_total_pegawai_kontrak();
+        // $data['pengguna'] = $this->get_total_pengguna();
+        $data['dashboard'] = $this->dashboard();
         $menu['menu'] = $this->get_akses_menu();
         $data['authmenu'] = $this->get_auth_menu();
         $this->load->view('V_navigasi',$menu);
         $this->load->view('V_content1',$data);
+    }
+
+    public function get_total_pegawai_kontrak()
+	{
+		
+		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_total_pegawai_kontrak";
+        $data = json_decode($this->get_cors($url), TRUE);
+        
+		return $data;
+	}
+    
+    public function get_total_pengguna()
+	{
+		
+		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_total_pengguna";
+        $data = json_decode($this->get_cors($url), TRUE);
+        
+		return $data;
+    }
+
+    public function dashboard(){
+        $url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/dashboard";
+        $data = json_decode($this->get_cors($url), TRUE);
+        
+		return $data;
     }
 
     public function get_auth_menu(){
@@ -195,24 +221,6 @@ class Dashboard extends CI_Controller {
 		return $data;
     }
     
-    public function get_total_pegawai_kontrak()
-	{
-		
-		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_total_pegawai_kontrak";
-        $data = json_decode($this->get_cors($url), TRUE);
-        
-		return $data;
-	}
-    
-    public function get_total_pengguna()
-	{
-		
-		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_total_pengguna";
-        $data = json_decode($this->get_cors($url), TRUE);
-        
-		return $data;
-    }
-    
     public function ubah_jadwal(){
         $jmasukubah   = $this->input->post('jammasukubah');
         $mmasukubah   = $this->input->post('menitmasukubah');
@@ -322,6 +330,32 @@ class Dashboard extends CI_Controller {
         $data = json_decode($response, TRUE);
         $this->output->set_content_type('application/json')->set_output(json_encode($data));
     }
+
+    public function get_absen_by_bulannip_baru($nip,$tahun,$bulan)
+	{
+		$url = 'http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_absen_by_bulannip/';
+		$header = array(             
+            "X-nip: ".$nip,
+            "X-bln: ".$tahun.''.$bulan	
+			);
+		$data = $this->get_cors($url, $header);
+		$key = json_decode($data, TRUE);
+		$hasil = array();
+		$nomor = 0;
+		foreach($key as $key){
+			$nomor++;
+			$hasil[] = array('nomor' => $nomor,
+							 'TANGGAL' => $key['TANGGAL'],
+							 'JAMKERJA' => $key['CHECKIN'].'-'.$key['CHECKOUT'],
+							 'KEGIATAN' => $key['KEGIATAN'],
+							 'MASUK' => $key['MASUK'],
+							 'PULANG' => $key['PULANG']
+			);
+		}
+		$result = array('aaData' => $hasil);
+		$this->output->set_content_type('application/json')->set_output(json_encode($result));	
+	}
+
     
 }
 

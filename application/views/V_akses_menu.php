@@ -81,6 +81,7 @@
                     <input type="hidden" class="form-control" name="private_token" id="private_token" value="<?php echo $token; ?>">
                     <form name="formUbahRole" id="formUbahRole">
                       <table class="table table-bordered table-striped" id="tabelakses">
+                        <input type="hidden" class="form-control" name="private_token" id="private_token" value="<?php echo $token; ?>">
                         <!-- <thead>
                           <tr>
                             <th style="width: 10px">#</th>
@@ -236,7 +237,7 @@
       var id =  $(this).data('id_role');
       $.ajax({
         type: "POST",
-        url: "<?php echo base_url('Menu/get_menu_by_role')?>",
+        url: "<?php echo base_url('Menu/get_akses_menu_by_role')?>",
         data: {id:id}, 
         dataType: "json",
         success: function (response) {
@@ -244,17 +245,27 @@
           $('.tabelakses').show();
           var len = response.data.length;
           var html = '';
-          $('#roleid').val(id)
-          html += "<thead><tr><th>ID</th><th>JUDUL MENU</th><th>AKSI</th></tr></thead>";
+          $('#roleid').val(id);
+          html += "<thead><tr><th>ID</th><th>JUDUL MENU</th><th>BERI AKSES</th></tr></thead>";
           if(len > 0){
             html += "<tbody>";
             for(var i = 0; i < len; i++){
               //html += "<tr><td>" + response.data[i].ID + "</td><td>" + response.data[i].TITLE + "</td><td><div class='custom-control custom-checkbox'><input class='form-check-input' type='checkbox' id='customCheckbox1' "+ check_access(id,response.data[i].ID) +"></div></td></tr>";
-              html += "<tr><td>" + response.data[i].ID + "</td><td>" + response.data[i].TITLE + "</td><td><div class='custom-control custom-checkbox'><input class='form-check-input  formChecked' type='checkbox' value='"+ response.data[i].ID +"' data-role='"+ id +"' data-menu='"+ response.data[i].ID +"'></div></td></tr>";
-            }
-            html += "</tbody>";
-            if(html != ""){
-                $("#tabelakses").html(html).removeClass("hidden");
+              html += "<tr><td>" + response.data[i].ID + "</td><td>" + response.data[i].TITLE + "</td>";
+              
+              // if(response.data[i].ID == response.data[i].MENU){
+              //   html += "<td><div class='custom-control custom-checkbox'><input class='form-check-input  formChecked' type='checkbox' value='"+ response.data[i].ID +"' data-role='"+ id +"' data-menu='"+ response.data[i].ID +" 'checked'></div></td>";
+              // }else{
+              //   html += "<td><div class='custom-control custom-checkbox'><input class='form-check-input  formChecked' type='checkbox' value='"+ response.data[i].ID +"' data-role='"+ id +"' data-menu='"+ response.data[i].ID +"></div></td>";
+              // }
+                html += "<td><div class='custom-control custom-checkbox'><input class='form-check-input  formChecked' type='checkbox' value='"+ response.data[i].ID +"' data-role='"+ id +"' data-menu='"+ response.data[i].ID +"'"+ (response.data[i].MENU==response.data[i].ID ? 'checked' : '') +"></div></td>";
+                
+             
+              html += "</tr>";
+              html += "</tbody>";
+              if(html != ""){
+                  $("#tabelakses").html(html).removeClass("hidden");
+              }
             }
           }
         }
@@ -262,12 +273,51 @@
       return false;
     });
 
-    $("#formChecked").on('change', 'input[type=checkbox]',function(){
+    // $("#tabelakses").on('change', 'input[type=checkbox]',function(){
+    //   // var id =  $(this).data('id_role');
+    //   var checked = $(this).attr('checked');
+    //   // if(checked){
+    //   if($(this).is(':checked')){
+    //     var menuId = $(this).val();
+    //     var token  = $('#private_token').val();
+    //     var roleId = $(this).data('role');
+        
+    //     $.ajax({
+    //       type: "POST",
+    //       url: "<?php echo base_url('Menu/ubah_akses_menu')?>",
+    //       data: {
+    //         menuId : menuId,
+    //         roleId : roleId,
+    //         token  : token
+    //       }, 
+    //       dataType: "json",
+    //       success: function (response) {
+    //         if(response[0]['CODE'] == '515'){
+    //           alert("Nilai NULL tidak diperbolehkan");
+    //           var exp = '<?php echo base_url('Menu/akses_menu')?>';
+    //           window.location.replace(exp);
+    //         } else if(response[0]['CODE'] == '2627'){
+    //           alert("ID Waktu Kerja yang Anda masukkan sudah Ada, silahkan masukkan ID yang lain.");
+    //           var orpeg = '<?php echo base_url('Menu/akses_menu')?>';
+    //           window.location.replace(orpeg);
+    //         }else if(response[0]['CODE'] == '200'){     
+    //           var orpeg = '<?php echo base_url('Menu/akses_menu')?>';
+    //           swal("Berhasil Simpan",'','info');
+    //           window.location.replace(orpeg);
+    //         }
+    //       }
+    //     });
+    //     return false;
+    //   }
+    // });
+
+    $("#tabelakses").on('click','input[type=checkbox]',function(){
       // var id =  $(this).data('id_role');
       var checked = $(this).attr('checked');
       // if(checked){
-      if($(this).is(':checked')){
-        var menuId = $(this).val();
+      //if($(this).is(':checked')){
+        var menuId = $(this).data('menu');
+        var token  = $('#private_token').val();
         var roleId = $(this).data('role');
         
         $.ajax({
@@ -275,60 +325,29 @@
           url: "<?php echo base_url('Menu/ubah_akses_menu')?>",
           data: {
             menuId : menuId,
-            roleId : roleId
+            roleId : roleId,
+            token  : token
           }, 
           dataType: "json",
           success: function (response) {
             if(response[0]['CODE'] == '515'){
               alert("Nilai NULL tidak diperbolehkan");
-              var exp = '<?php echo base_url('Menu/view_akses_menu')?>';
+              var exp = '<?php echo base_url('Menu/akses_menu')?>';
               window.location.replace(exp);
             } else if(response[0]['CODE'] == '2627'){
-              alert("ID Waktu Kerja yang Anda masukkan sudah Ada, silahkan masukkan ID yang lain.");
-              var orpeg = '<?php echo base_url('Menu/view_akses_menu')?>';
+              alert("Data Sudah Ada");
+              var orpeg = '<?php echo base_url('Menu/akses_menu')?>';
               window.location.replace(orpeg);
             }else if(response[0]['CODE'] == '200'){     
-              var orpeg = '<?php echo base_url('Menu/view_akses_menu')?>';
-              swal("Berhasil Simpan",'','info');
+              var orpeg = '<?php echo base_url('Menu/akses_menu')?>';
+              swal("Berhasil Ubah Akses",'','info');
               window.location.replace(orpeg);
             }
           }
         });
         return false;
-      }
+      //}
     });
-      // else{
-      //   const menuId = $(this).data('menu');
-      //   const roleId = $(this).data('role');
-        
-      //   $.ajax({
-      //     type: "POST",
-      //     url: "<?php echo base_url('Menu/update_menu_by_role')?>",
-      //     data: {
-      //       menuId : menuId,
-      //       roleId : roleId
-      //     }, 
-      //     dataType: "json",
-      //     success: function (response) {
-      //       if(response[0]['CODE'] == '515'){
-      //         alert("Nilai NULL tidak diperbolehkan");
-      //         var exp = '<?php echo base_url('Menu/view_akses_menu')?>';
-      //         window.location.replace(exp);
-      //       } else if(response[0]['CODE'] == '2627'){
-      //         alert("ID Waktu Kerja yang Anda masukkan sudah Ada, silahkan masukkan ID yang lain.");
-      //         var orpeg = '<?php echo base_url('Menu/view_akses_menu')?>';
-      //         window.location.replace(orpeg);
-      //       }else if(response[0]['CODE'] == '200'){     
-      //         var orpeg = '<?php echo base_url('Menu/view_akses_menu')?>';
-      //         swal("Berhasil Simpan",'','info');
-      //         window.location.replace(orpeg);
-      //       }
-      //     });
-      //     return false;
-      //   });
-      // }
-      
-
   });
 </script>
 </body>

@@ -264,14 +264,43 @@ class Menu extends CI_Controller {
         echo $response;
     }
 
+    public function get_akses_menu_by_role(){
+        $id = $this->input->post('id');
+
+		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_akses_menu_by_role/";
+
+		$curl = curl_init();
+
+		curl_setopt_array($curl, array(
+		CURLOPT_URL => $url,
+		CURLOPT_RETURNTRANSFER => true,
+		CURLOPT_ENCODING => "",
+		CURLOPT_MAXREDIRS => 10,
+		CURLOPT_TIMEOUT => 0,
+		CURLOPT_FOLLOWLOCATION => true,
+		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		CURLOPT_CUSTOMREQUEST => "GET",
+		CURLOPT_HTTPHEADER => array(
+			"X-tipe: ".$id
+			),
+		));
+
+		$response = curl_exec($curl);
+
+		curl_close($curl);
+        $data = json_decode($response, TRUE);
+        //untuk scraping json harus di decode baru di looping dahulu
+        $this->output->set_content_type('application/json')->set_output(json_encode($data));
+    }
+
     public function ubah_akses_menu(){
 		$obj = array(
             'menu'   => urlencode($this->input->post('menuId')),
             'tipe'   => urlencode($this->input->post('roleId')),
-            'komp'  => gethostbyaddr($_SERVER['REMOTE_ADDR']),
+            'komp'   => gethostname(),
             // 'USER_UBAH'  => urlencode($this->session->userdata('username')),
-            'jam'   => date("Y-m-d H:i:s"),
-            'private_key' => $this->input->post('private_token')
+            'jam'    => date("Y-m-d H:i:s"),
+            'private_key' => $this->input->post('token')
         );
         $curl = curl_init();
         curl_setopt_array($curl, array(

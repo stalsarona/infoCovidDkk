@@ -25,6 +25,15 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+  <!-- Resources -->
+  <script src="https://www.amcharts.com/lib/4/core.js"></script>
+  <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+  <script src="https://www.amcharts.com/lib/4/themes/kelly.js"></script>
+  <script src="https://www.amcharts.com/lib/4/themes/material.js"></script>
+  <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+
 </head>
 <style>
 .overlay {
@@ -65,6 +74,27 @@
   bottom: 0px;
   display: block;
 }
+
+.font-badge{
+  font-size: 19px;
+  background-color: white;
+}
+
+#chartdiv {
+  width: 100%;
+  height: 400px;
+}
+
+#chartASN {
+  width: 100%;
+  height: 300px;
+}
+
+#chartNONASN {
+  width: 100%;
+  height: 300px;
+}
+
 /* Safari */
 @-webkit-keyframes spin {
   0% { -webkit-transform: rotate(0deg); }
@@ -76,6 +106,9 @@
   100% { transform: rotate(360deg); }
 }
   </style>
+
+  <!-- Chart code -->
+  
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 

@@ -45,6 +45,7 @@
                       <th>JAM PULANG</th>
                       <th>DURASI</th>
                       <th>STATUS</th>
+                      <th>KET</th>
                       <th>AKSI</th>
                     </tr>
                   </thead>
@@ -61,8 +62,9 @@
                           <td>".$dt['KETJNSWKTKERJA']."</td>
                           <td>".substr($dt['CHECKIN'],11,8)."</td>
                           <td>".substr($dt['CHECKOUT'],11,8)."</td>
-                          <td>".$dt['DURASI']."</td>
+                          <td>".$dt['DURATION']."</td>
                           <td>".$dt['STATUS']."</td>
+                          <td>".$dt['NOTE']."</td>
                           <td><button  data-id_waktu='" . $dt['IDWKTKERJA'] . "' data-toggle='modal' data-target='#ubah-data' class='btn btn-warning btnedit'>Ubah</button>
                           </td>
                           </tr>

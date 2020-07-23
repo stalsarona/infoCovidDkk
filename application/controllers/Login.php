@@ -13,7 +13,8 @@ class Login extends CI_Controller {
 	{
 		if ($this->session->userdata('status_log') != TRUE) {
 			$data['token'] = $this->private_token();
-			$this->load->view('V_login', $data);
+			$data['dashboard'] = $this->dashboard();
+			$this->load->view('V_dashboard',$data);
 		} else if($this->session->userdata('tipe')=='IT' || $this->session->userdata('tipe')=='MANAJEMEN' || $this->session->userdata('tipe')=='ADM'){
 			redirect('Dashboard','refresh');
 		} else{
@@ -22,6 +23,18 @@ class Login extends CI_Controller {
 		}
 	}
 
+	public function login(){
+		$data['token'] = $this->private_token();
+		$this->load->view('V_login',$data);
+	}
+
+	public function dashboard(){
+        $url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/dashboard";
+        $data = json_decode($this->get_cors($url), TRUE);
+        
+		return $data;
+	}
+	
 	public function get_cors($url)
     {
         $ch0 	 = curl_init();
@@ -71,14 +84,14 @@ class Login extends CI_Controller {
 				'niplama' => $key->NIPLAMA
 			);
 			$this->session->set_userdata( $array );	
-		} 
+		}
 		curl_close($curl);
 		echo $response;
 	}
 
 	public function signout_pendataan(){
 		$this->session->sess_destroy();
-		redirect('login');
+		redirect('index');
 	}
 
 

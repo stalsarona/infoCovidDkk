@@ -172,7 +172,7 @@
 
 
 
-      <form id="formlogin">
+      <form id="form">
 
         <div class="input-group mb-3">
 
@@ -232,7 +232,7 @@
 
           <div class="col-4">
 
-            <button id="btnlogin" type="submit" class="btn btn-primary">Sign In</button>
+            <button id="btnlogin" type="button" class="btn btn-primary">Sign In</button>
 
           </div>
 
@@ -284,11 +284,14 @@
                 $('.overlay').css('display', 'block');
             },
             success: function (response) {
-              if(response[0]['kode'] == '200' || response[0]['TIPEUSER'] == 'MANAJEMEN' || response[0]['TIPEUSER'] == 'IT' || response[0]['TIPEUSER'] == 'ADM'){
+              if(response[0]['kode'] == '200'){
                 var dashboard = '<?php echo base_url('Dashboard')?>/'
                 window.location.replace(dashboard);
-              } else if(response[0]['kode'] == '400' || response[0]['kode'] == '300'){
-                swal("username / password salah ",'','info');
+              } else if(response[0]['kode'] == '300'){
+                swal("password salah ",'','info');
+                $('.overlay').css('display', 'none');
+              } else if(response[0]['kode'] == '400'){
+                swal("Login tidak dikenal ",'','info');
                 $('.overlay').css('display', 'none');
               } else {
                 swal("Maaf anda tidak memiliki hak akses ",'','info');

@@ -16,10 +16,9 @@
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-	<div class="content">
     <!-- Main content -->
     <div class="content">
-      <div class="container">
+      <div class="container-fluid">
         <div class="row">
 
 		  <!-- /.col-md-12 -->
@@ -87,7 +86,7 @@
                             $no_urut=0;
                               foreach ($pegawai as $dt){
                                 $no_urut++;
-                                echo "<option value='".$dt['NIP2']."'>".$dt['NIP2']." - ".$dt['NAMA']."</option>";
+                                echo "<option value='".$dt['NIP2']."-".$dt['NAMA']."'>".$dt['NIP2']." - ".$dt['NAMA']."</option>";
                               }
                             ?>
                           </select>
@@ -115,7 +114,7 @@
                               {
                                 $month = date("M",mktime(0,0,0,$i,1,date("Y")));
                                 $bln = ($i < 10) ? '0'.$i : $i;
-                                  echo '<option value="'.$bln.'"';
+                                  echo '<option value="'.$bln.'-'.$month.'"';
                                   if ($i == date("n")) echo ' selected="selected"';
                                   echo '>'.$month.'</option>';
                               }
@@ -132,19 +131,14 @@
                     </form>
                     <!-- /.card-body -->
                     
-                    <div class="card-body tabelabsensi">
-                      <h2 style="text-align:center">Riwayat Presensi</h2>
-                      <table id="tabelabsensi"  class="table  table-bordered table-striped">
-                        <thead>
-                          <tr>
-                            <!-- <th>#</th> -->
-                            <th>NIP</th>
-                            <th>TANGGAL</th>
-                            <th>MASUK</th>
-                            <th>PULANG</th>
-                          </tr>
-                        </thead>
-                      </table>
+                    <!-- <div class="card-body" id="tabelabsensi"> -->
+                      <!-- <h2 style="text-align:center">Riwayat Presensi</h2> -->
+                    <div class="card-body tabelshow">
+                      <table id="tabelabsensi"  class="table table-bordered table-striped"> 
+                        <thead><tr><th>TANGGAL</th><th>JAM KERJA</th><th>KEGIATAN</th><th>MASUK</th><th>PULANG</th><th>TERLAMBAT (Menit)</th><th>CEPAT PLG (Menit)</th><th>TOTAL  (Menit)</th><th>LEMBUR (Menit)</th><th>KETERANGAN</th></tr></thead>
+                        <tbody id="absensi">
+                        </tbody>
+                      </table> 
                     </div>
                   </div>
                   
@@ -182,7 +176,6 @@
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
-  </div>
   <!-- /.content-wrapper -->
 
 
@@ -199,84 +192,155 @@
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
-<script src="<?php echo base_url('assets/plugins/jquery/jquery.min.js');?>"></script>
+<script src="<?= base_url('assets/plugins/jquery/jquery.min.js');?>"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="<?= base_url('assets/plugins/jquery-ui/jquery-ui.min.js');?>"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button)
+</script>
 <!-- Bootstrap 4 -->
-<script src="<?php echo base_url('assets/plugins/bootstrap/js/bootstrap.bundle.min.js');?>"></script>
-<!-- AdminLTE App -->
-<script src="<?php echo base_url('assets/dist/js/adminlte.min.js');?>"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script src="<?= base_url('assets/plugins/bootstrap/js/bootstrap.bundle.min.js');?>"></script>
+
 <!-- Select2 -->
-<script src="<?php echo base_url('assets/plugins/select2/js/select2.full.min.js');?>"></script>
+<script src="<?= base_url('assets/plugins/select2/js/select2.full.min.js');?>"></script>
+
+<!-- overlayScrollbars -->
+<script src="<?= base_url('assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js');?>"></script>
+
+<!-- AdminLTE App -->
+<script src="<?= base_url('assets/dist/js/adminlte.js');?>"></script>
+
+<!-- AdminLTE for demo purposes -->
+<script src="<?= base_url('assets/dist/js/demo.js');?>"></script>
 
 <!-- DataTables -->
-<script src="<?= base_url('assets/plugins/datatables/jquery.dataTables.min.js');?>"></script>
+<!-- <script src="<?= base_url('assets/plugins/datatables/jquery.dataTables.min.js');?>"></script>
 <script src="<?= base_url('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js');?>"></script>
 <script src="<?= base_url('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js');?>"></script>
-<script src="<?= base_url('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js');?>"></script>
-
+<script src="<?= base_url('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js');?>"></script> -->
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <script>
      $(document).ready(function(){        
         $('.absensibulanan').hide(); 
         $('.cekkehadiran').hide();     
-        $('.tabelabsensi').hide();   
-
-        // $(".tabelabsensi").DataTable({
-        //   "responsive": true,
-        //   "autoWidth": false,
-        // });
+        $('.tabelshow').hide();   
 
         $('.btnbulanan').click(function(){
             $('.absensibulanan').show();
             $('.cekkehadiran').hide(); 
-            $('.tabelabsensi').hide();
+            $('.tabelshow').hide();
         });
         $('.btncek').click(function(){
             $('.cekkehadiran').show();
             $('.absensibulanan').hide(); 
-            $('.tabelabsensi').hide();
+            $('.tabelshow').hide();
         });
 
         $('.select2').select2({
           theme: 'bootstrap4'
         });
 
-        $('.btncari').on('click',function(){
-          // var obj = document.forms.namedItem("formPeg")
-          var nip = $('#pegawai').val();
+        $('.btncari').on('click', function(){
+          var nip = $('#pegawai').val().substr(0,18);
+          var nama = $('#pegawai').val().substr(21,20);
           var tahun = $('#tahun').val();
-          var bulan = $('#bulan').val();
+          var bulan = $('#bulan').val().substr(0,2);
+          var namabulan = $('#bulan').val().substr(3,4);
           $.ajax({
-            type: "POST",
-            url: "<?php echo base_url('manajemen/Monitoring/get_absen_by_bulannip')?>",
-            data: {nip:nip,tahun:tahun,bulan:bulan}, 
-            dataType: "json",
-            success: function (response) {
-              if(response['code'] == '200'){
-                // location.reload();
-                $('.tabelabsensi').show();
+              type: "POST",
+              url: "<?php echo base_url('Dashboard/get_absen_by_bulannip')?>",
+              data: {nip:nip,nama:nama,tahun:tahun,bulan:bulan,namabulan:namabulan}, 
+              dataType: "json",
+              success: function (response) {
                 var len = response.data.length;
-                var html = '';
-                if(len > 0){
-                  html += "<tbody>";
+                if(response['code'] == '200'){
                   for(var i = 0; i < len; i++){
-                    var tgl=response.data[i].TGLABSEN.substr(6,2);
-                    var bln=response.data[i].TGLABSEN.substr(4,2);
-                    var thn=response.data[i].TGLABSEN.substr(0,4);
+                    var tgl=response.data[i].TANGGAL.substr(8,2);
+                    var bln=response.data[i].TANGGAL.substr(5,2);
+                    var thn=response.data[i].TANGGAL.substr(0,4);
                     var tglabsen = tgl + '-' + bln + '-' + thn;
-                    html += "<tr><td>" + response.data[i].NIP + "</td><td>" + tglabsen + "</td><td>"+response.data[i].MASUK + "</td><td>"+response.data[i].PULANG + "</td></tr>";
+                    var checkin = response.data[0].CHECKIN;
                   }
-                  html += "</tbody>";
-                  if(html != ""){
-                      $("#tabelabsensi").html(html).removeClass("hidden");
-                  }
+                  $('#tabelabsensi').DataTable({
+                    // for(var i = 0; i < len; i++){
+                    //   var tgl=response.data[i].TANGGAL.substr(8,2);
+                    //   var bln=response.data[i].TANGGAL.substr(5,2);
+                    //   var thn=response.data[i].TANGGAL.substr(0,4);
+                      
+                    // }
+                    // "response" : "response.data",
+                    "columns":[
+                      {'response.data': 'TANGGAL'},
+                      {'response.data': 'CHECKIN'},
+                    ]
+                  })
+                }else{
+                  alert('Data tidak ditemukan');
                 }
-              }else{
-                alert('Data tidak ditemukan');
               }
-            }
           });
           return false;
         });
+
+        // $('.btncari').on('click',function(){
+        //   var nip = $('#pegawai').val().substr(0,18);
+        //   var nama = $('#pegawai').val().substr(21,20);
+        //   var tahun = $('#tahun').val();
+        //   var bulan = $('#bulan').val().substr(0,2);
+        //   var namabulan = $('#bulan').val().substr(3,4);
+        //   $.ajax({
+        //     type: "POST",
+        //     url: "<?php echo base_url('Dashboard/get_absen_by_bulannip')?>",
+        //     data: {nip:nip,nama:nama,tahun:tahun,bulan:bulan,namabulan:namabulan}, 
+        //     dataType: "json",
+        //     success: function (response) {
+              
+        //       if(response['code'] == '200'){
+        //         $("#tabelabsensi").DataTable({
+        //           "responsive": true,
+        //           "autoWidth": false,
+        //         });
+        //         $('.tabelshow').show();
+        //         $('#absensi').show();
+        //         var len           = response.data.length;
+        //         var totterlambat  = (response.data[0].TOTTERLAMBAT/60).toFixed(2);
+        //         var totplgcpt     = (response.data[0].TOTPULANGCEPAT/60).toFixed(2);
+        //         var totdurasi     = (response.data[0].TOTDURASI/60).toFixed(2);
+        //         var totlembur     = (response.data[0].TOTLEMBUR/60).toFixed(2);
+        //         var html = '';
+        //         if(len > 0){
+        //           // html += "<h2 style='text-align:center;'>Laporan Detail Harian</h2><hr>";
+        //           // html += "<table><tr><td><h4>NIP / NIK</td><td><h4>:</td><td><h4>" + nip + "</h4></td></tr>";
+        //           // html += "<tr><td><h4>NAMA</td><td><h4>:</td><td><h4>" + nama + "</h4></td></tr>";
+        //           // html += "<tr><td><h4>PERIODE WAKTU</td><td><h4>:</td><td><h4>" + namabulan + " " + tahun + "</h4></td></tr></table>";
+        //           //  html += "<table id='tabelabsensi' class='table table-responsive table-bordered table-striped'>";
+        //           // html += "<thead><tr><th>TANGGAL</th><th>JAM KERJA</th><th>KEGIATAN</th><th>MASUK</th><th>PULANG</th><th>TERLAMBAT (Menit)</th><th>CEPAT PLG (Menit)</th><th>TOTAL  (Menit)</th><th>LEMBUR (Menit)</th><th>KETERANGAN</th></tr></thead>";
+        //           // html += "<tbody>";
+        //           for(var i = 0; i < len; i++){
+        //             var tgl=response.data[i].TANGGAL.substr(8,2);
+        //             var bln=response.data[i].TANGGAL.substr(5,2);
+        //             var thn=response.data[i].TANGGAL.substr(0,4);
+        //             var tglabsen = tgl + '-' + bln + '-' + thn;
+        //             html += "<tr><td>" + tglabsen + "</td><td>"+ response.data[i].CHECKIN + "-" + response.data[i].CHECKOUT + "</td><td>"+response.data[i].KEGIATAN + "</td><td>"+response.data[i].MASUK + "</td><td>"+ response.data[i].PULANG + "</td><td>"+response.data[i].TERLAMBAT + "</td><td>"+ response.data[i].PULANGCEPAT + "</td><td>"+response.data[i].DURASI + "</td><td>"+ response.data[i].LEMBUR + "</td><td>"+response.data[i].KET + "</td></tr>";
+        //           }
+        //           // html += "</tbody></table>";
+        //           // html += "<table><tr><td><h4>JML TERLAMBAT</td><td><h4>:</td><td><h4>" + totterlambat + "</h4></td></tr>";
+        //           // html += "<tr><td><h4>JML PLG CEPAT</td><td><h4>:</td><td><h4>" + totplgcpt + "</h4></td></tr>";
+        //           // html += "<tr><td><h4>JML JAM KERJA</td><td><h4>:</td><td><h4>" + totdurasi + "</h4></td></tr>";
+        //           // html += "<tr><td><h4>JML LEMBUR</td><td><h4>:</td><td><h4>" + totlembur + "</h4></td></tr></table>";
+        //           if(html != ""){
+        //               $("#absensi").html(html).removeClass("hidden");
+        //           }
+        //         }
+        //       }else{
+        //         alert('Data tidak ditemukan');
+        //       }
+        //     }
+        //   });
+        //   return false;
+        // });
+
     });
 </script>
 
