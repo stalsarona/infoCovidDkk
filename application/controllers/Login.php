@@ -81,7 +81,8 @@ class Login extends CI_Controller {
 				'status_log' => TRUE,
 				'username' => $key->USERNM,
 				'tipe' => $key->TIPEUSER,
-				'niplama' => $key->NIPLAMA
+				'niplama' => $key->NIPLAMA,
+				'nip' => $key->NIP
 			);
 			$this->session->set_userdata( $array );	
 		}

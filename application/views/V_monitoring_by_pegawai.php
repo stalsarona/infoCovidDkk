@@ -133,12 +133,13 @@
                     
                     <!-- <div class="card-body" id="tabelabsensi"> -->
                       <!-- <h2 style="text-align:center">Riwayat Presensi</h2> -->
-                    <div class="card-body tabelshow">
-                      <table id="tabelabsensi"  class="table table-bordered table-striped"> 
-                        <thead><tr><th>TANGGAL</th><th>JAM KERJA</th><th>KEGIATAN</th><th>MASUK</th><th>PULANG</th><th>TERLAMBAT (Menit)</th><th>CEPAT PLG (Menit)</th><th>TOTAL  (Menit)</th><th>LEMBUR (Menit)</th><th>KETERANGAN</th></tr></thead>
-                        <tbody id="absensi">
-                        </tbody>
-                      </table> 
+                    <div class="card-body tabelshow" id="absensi">
+                      <!-- <table id="tabelabsensi"  class="table table-responsive table-bordered table-striped">  -->
+                        <!-- <thead><tr><th>TANGGAL</th><th>JAM KERJA</th><th>KEGIATAN</th><th>MASUK</th><th>PULANG</th><th>TERLAMBAT (Menit)</th><th>CEPAT PLG (Menit)</th><th>TOTAL  (Menit)</th><th>LEMBUR (Menit)</th><th>KETERANGAN</th></tr></thead> -->
+                        <!-- <tbody id="absensi">
+                        </tbody> -->
+                      <!-- </table>  -->
+                        
                     </div>
                   </div>
                   
@@ -220,6 +221,7 @@
 <script src="<?= base_url('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js');?>"></script>
 <script src="<?= base_url('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js');?>"></script> -->
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
 <script>
      $(document).ready(function(){        
         $('.absensibulanan').hide(); 
@@ -241,105 +243,152 @@
           theme: 'bootstrap4'
         });
 
-        $('.btncari').on('click', function(){
-          var nip = $('#pegawai').val().substr(0,18);
-          var nama = $('#pegawai').val().substr(21,20);
-          var tahun = $('#tahun').val();
-          var bulan = $('#bulan').val().substr(0,2);
-          var namabulan = $('#bulan').val().substr(3,4);
-          $.ajax({
-              type: "POST",
-              url: "<?php echo base_url('Dashboard/get_absen_by_bulannip')?>",
-              data: {nip:nip,nama:nama,tahun:tahun,bulan:bulan,namabulan:namabulan}, 
-              dataType: "json",
-              success: function (response) {
-                var len = response.data.length;
-                if(response['code'] == '200'){
-                  for(var i = 0; i < len; i++){
-                    var tgl=response.data[i].TANGGAL.substr(8,2);
-                    var bln=response.data[i].TANGGAL.substr(5,2);
-                    var thn=response.data[i].TANGGAL.substr(0,4);
-                    var tglabsen = tgl + '-' + bln + '-' + thn;
-                    var checkin = response.data[0].CHECKIN;
-                  }
-                  $('#tabelabsensi').DataTable({
-                    // for(var i = 0; i < len; i++){
-                    //   var tgl=response.data[i].TANGGAL.substr(8,2);
-                    //   var bln=response.data[i].TANGGAL.substr(5,2);
-                    //   var thn=response.data[i].TANGGAL.substr(0,4);
-                      
-                    // }
-                    // "response" : "response.data",
-                    "columns":[
-                      {'response.data': 'TANGGAL'},
-                      {'response.data': 'CHECKIN'},
-                    ]
-                  })
-                }else{
-                  alert('Data tidak ditemukan');
-                }
-              }
-          });
-          return false;
-        });
-
-        // $('.btncari').on('click',function(){
+        // $('.btncari').on('click', function(){
         //   var nip = $('#pegawai').val().substr(0,18);
         //   var nama = $('#pegawai').val().substr(21,20);
         //   var tahun = $('#tahun').val();
         //   var bulan = $('#bulan').val().substr(0,2);
         //   var namabulan = $('#bulan').val().substr(3,4);
         //   $.ajax({
-        //     type: "POST",
-        //     url: "<?php echo base_url('Dashboard/get_absen_by_bulannip')?>",
-        //     data: {nip:nip,nama:nama,tahun:tahun,bulan:bulan,namabulan:namabulan}, 
-        //     dataType: "json",
-        //     success: function (response) {
-              
-        //       if(response['code'] == '200'){
-        //         $("#tabelabsensi").DataTable({
-        //           "responsive": true,
-        //           "autoWidth": false,
-        //         });
-        //         $('.tabelshow').show();
-        //         $('#absensi').show();
-        //         var len           = response.data.length;
-        //         var totterlambat  = (response.data[0].TOTTERLAMBAT/60).toFixed(2);
-        //         var totplgcpt     = (response.data[0].TOTPULANGCEPAT/60).toFixed(2);
-        //         var totdurasi     = (response.data[0].TOTDURASI/60).toFixed(2);
-        //         var totlembur     = (response.data[0].TOTLEMBUR/60).toFixed(2);
-        //         var html = '';
-        //         if(len > 0){
-        //           // html += "<h2 style='text-align:center;'>Laporan Detail Harian</h2><hr>";
-        //           // html += "<table><tr><td><h4>NIP / NIK</td><td><h4>:</td><td><h4>" + nip + "</h4></td></tr>";
-        //           // html += "<tr><td><h4>NAMA</td><td><h4>:</td><td><h4>" + nama + "</h4></td></tr>";
-        //           // html += "<tr><td><h4>PERIODE WAKTU</td><td><h4>:</td><td><h4>" + namabulan + " " + tahun + "</h4></td></tr></table>";
-        //           //  html += "<table id='tabelabsensi' class='table table-responsive table-bordered table-striped'>";
-        //           // html += "<thead><tr><th>TANGGAL</th><th>JAM KERJA</th><th>KEGIATAN</th><th>MASUK</th><th>PULANG</th><th>TERLAMBAT (Menit)</th><th>CEPAT PLG (Menit)</th><th>TOTAL  (Menit)</th><th>LEMBUR (Menit)</th><th>KETERANGAN</th></tr></thead>";
-        //           // html += "<tbody>";
+        //       type: "POST",
+        //       url: "<?php echo base_url('Dashboard/get_absen_by_bulannip')?>",
+        //       data: {nip:nip,nama:nama,tahun:tahun,bulan:bulan,namabulan:namabulan}, 
+        //       dataType: "json",
+        //       success: function (response) {
+        //         var len = response.data.length;
+        //         if(response['code'] == '200'){
         //           for(var i = 0; i < len; i++){
         //             var tgl=response.data[i].TANGGAL.substr(8,2);
         //             var bln=response.data[i].TANGGAL.substr(5,2);
         //             var thn=response.data[i].TANGGAL.substr(0,4);
         //             var tglabsen = tgl + '-' + bln + '-' + thn;
-        //             html += "<tr><td>" + tglabsen + "</td><td>"+ response.data[i].CHECKIN + "-" + response.data[i].CHECKOUT + "</td><td>"+response.data[i].KEGIATAN + "</td><td>"+response.data[i].MASUK + "</td><td>"+ response.data[i].PULANG + "</td><td>"+response.data[i].TERLAMBAT + "</td><td>"+ response.data[i].PULANGCEPAT + "</td><td>"+response.data[i].DURASI + "</td><td>"+ response.data[i].LEMBUR + "</td><td>"+response.data[i].KET + "</td></tr>";
+        //             var checkin = response.data[0].CHECKIN;
         //           }
-        //           // html += "</tbody></table>";
-        //           // html += "<table><tr><td><h4>JML TERLAMBAT</td><td><h4>:</td><td><h4>" + totterlambat + "</h4></td></tr>";
-        //           // html += "<tr><td><h4>JML PLG CEPAT</td><td><h4>:</td><td><h4>" + totplgcpt + "</h4></td></tr>";
-        //           // html += "<tr><td><h4>JML JAM KERJA</td><td><h4>:</td><td><h4>" + totdurasi + "</h4></td></tr>";
-        //           // html += "<tr><td><h4>JML LEMBUR</td><td><h4>:</td><td><h4>" + totlembur + "</h4></td></tr></table>";
-        //           if(html != ""){
-        //               $("#absensi").html(html).removeClass("hidden");
-        //           }
+                  
+        //           $('#tabelabsensi').DataTable({
+        //             // for(var i = 0; i < len; i++){
+        //             //   var tgl=response.data[i].TANGGAL.substr(8,2);
+        //             //   var bln=response.data[i].TANGGAL.substr(5,2);
+        //             //   var thn=response.data[i].TANGGAL.substr(0,4);
+                      
+        //             // }
+        //             "responsive": true,
+        //             "autoWidth": false,
+        //             // "response" : "data",
+        //             "destroy": true,
+        //             "bPaginate": false,
+        //             "bLengthChange": false,
+        //             "bFilter": false,
+        //             "bSort": false,
+        //             "bInfo": false,
+        //             "bDeferRender": false,
+        //             "fixedColumns": true,
+        //             "aoColumns":[
+        //               {'mData': 'TANGGAL'},
+        //               {'mData': 'CHECKIN'},
+        //             ]
+        //           })
+        //         }else{
+        //           alert('Data tidak ditemukan');
         //         }
-        //       }else{
-        //         alert('Data tidak ditemukan');
         //       }
-        //     }
         //   });
         //   return false;
         // });
+
+        $('.btncari').on('click',function(){
+          var nip = $('#pegawai').val().substr(0,18);
+          var nama = $('#pegawai').val().substr(21,25);
+          var tahun = $('#tahun').val();
+          var bulan = $('#bulan').val().substr(0,2);
+          var namabulan = $('#bulan').val().substr(3,4);
+          $.ajax({
+            type: "POST",
+            url: "<?php echo base_url('Dashboard/get_absen_by_bulannip')?>",
+            data: {nip:nip,nama:nama,tahun:tahun,bulan:bulan,namabulan:namabulan}, 
+            dataType: "json",
+            success: function (response) {
+              
+              if(response['code'] == '200'){
+                // $("#tabelabsensi").DataTable({
+                //   "responsive": true,
+                //   "autoWidth": false,
+                // });
+                $('.tabelshow').show();
+                $('#absensi').show();
+                var len           = response.data.length;
+                var totterlambat  = (response.data[0].TOTTERLAMBAT/60).toFixed(2);
+                var totplgcpt     = (response.data[0].TOTPULANGCEPAT/60).toFixed(2);
+                var totdurasi     = (response.data[0].TOTDURASI/60).toFixed(2);
+                var totlembur     = (response.data[0].TOTLEMBUR/60).toFixed(2);
+                var html = '';
+                if(len > 0){
+                  html += "<h2 style='text-align:center;'>Laporan Detail Harian</h2><hr>";
+                  html += "<table><tr><td><h4>NIP / NIK</td><td><h4>:</td><td><h4>" + nip + "</h4></td></tr>";
+                  html += "<tr><td><h4>NAMA</td><td><h4>:</td><td><h4>" + nama + "</h4></td></tr>";
+                  html += "<tr><td><h4>PERIODE WAKTU</td><td><h4>:</td><td><h4>" + namabulan + " " + tahun + "</h4></td></tr></table>";
+                  html += "<table id='tabelabsensi' class='table table-responsive table-bordered table-striped'>";
+                  html += "<thead><tr><th>TANGGAL</th><th>JAM KERJA</th><th>KEGIATAN</th><th>MASUK</th><th>PULANG</th><th>TERLAMBAT (Menit)</th><th>CEPAT PLG (Menit)</th><th>TOTAL  (Menit)</th><th>LEMBUR (Menit)</th><th>KETERANGAN</th></tr></thead>";
+                  html += "<tbody>";
+                  for(var i = 0; i < len; i++){
+                    var tgl=response.data[i].TANGGAL.substr(8,2);
+                    var bln=response.data[i].TANGGAL.substr(5,2);
+                    var thn=response.data[i].TANGGAL.substr(0,4);
+                    var tglabsen = tgl + '-' + bln + '-' + thn;
+                    //masuk
+                    if(response.data[i].MASUK==null){
+                      var masuk = '-';
+                    }else{
+                      var masuk = response.data[i].MASUK;
+                    }
+                    //pulang
+                    if(response.data[i].PULANG==null){
+                      var pulang = '-';
+                    }else{
+                      var pulang = response.data[i].PULANG;
+                    }
+                    //terlambat
+                    if(response.data[i].TERLAMBAT==null){
+                      var terlambat = '-';
+                    }else{
+                      var terlambat = response.data[i].TERLAMBAT;
+                    }
+                    //pulangcepat
+                    if(response.data[i].PULANGCEPAT==null){
+                      var plgcepat = '-';
+                    }else{
+                      var plgcepat = response.data[i].PULANGCEPAT;
+                    }
+                    //durasi
+                    if(response.data[i].DURASI==null){
+                      var durasi = '-';
+                    }else{
+                      var durasi = response.data[i].DURASI;
+                    }
+                    //lembur
+                    if(response.data[i].LEMBUR==null){
+                      var lembur = '-';
+                    }else{
+                      var lembur = response.data[i].LEMBUR;
+                    }
+                    html += "<tr><td>" + tglabsen + "</td><td>"+ response.data[i].CHECKIN + "-" + response.data[i].CHECKOUT + "</td><td>"+response.data[i].KEGIATAN + "</td><td>"+ masuk + "</td><td>"+ pulang + "</td><td>"+ terlambat + "</td><td>"+ plgcepat + "</td><td>"+ durasi + "</td><td>"+ lembur + "</td><td>"+response.data[i].KET + "</td></tr>";
+                  }
+                  html += "</tbody></table>";
+                  html += "<table><tr><td><h4>JML TERLAMBAT</td><td><h4>:</td><td><h4>" + totterlambat + "</h4></td><td> &nbsp &nbsp &nbsp </td><td><h4>JML JAM KERJA</td><td><h4>:</td><td><h4>" + totdurasi + "</h4></td></tr>";
+                  html += "<tr><td><h4>JML PLG CEPAT</td><td><h4>:</td><td><h4>" + totplgcpt + "</h4></td><td> &nbsp &nbsp &nbsp </td><td><h4>JML LEMBUR</td><td><h4>:</td><td><h4>" + totlembur + "</h4></td></tr>";
+                  // html += "<tr><td><h4>JML JAM KERJA</td><td><h4>:</td><td><h4>" + totdurasi + "</h4></td></tr>";
+                  // html += "<tr><td><h4>JML LEMBUR</td><td><h4>:</td><td><h4>" + totlembur + "</h4></td></tr></table>";
+                  if(html != ""){
+                      $("#absensi").html(html).removeClass("hidden");
+                  }
+                }
+              }else{
+                alert('Data tidak ditemukan');
+              }
+            }
+          });
+          return false;
+        });
 
     });
 </script>

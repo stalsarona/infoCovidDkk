@@ -66,7 +66,7 @@
                           <td>".$dt['URL']."</td>
                           <td>".$dt['ICON']."</td>
                           <td>".$aktif."</td>
-                          <td><button  data-id_waktu='" . $dt['ID'] . "' data-toggle='modal' data-target='#ubah-data' class='btn btn-warning btnedit'>Ubah</button>
+                          <td><button  data-id='" . $dt['ID'] . "' data-toggle='modal' data-target='#ubah-data' class='btn btn-warning btnedit'>Ubah</button>
                           </td>
                           </tr>
                         ";
@@ -177,48 +177,28 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-lg-12">
-                                <label class="login2 pull-left pull-left-pro">ID Waktu Kerja</label>
-                                <input type="text" name="id_waktu" class="form-control" id="id_waktu" autocomplete="off" required readonly/>
+                                <label class="login2 pull-left pull-left-pro">JUDUL MENU</label>
+                                <input type="text" name="judulubah" class="form-control" id="judulubah" autocomplete="off" required readonly/>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="row">
                             <div class="col-lg-12">
-                                <label class="login2 pull-left pull-left-pro">Jenis Waktu Kerja</label>
-                                <input type="text" name="jenis" id="jenis" class="form-control" autocomplete="off" required />
+                                <label class="login2 pull-left pull-left-pro">CONTROLLER</label>
+                                <input type="text" name="contubah" id="contubah" class="form-control" autocomplete="off" required />
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="row">
                             <div class="col-lg-6">
-                                <label class="login2 pull-left pull-left-pro">Jam Masuk</label>
-                                <select class="form-control jammasukubah" name="jammasukubah" id="jammasukubah" style="width: 100%; ">
-                                     
-                                </select>
+                              <label class="login2 pull-left pull-left-pro">URL</label>
+                              <input type="text" name="urlubah" id="urlubah" class="form-control" autocomplete="off" required />
                             </div>
                             <div class="col-lg-6">
-                                <label class="login2 pull-left pull-left-pro">Menit Masuk</label>
-                                <select class="form-control menitmasukubah" name="menitmasukubah" id="menitmasukubah" style="width: 100%; ">
-                                  
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <label class="login2 pull-left pull-left-pro">Jam Keluar</label>
-                                <select class="form-control jamkeluarubah" name="jamkeluarubah" id="jamkeluarubah" style="width: 100%; ">
-                                  
-                                </select>
-                            </div>
-                            <div class="col-lg-6">
-                                <label class="login2 pull-left pull-left-pro">Menit Keluar</label>
-                                <select class="form-control menitkeluarubah" name="menitkeluarubah" id="menitkeluarubah" style="width: 100%; ">
-                                  
-                                </select>
+                                <label class="login2 pull-left pull-left-pro">ICON</label>
+                                <input type="text" name="iconubah" id="iconubah" class="form-control" autocomplete="off" required />
                             </div>
                         </div>
                     </div>
@@ -397,7 +377,7 @@
     });
     
     $('.btnedit').on('click',function(){
-      var id =  $(this).data('id_waktu');
+      var id =  $(this).data('id');
       $.ajax({
         type: "POST",
         url: "<?php echo base_url('Menu/get_menu_by_id')?>",
@@ -405,52 +385,9 @@
         dataType: "json",
         success: function (response) {
           $('#btnedit').modal('show');
-          $('#id_waktu').val(response['IDWKTKERJA'])
-          $('#jenis').val(response['KETJNSWKTKERJA'])
+          $('#judulubah').val(response['TITLE']);
+          $('#contubah').val(response['CONTROLLER']);
 
-          var html = '';
-          var i;
-          for (i = 0; i <= 23; i++) {
-            if(i== response['CHECKIN'].substr(11,2)){
-              html += '<option value=' + response['CHECKIN'].substr(11,2) + ' selected>' +  i  + '</option>';
-            }else{
-              html += '<option value=' + i + ' >' +  i  + '</option>';
-            }
-          }
-          $("#jammasukubah").html(html);
-          
-          var html = '';
-          var i;
-          for (i = 0; i <= 59; i++) {
-            if(i== response['CHECKIN'].substr(14,2)){
-              html += '<option value=' + response['CHECKIN'].substr(14,2) + ' selected>' +  i  + '</option>';
-            }else{
-              html += '<option value=' + i + ' >' +  i  + '</option>';
-            }
-          }
-          $("#menitmasukubah").html(html);
-
-          var html = '';
-          var i;
-          for (i = 0; i <= 23; i++) {
-            if(i== response['CHECKOUT'].substr(11,2)){
-              html += '<option value=' + response['CHECKOUT'].substr(11,2) + ' selected>' +  i  + '</option>';
-            }else{
-              html += '<option value=' + i + ' >' +  i  + '</option>';
-            }
-          }
-          $("#jamkeluarubah").html(html);
-
-          var html = '';
-          var i;
-          for (i = 0; i <= 59; i++) {
-            if(i== response['CHECKOUT'].substr(14,2)){
-              html += '<option value=' + response['CHECKOUT'].substr(14,2) + ' selected>' +  i  + '</option>';
-            }else{
-              html += '<option value=' + i + ' >' +  i  + '</option>';
-            }
-          }
-          $("#menitkeluarubah").html(html);
         }
       })
     });

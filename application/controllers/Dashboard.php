@@ -1,6 +1,15 @@
 <?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+use \PhpOffice\PhpSpreadsheet\Spreadsheet;
+use \PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use \PhpOffice\PhpSpreadsheet\IOFactory;
+use \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use \PhpOffice\PhpSpreadsheet\Style\Alignment;
+use \PhpOffice\PhpSpreadsheet\Style\Border;
+use \PhpOffice\PhpSpreadsheet\Style\Fill;
+use \PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
+
 class Dashboard extends CI_Controller {
 
     
@@ -299,6 +308,7 @@ class Dashboard extends CI_Controller {
         $data = json_decode($response, TRUE);
         //untuk scraping json harus di decode baru di looping dahulu
         //$this->output->set_content_type('application/json')->set_output(json_encode($data));
+        //untuk menampilkan satuan (select option)
         return $data;
     }
 
@@ -356,7 +366,249 @@ class Dashboard extends CI_Controller {
 		$this->output->set_content_type('application/json')->set_output(json_encode($result));	
 	}
 
+    //===========================================ADMIN=============================//
+    public function laporan(){
+        $data['username'] = $this->session->userdata('username');
+        $data['nip'] = $this->session->userdata('nip');
+        $data['token'] = $this->private_token();
+        $menu['menu'] = $this->get_akses_menu();
+        $this->load->view('V_navigasi',$menu);
+        $this->load->view('V_laporan',$data);
+    }
+
+    public function laporan_bagian(){
+        $data['username'] = $this->session->userdata('username');
+        $data['nip'] = $this->session->userdata('nip');
+        $data['token'] = $this->private_token();
+        $menu['menu'] = $this->get_akses_menu();
+        $data['bagian'] = $this->get_bagian();
+        $this->load->view('V_navigasi',$menu);
+        $this->load->view('V_laporan_bagian',$data);
+    }
+
     
+    public function get_bagian(){
+        $url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_lokasi";
+        $data = json_decode($this->get_cors($url), TRUE);
+        
+		return $data;
+    }
+
+    public function get_pegawai_by_bagian($bag){
+        //$bag = $this->input->post('bagian');
+		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_pegawai_by_bagian/".$bag;
+        $data = json_decode($this->get_cors($url), TRUE);
+		return $data;
+    }
+
+    public function get_presensi_excel($nip,$bln){
+		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_presensi_excel/".$nip."/".$bln;
+        $data = json_decode($this->get_cors($url), TRUE);
+        //$this->output->set_content_type('application/json')->set_output(json_encode($data));
+		return $data;
+    }
+
+    public function get_riwayat_presensi(){
+        $nip     = $this->session->userdata('nip');
+        $bulan   = $this->input->post('bulan');
+        $tahun   = $this->input->post('tahun');
+        // print_r($nip);exit;
+        $periode = $tahun.''.$bulan;
+		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_absen_by_bulannip/";
+		$curl = curl_init();
+		curl_setopt_array($curl, array(
+		CURLOPT_URL => $url,
+		CURLOPT_RETURNTRANSFER => true,
+		CURLOPT_ENCODING => "",
+		CURLOPT_MAXREDIRS => 10,
+		CURLOPT_TIMEOUT => 0,
+		CURLOPT_FOLLOWLOCATION => true,
+		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		CURLOPT_CUSTOMREQUEST => "GET",
+		CURLOPT_HTTPHEADER => array(
+            "X-nip: ".$nip,
+            "X-bln: ".$periode
+			),
+		));
+
+		$response = curl_exec($curl);
+
+		curl_close($curl);
+        $data = json_decode($response, TRUE);
+        $this->output->set_content_type('application/json')->set_output(json_encode($data));
+    }
+    
+    public function buatExcel() {
+        $kdbag     = $this->input->post('kdbag');
+        $bag     = $this->input->post('bag');
+        $bulan   = $this->input->post('bulan');
+        $namabulan   = $this->input->post('namabulan');
+        $tahun   = $this->input->post('tahun');
+        $periode = $tahun.''.$bulan;
+		$fileName = 'Laporan Presensi-'.$namabulan.' '.$tahun;  
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+       	
+        $peg = $this->get_pegawai_by_bagian($kdbag);
+        
+        $rows = 1;
+        $no = 1; 
+        foreach ($peg as $peg) {
+            $presensi = $this->get_presensi_excel($peg['NIP'],$periode);
+            $styleArrayTitle = [
+                'font' => [
+                    'bold' => true,
+                    'size' => 16,
+                ],
+                'alignment' => [
+                    'horizontal' => Alignment::HORIZONTAL_CENTER,
+                ],         
+            ];
+            $styleArray = [
+                'font' => [
+                    'bold' => true,
+                    'size' => 13,
+                ],
+                'alignment' => [
+                    'horizontal' => Alignment::HORIZONTAL_LEFT,
+                ],         
+            ];
+            $styleArrayHeader = [
+                'font' => [
+                    'bold' => true,
+                    'size' => 12,
+                ],
+                'alignment' => [
+                    'horizontal' => Alignment::HORIZONTAL_CENTER,
+                ],  
+                'borders' => [
+                    'allBorders' => [
+                        'borderStyle' => Border::BORDER_THIN,
+                    ],
+                ],
+                'fill' => [
+                    'fillType' => Fill::FILL_GRADIENT_LINEAR,
+                    'rotation' => 90,
+                    'startColor' => [
+                        'argb' => 'FFA0A0A0',
+                    ],
+                    'endColor' => [
+                        'argb' => 'FFFFFFFF',
+                    ],
+                ],      
+            ];
+            $sheet->getStyle('A'.$rows.':K'.$rows)->applyFromArray($styleArrayTitle);
+            $sheet->getStyle('A'.($rows+3).':K'.($rows+3))->applyFromArray($styleArray);
+            $sheet->getStyle('A'.($rows+2).':K'.($rows+2))->applyFromArray($styleArray);
+            $sheet->getStyle('A'.($rows+5).':K'.($rows+5))->applyFromArray($styleArrayHeader);
+            //merge cell
+            $sheet->mergeCells('A'.$rows.':K'.$rows);
+            $sheet->getStyle('A'.($rows+5).':K'.($rows+5))->getAlignment()->setWrapText(true);
+            $sheet->getColumnDimension('A')->setWidth(5);
+            $sheet->getColumnDimension('B')->setWidth(12);
+            $sheet->getColumnDimension('C')->setWidth(15);
+            $sheet->getColumnDimension('D')->setWidth(15);
+            $sheet->getColumnDimension('E')->setWidth(12);
+            $sheet->getColumnDimension('F')->setWidth(12);
+            $sheet->getColumnDimension('G')->setWidth(16);
+            $sheet->getColumnDimension('H')->setWidth(10);
+            $sheet->getColumnDimension('I')->setWidth(10);
+            $sheet->getColumnDimension('J')->setWidth(10);
+            $sheet->getColumnDimension('K')->setWidth(16);
+            //Laporan
+            $sheet->setCellValue('A'.$rows, 'LAPORAN DETAIL HARIAN');
+            $sheet->setCellValue('A'.($rows+2), 'NIP / NAMA : ');
+            $sheet->setCellValue('C'.($rows+2), $peg['NIP'].' / '. $peg['NAMA']);
+            $sheet->setCellValue('G'.($rows+2), 'DEPARTEMEN : ');
+            $sheet->setCellValue('H'.($rows+2), ' '.$bag);
+            $sheet->setCellValue('A'.($rows+3), 'PERIODE : ');
+            $sheet->setCellValue('C'.($rows+3), $namabulan.' '.$tahun);
+            $sheet->setCellValue('A'.($rows+5), 'NO');
+            $sheet->setCellValue('B'.($rows+5), 'HARI');
+            $sheet->setCellValue('C'.($rows+5), 'TANGGAL');
+            $sheet->setCellValue('D'.($rows+5), 'JAM KERJA');
+            // $sheet->setCellValue('D'.($rows+5), 'KEGIATAN');
+            $sheet->setCellValue('E'.($rows+5), 'MASUK');
+            $sheet->setCellValue('F'.($rows+5), 'PULANG');
+            $sheet->setCellValue('G'.($rows+5), 'TERLAMBAT (MENIT)');       
+            $sheet->setCellValue('H'.($rows+5), 'CPT PLG (MENIT)'); 
+            $sheet->setCellValue('I'.($rows+5), 'TOTAL (MENIT)'); 
+            $sheet->setCellValue('J'.($rows+5), 'LEMBUR (MENIT)'); 
+            $sheet->setCellValue('K'.($rows+5), 'KETERANGAN'); 
+            //$row = 7;
+            
+            $no = 1; 
+            if(!empty($presensi)){
+                //style border tabel
+                $styleArrayTabel = [
+                    'font' => [
+                        'size' => 12,
+                    ],
+                    'alignment' => [
+                        'horizontal' => Alignment::HORIZONTAL_CENTER,
+                    ],  
+                    'borders' => [
+                        'allBorders' => [
+                            'borderStyle' => Border::BORDER_THIN,
+                        ],
+                    ],
+                ];
+                foreach ($presensi as $presensi){
+                    $daftar_hari = array(
+                        'Sunday' => 'Minggu',
+                        'Monday' => 'Senin',
+                        'Tuesday' => 'Selasa',
+                        'Wednesday' => 'Rabu',
+                        'Thursday' => 'Kamis',
+                        'Friday' => 'Jumat',
+                        'Saturday' => 'Sabtu'
+                    );
+                    $tglabsen = substr($presensi['TANGGAL'],0,10);
+                    $namahari = date('l', strtotime($tglabsen));
+                    $sheet->getStyle('A'.($rows+6).':K'.($rows+6))->applyFromArray($styleArrayTabel);
+                    $sheet->setCellValue('A' . ($rows+6), $no);
+                    $sheet->setCellValue('B' . ($rows+6), $daftar_hari[$namahari]);
+                    $sheet->setCellValue('C' . ($rows+6), $tglabsen);
+                    $sheet->setCellValue('D' . ($rows+6), $presensi['CHECKIN'].'-'.$presensi['CHECKOUT']);
+                    // $sheet->setCellValue('D' . ($rows+6), $presensi['KEGIATAN']);
+                    $sheet->setCellValue('E' . ($rows+6), $presensi['MASUK']);
+                    $sheet->setCellValue('F' . ($rows+6), $presensi['PULANG']);
+                    $sheet->setCellValue('G' . ($rows+6), $presensi['TERLAMBAT']);
+                    $sheet->setCellValue('H' . ($rows+6), $presensi['PULANGCEPAT']);
+                    $sheet->setCellValue('I' . ($rows+6), $presensi['DURASI']);
+                    $sheet->setCellValue('J' . ($rows+6), $presensi['LEMBUR']);
+                    // $sheet->setCellValue('K' . ($rows+6), $presensi['KET']);
+                    $sheet->setCellValue('K' . ($rows+6), '');
+                    
+                    $rows++;
+                    $no++;
+                    $sheet->getStyle('A'.($rows+5).':K'.($rows+5))->applyFromArray($styleArrayTabel);
+                }
+                $totterlambat   = round($presensi['TOTTERLAMBAT']/60,2);
+                $totplgcepat    = round($presensi['TOTPULANGCEPAT']/60,2);
+                $totdurasi      = round($presensi['TOTDURASI']/60,2);
+                $totlembur      = round($presensi['TOTLEMBUR']/60,2);
+                $sheet->getStyle('A'.($rows+7).':K'.($rows+7))->applyFromArray($styleArray);
+                $sheet->getStyle('A'.($rows+8).':K'.($rows+8))->applyFromArray($styleArray);
+                $sheet->setCellValue('A' . ($rows+7), 'JUMLAH TERLAMBAT = '.$totterlambat.' jam');
+                $sheet->setCellValue('A' . ($rows+8), 'JUMLAH PLG CEPAT = '.$totplgcepat.' jam');
+                $sheet->setCellValue('E' . ($rows+7), 'JUMLAH JAM KERJA = '.$totdurasi.' jam');
+                $sheet->setCellValue('E' . ($rows+8), 'JUMLAH LEMBUR = '.$totlembur.' jam');
+            }
+            $rows++;
+            $rows=12+ $rows++;
+            
+        }
+        $sheet->getPageSetup()->setOrientation(PageSetup::ORIENTATION_LANDSCAPE);
+        $sheet->getPageSetup()->setScale(90);
+        $writer = new Xlsx($spreadsheet); 
+        header('Content-Type: application/vnd.ms-excel');
+		header('Content-Disposition: attachment;filename="'. $fileName .'.xlsx"'); 
+        header('Cache-Control: max-age=0');
+        // $writer->save('php://output');
+		$writer->save($fileName.'.xlsx');
+   
+    }  
 }
 
 /* End of file Dashboard.php */
