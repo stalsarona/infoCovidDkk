@@ -6,9 +6,10 @@
   am4core.useTheme(am4themes_animated);
 
   // Create chart
-  var chart = am4core.create("chartdiv", am4charts.PieChart3D);
-  chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
-  chart.legend = new am4charts.Legend();
+  // var chart = am4core.create("chartdiv", am4charts.PieChart3D);
+  var chart = am4core.create("chartdiv", am4charts.PieChart);
+  // chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+  // chart.legend = new am4charts.Legend();
   chart.data = [
   {
     Hasil: "APOLLO",
@@ -24,11 +25,31 @@
   }
   ];
 
-  var series = chart.series.push(new am4charts.PieSeries3D());
+  chart.radius = am4core.percent(70);
+  chart.innerRadius = am4core.percent(40);
+  chart.startAngle = 180;
+  chart.endAngle = 360;  
+
+
+  var series = chart.series.push(new am4charts.PieSeries());
   series.dataFields.value = "Pengguna";
   series.dataFields.category = "Hasil";
 
-  });
+  series.slices.template.cornerRadius = 5;
+  series.slices.template.innerCornerRadius = 7;
+  series.slices.template.draggable = true;
+  series.slices.template.inert = true;
+  series.alignLabels = false;
+
+  series.hiddenState.properties.startAngle = 90;
+  series.hiddenState.properties.endAngle = 90;
+  series.colors.list = [
+      am4core.color("#637f26"),
+      am4core.color("#ff6600")
+    ];
+  chart.legend = new am4charts.Legend();
+
+  }); 
 
   //=================================CHART ASN===============================/
   am4core.ready(function() {
@@ -63,7 +84,10 @@
   var series = chart.series.push(new am4charts.PieSeries3D());
   series.dataFields.value = "Pengguna";
   series.dataFields.category = "Hasil";
-  
+  series.colors.list = [
+      am4core.color("#92d050"),
+      am4core.color("#ff6600")
+    ];
   // series.alignLabels = false;
   // series.labels.template.bent = true;
   // series.labels.template.radius = 22;
@@ -111,12 +135,10 @@
   var series = chart.series.push(new am4charts.PieSeries3D());
   series.dataFields.value = "Pengguna";
   series.dataFields.category = "Hasil";
-  // series.alignLabels = false;
-  // series.labels.template.bent = true;
-  // series.labels.template.radius = 22;
-  // series.labels.template.padding(0,0,0,0);
-
-
+  series.colors.list = [
+      am4core.color("#92d050"),
+      am4core.color("#ff6600")
+    ];
   }); // end am4core.ready()
 
   
@@ -145,14 +167,6 @@
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-          <div class="col-12">
-            <div class="callout callout-warning">
-              <h4><i class="fas fa-info"></i> VERSI :</h4>
-                <h4><strong><?php foreach ($dashboard as $dt){
-                  echo $dt['APOLLO'];
-                }?></strong></h4>
-            </div>
-          </div>
           <div class="col-md-12">
             <div class="card card-success card-outline">
               <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;">
@@ -210,7 +224,7 @@
                 <tr><td><u>Keterangan :</u></td><td></td><td></td></tr>
                 <tr><td>Total Pegawai ASN</td><td>:</td><td><?php foreach ($dashboard as $dt){echo $dt['ASN'];}?></td></tr>
                 <tr><td>Pengguna Apollo</td><td>:</td><td><?php foreach ($dashboard as $dt){echo $dt['ASN_APOLLO'];}?></td></tr>
-                <tr><td>Yang Belum Apollo</td><td>:</td><td><?php foreach ($dashboard as $dt){echo $dt['ASN_BLM_APOLLO'];}?></td></tr>
+                <tr><td>Yang Belum Apollo</td><td>:</td><td><a href="javascript:void(0)"><span class="badge badge-danger rincianNonApollo" style="font-color:white; font-weight:bold; font-size:15px" data-toggle="modal" data-target="#datarincian" data-status="ASN"><i class="fas fa-exclamation-circle text-sm"></i><?php foreach ($dashboard as $dt){echo ' '.$dt['ASN_BLM_APOLLO'];}?></span></a></td></tr>
                 </table>
               </div>
               <!-- /.card-body -->
@@ -236,114 +250,45 @@
                 <tr><td><u>Keterangan :</u></td><td></td><td></td></tr>
                 <tr><td>Total Pegawai NON ASN</td><td>:</td><td><?php foreach ($dashboard as $dt){echo $dt['NONASN'];}?></td></tr>
                 <tr><td>Pengguna Apollo</td><td>:</td><td><?php foreach ($dashboard as $dt){echo $dt['NONASN_APOLLO'];}?></td></tr>
-                <tr><td>Yang Belum Apollo</td><td>:</td><td><?php foreach ($dashboard as $dt){echo $dt['NONASN_BLM_APOLLO'];}?></td></tr>
+                <tr><td>Yang Belum Apollo</td><td>:</td><td><a href="javascript:void(0)"><span class="badge badge-danger rincianNonApollo" style="font-color:white; font-weight:bold; font-size:15px" data-toggle="modal" data-target="#datarincian" data-status="NONASN"><i class="fas fa-exclamation-circle text-sm"></i><?php foreach ($dashboard as $dt){echo ' '.$dt['NONASN_BLM_APOLLO'];}?></span></a></td></tr>
                 </table>
               </div>
               <!-- /.card-body -->
             </div>
           </div>
           <!-- ./col -->
-
-          <!-- <div class="col-lg-6 col-12">
-            <div class="small-box bg-primary" style="padding-top: 10px; padding-right: 30px;padding-bottom: 10px; padding-left: 10px;">
-              <div class="inner">
-                <p style="font-size:80px; text-align:center; margin-bottom:0px"><strong><?php foreach ($dashboard as $dt){
-                  echo $dt['PEGAWAI'];
-                }?></strong>
-                <p style="font-size:19px; text-align:center"><strong>TOTAL PEGAWAI</strong></p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-stats-bars"></i>
-              </div>
-            </div>
-          </div> -->
-          <!-- ./col -->
-          <!-- <div class="col-lg-6 col-12">
-            <div class="small-box bg-warning" style="padding-top: 10px; padding-right: 30px;padding-bottom: 10px; padding-left: 10px;">
-              <div class="inner">
-                <p style="font-size:80px; text-align:center; margin-bottom:0px"><strong><?php foreach ($dashboard as $dt){
-                  echo $dt['TOT_PEG_APOLLO'];
-                }?></strong><sub><span class="badge float-center font-badge" style="font-size:20px;"><?php echo round($dt['PROSEN_TOT_PEG_APOLLO'], 2); ?> %</span></sub>
-                <p style="font-size:19px; text-align:center"><strong>PENGGUNA APOLLO</strong></p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person"></i>
-              </div>
-            </div>
-          </div> -->
-          <!-- ./col -->
-          <!-- <div class="col-lg-4 col-6">
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3><?php foreach ($dashboard as $dt){
-                  echo $dt['ASN'];
-                }?></h3>
-                <p><strong>PEGAWAI ASN</strong></p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
-            </div>
-          </div> -->
-          <!-- ./col -->
-          <!-- <div class="col-lg-2 col-6">
-            <div class="small-box bg-success">
-              <div class="inner">
-                <h3><?php foreach ($dashboard as $dt){
-                  echo $dt['ASN_APOLLO'];
-                }?><span class="badge float-right font-badge" style="color:black"><?php echo round($dt['PROSEN_ASN_APOLLO'], 2); ?> %</span></h3>
-                <p><strong>ASN APOLLO</strong></p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-location"></i>
-              </div>
-            </div>
-          </div> -->
-          <!-- ./col -->
-          <!-- <div class="col-lg-4 col-6">
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3><?php foreach ($dashboard as $dt){
-                  echo $dt['NONASN'];
-                }?></h3>
-                <p><strong>PEGAWAI NON ASN</strong></p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
-            </div>
-          </div> -->
-          <!-- ./col -->
-          <!-- <div class="col-lg-2 col-6">
-            <div class="small-box bg-success">
-              <div class="inner">
-                <h3><?php foreach ($dashboard as $dt){
-                  echo $dt['NONASN_APOLLO'];
-                }?><span class="badge float-right font-badge" style="color:black"><?php echo round($dt['PROSEN_NONASN_APOLLO'], 2); ?> %</span></h3>
-                <p><strong>NON ASN APOLLO</strong></p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-location"></i>
-              </div>
-            </div>
-          </div> -->
-          <!-- ./col -->
         </div>
         <!-- /.row -->
-        <!-- Main row -->
-        <div class="row">
-          <!-- Left col -->
-          <section class="col-lg-7 connectedSortable">
-            <!-- Custom tabs (Charts with tabs)-->
-          </section>
-          <!-- /.Left col -->
-        </div>
-        <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+  <div class="modal fade" id="dataBelumApollo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <?php echo form_open('Dashboard/simpanExcelDaftarPegawai') ?>
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" >Pegawai yang Belum Apollo</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h5 id="status" name="status"></h5>
+          <div class="table-wrapper-scroll-y my-custom-scrollbar">
+            <table class="table table-bordered table-responsive" id="tabelNonApollo">
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary btnsimpan">Simpan Excel</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+        </div>
+      </div>
+    </div>
+    <?php echo form_close() ?>
+  </div>
   <footer class="main-footer">
     <strong>Copyright &copy; 2020 <a href="http://rstugurejo.jatengprov.go.id" target=_blank>IPDE RSUD Tugurejo</a>.</strong>
     All rights reserved.
@@ -385,18 +330,56 @@
 <script src="<?php echo base_url('assets/dist/js/pages/dashboard.js');?>"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url('assets/dist/js/demo.js');?>"></script>
-
+<!-- Toastr -->
+<script src="<?php echo base_url('assets/plugins/toastr/toastr.min.js');?>"></script>
 <script>
-$(function () {
-  //Timepicker
-  $('#jammasuk').datetimepicker({
-    format: 'LT'
-  })
-  $('#jampulang').datetimepicker({
-    format: 'LT'
-  })
-})
+ $(document).ready(function(){
+    toastr.info('Versi Apollo : <?php foreach ($dashboard as $dt){
+                  echo ' '.$dt['APOLLO'];
+                }?>');
+    $('.rincianNonApollo').on('click',function(){
+      var status =  $(this).data('status');
+        $.ajax({
+          type: "POST",
+          url: "<?php echo base_url('Dashboard/dashboard_peg_non_apollo')?>",
+          data: {status:status}, 
+          dataType: "json",
+          success: function (response) {
+            $('#dataBelumApollo').modal('show');
+            $('#tabelNonApollo').show();
+            
+            var txt = '';
+            txt += "<input type='hidden' id='status' value='"+ status +"' name='status'>";
+            $("#status").html(txt);
+            var len = response.length;
+            var html = '';
+            html += "<thead><tr><th>No</th><th>NIP</th><th>Pegawai</th></tr></thead>";
+            if(len > 0){
+              html += "<tbody>";
+              for(var i = 0; i < len; i++){
+                html += "<tr><td>" + (i+1) + "</td><td>" + response[i].NIP2 + "</td><td>" + response[i].NAMA + "</td>";
+                html += "</tr>";
+                html += "</tbody>";
+                
+                if(html != ""){
+                    $("#tabelNonApollo").html(html).removeClass("hidden");
+                }
+              }
+            }
+            
+          }
+        })
+    });
+    $('.btnsimpan').on('click',function(){
+      $('#dataBelumApollo').modal('hide');
+    });
+    $('#jammasuk').datetimepicker({
+      format: 'LT'
+    })
+    $('#jampulang').datetimepicker({
+      format: 'LT'
+    })
+ });
 </script>
-
 </body>
 </html>

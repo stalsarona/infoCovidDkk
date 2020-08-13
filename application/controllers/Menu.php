@@ -77,22 +77,6 @@ class Menu extends CI_Controller {
         return $exec0;
     }
     
-    //======================ORPEG=======================/
-    public function view_jadwal(){
-        if ($this->session->userdata('status_log') != TRUE) {
-			$this->session->set_flashdata('errorMessage', '<div class="alert alert-danger">Silahkan masuk dahulu !</div>');
-					redirect('login');
-        }
-        
-        $data['data'] = $this->get_jadwal();
-        $data['username'] = $this->session->userdata('username');
-        $data['nip'] = $this->session->userdata('niplama');
-        $data['token'] = $this->private_token();
-        $menu['menu'] = $this->get_akses_menu();
-        $this->load->view('V_navigasi',$menu);
-        $this->load->view('V_jadwal',$data);
-    }
-
     public function get_menu_by_id(){
         $id = $this->input->post('id');
 

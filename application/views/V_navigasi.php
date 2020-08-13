@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>APOLO RSUD TUGUREJO</title>
+  <title>APOLLO RSUD TUGUREJO</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -22,6 +22,8 @@
   <!-- DataTables -->
   <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css');?>">
   <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css');?>">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="<?= base_url('assets/plugins/toastr/toastr.min.css');?>">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
@@ -36,6 +38,15 @@
 
 </head>
 <style>
+.my-custom-scrollbar {
+    position: relative;
+    height: 550px;
+    overflow: auto;
+}
+.table-wrapper-scroll-y {
+    display: block;
+}
+
 .overlay {
   height: 100%;
   width: 100%;
@@ -82,7 +93,7 @@
 
 #chartdiv {
   width: 100%;
-  height: 400px;
+  height: 300px;
 }
 
 #chartASN {

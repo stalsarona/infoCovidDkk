@@ -14,6 +14,7 @@ class Login extends CI_Controller {
 		if ($this->session->userdata('status_log') != TRUE) {
 			$data['token'] = $this->private_token();
 			$data['dashboard'] = $this->dashboard();
+			$data['grafik'] = $this->dashboard_grafik();
 			$this->load->view('V_dashboard',$data);
 		} else if($this->session->userdata('tipe')=='IT' || $this->session->userdata('tipe')=='MANAJEMEN' || $this->session->userdata('tipe')=='ADM'){
 			redirect('Dashboard','refresh');
@@ -35,6 +36,59 @@ class Login extends CI_Controller {
 		return $data;
 	}
 	
+	public function dashboard_grafik(){
+		//$periode = $this->input->post('periode');
+		$bln = '08';
+		$thn = '2020';
+		$curl = curl_init();
+
+		curl_setopt_array($curl, array(
+			CURLOPT_URL => "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/dashboard_pemakaian_apollo",
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_ENCODING => "",
+			CURLOPT_MAXREDIRS => 10,
+			CURLOPT_TIMEOUT => 0,
+			CURLOPT_FOLLOWLOCATION => true,
+			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			CURLOPT_CUSTOMREQUEST => "GET",
+			CURLOPT_HTTPHEADER => array(
+				"X-bln: ".$bln,
+				"X-thn: ".$thn,
+				"Cookie: rsdm_session=RHpWcKB8KgsuqNoJaoocZuc8VROAd4r0uXyKR%2Bmfx%2F4m0J0St8TJSvZoPvmEAAMHcsc9158HA9FdnZZjHGENusDL%2FzisFt%2BoXeCk8q983h0DXPaGI7lPKU4ABKOr3rGFg2o%2BvJ%2BjuT0IMmoUVvKYGjuzy%2Bb5V5pulEpXnyTkpRNd0XENgFaZYzs6lxL9oY5ZFGXU58nYY026xrWYfWZNGqeBxO7lPYh25Jx9POFlHja9FXhYhs7F1c9vhy1T8xt4UvPOtvk%2Bx1kwf8%2F%2BeHrC4rBc7DwzS%2FOAywYzLiIAsU3jEpbAqprU1ogxoVd7Rlv9nb9WgyvukpgSF%2BoKClCcfw%3D%3D"
+			),
+		));
+
+		$response = curl_exec($curl);
+		curl_close($curl);
+		$data = json_decode($response, TRUE);
+		return $data;
+	}
+
+	public function dashboard_peg_non_apollo(){
+		$status = $this->input->post('status');
+		$curl = curl_init();
+
+		curl_setopt_array($curl, array(
+			CURLOPT_URL => "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/dashboard_detail_pegawai_nonapollo",
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_ENCODING => "",
+			CURLOPT_MAXREDIRS => 10,
+			CURLOPT_TIMEOUT => 0,
+			CURLOPT_FOLLOWLOCATION => true,
+			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			CURLOPT_CUSTOMREQUEST => "GET",
+			CURLOPT_HTTPHEADER => array(
+				"X-status: ".$status,
+				"Cookie: rsdm_session=RHpWcKB8KgsuqNoJaoocZuc8VROAd4r0uXyKR%2Bmfx%2F4m0J0St8TJSvZoPvmEAAMHcsc9158HA9FdnZZjHGENusDL%2FzisFt%2BoXeCk8q983h0DXPaGI7lPKU4ABKOr3rGFg2o%2BvJ%2BjuT0IMmoUVvKYGjuzy%2Bb5V5pulEpXnyTkpRNd0XENgFaZYzs6lxL9oY5ZFGXU58nYY026xrWYfWZNGqeBxO7lPYh25Jx9POFlHja9FXhYhs7F1c9vhy1T8xt4UvPOtvk%2Bx1kwf8%2F%2BeHrC4rBc7DwzS%2FOAywYzLiIAsU3jEpbAqprU1ogxoVd7Rlv9nb9WgyvukpgSF%2BoKClCcfw%3D%3D"
+			),
+		));
+
+		$response = curl_exec($curl);
+
+		curl_close($curl);
+		echo $response;
+	}
+
 	public function get_cors($url)
     {
         $ch0 	 = curl_init();

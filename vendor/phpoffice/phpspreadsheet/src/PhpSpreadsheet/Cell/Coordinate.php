@@ -157,14 +157,12 @@ abstract class Coordinate
         }
 
         // Build range
-        $imploded = [];
         $counter = count($pRange);
         for ($i = 0; $i < $counter; ++$i) {
             $pRange[$i] = implode(':', $pRange[$i]);
         }
-        $imploded = implode(',', $pRange);
 
-        return $imploded;
+        return implode(',', $pRange);
     }
 
     /**
@@ -339,6 +337,9 @@ abstract class Coordinate
         //    Sort the result by column and row
         $sortKeys = [];
         foreach (array_unique($returnValue) as $coord) {
+            $column = '';
+            $row = 0;
+
             sscanf($coord, '%[A-Z]%d', $column, $row);
             $sortKeys[sprintf('%3s%09d', $column, $row)] = $coord;
         }

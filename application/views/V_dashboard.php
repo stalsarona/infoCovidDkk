@@ -8,18 +8,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <link rel="shortcut icon" type="ico" href="<?php echo base_url()?>assets/images/logo.ico">
+  <link rel="shortcut icon" type="ico" href="<?= base_url()?>assets/images/logo.ico">
   <title>APOLLO</title>
 
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/fontawesome-free/css/all.min.css');?>">
+  <link rel="stylesheet" href="<?= base_url('assets/plugins/fontawesome-free/css/all.min.css');?>">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/adminlte.min.css');?>">
+  <link rel="stylesheet" href="<?= base_url('assets/dist/css/adminlte.min.css');?>">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   
+  <!-- Toastr -->
+  <link rel="stylesheet" href="<?= base_url('assets/plugins/toastr/toastr.min.css');?>">
   <!-- Resources -->
   <script src="https://www.amcharts.com/lib/4/core.js"></script>
   <script src="https://www.amcharts.com/lib/4/charts.js"></script>
@@ -29,13 +31,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <style>
   /* Style the form */
-#regForm {
-  background-color: #ffffff;
-  margin: 0px auto;
-  padding: 0px;
-  width: 100%;
-  min-width: 300px;
-}
+  .my-custom-scrollbar {
+    position: relative;
+    height: 550px;
+    overflow: auto;
+  }
+  .table-wrapper-scroll-y {
+    display: block;
+  }
 
 /* Style the input fields */
 /* input {
@@ -88,7 +91,7 @@ input.invalid {
 
 #chartdiv {
   width: 100%;
-  height: 400px;
+  height: 300px;
 }
 
 #chartASN {
@@ -99,6 +102,11 @@ input.invalid {
 #chartNONASN {
   width: 100%;
   height: 250px;
+}
+
+#chartPemakaianApollo {
+  width: 100%;
+  height: 400px;
 }
 /* Safari */
 @-webkit-keyframes spin {
@@ -208,9 +216,10 @@ input.invalid {
   am4core.useTheme(am4themes_animated);
 
   // Create chart
-  var chart = am4core.create("chartdiv", am4charts.PieChart3D);
-  chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
-  chart.legend = new am4charts.Legend();
+  // var chart = am4core.create("chartdiv", am4charts.PieChart3D);
+  var chart = am4core.create("chartdiv", am4charts.PieChart);
+  // chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+  // chart.legend = new am4charts.Legend();
   chart.data = [
   {
     Hasil: "APOLLO",
@@ -226,9 +235,29 @@ input.invalid {
   }
   ];
 
-  var series = chart.series.push(new am4charts.PieSeries3D());
+  chart.radius = am4core.percent(70);
+  chart.innerRadius = am4core.percent(40);
+  chart.startAngle = 180;
+  chart.endAngle = 360;  
+  
+  
+  var series = chart.series.push(new am4charts.PieSeries());
   series.dataFields.value = "Pengguna";
   series.dataFields.category = "Hasil";
+
+  series.slices.template.cornerRadius = 5;
+  series.slices.template.innerCornerRadius = 7;
+  series.slices.template.draggable = true;
+  series.slices.template.inert = true;
+  series.alignLabels = false;
+
+  series.hiddenState.properties.startAngle = 90;
+  series.hiddenState.properties.endAngle = 90;
+  series.colors.list = [
+      am4core.color("#637f26"),
+      am4core.color("#ff6600")
+    ];
+  chart.legend = new am4charts.Legend();
 
   });
 
@@ -265,7 +294,10 @@ input.invalid {
   var series = chart.series.push(new am4charts.PieSeries3D());
   series.dataFields.value = "Pengguna";
   series.dataFields.category = "Hasil";
-  
+  series.colors.list = [
+      am4core.color("#92d050"),
+      am4core.color("#ff6600")
+    ];
   // series.alignLabels = false;
   // series.labels.template.bent = true;
   // series.labels.template.radius = 22;
@@ -313,6 +345,10 @@ input.invalid {
   var series = chart.series.push(new am4charts.PieSeries3D());
   series.dataFields.value = "Pengguna";
   series.dataFields.category = "Hasil";
+  series.colors.list = [
+      am4core.color("#92d050"),
+      am4core.color("#ff6600")
+    ];
   // series.alignLabels = false;
   // series.labels.template.bent = true;
   // series.labels.template.radius = 22;
@@ -321,7 +357,74 @@ input.invalid {
 
   }); // end am4core.ready()
 
-  
+
+  //=========================================GRAFIK PEMAKAIAN APOLLO=======================//
+  am4core.ready(function() {
+
+  // Themes begin
+  am4core.useTheme(am4themes_kelly);
+  am4core.useTheme(am4themes_animated);
+  // Themes end
+
+
+
+  // Create chart instance
+  var chart = am4core.create("chartPemakaianApollo", am4charts.XYChart);
+
+  // Add data
+  chart.data = [
+    <?php for ($a = 0; $a < count($grafik); $a++) { ?>
+    {
+      date: "<?php echo $grafik[$a]['TGLABSEN']?> ",
+      jml: <?php echo $grafik[$a]['JMLPEMAKAI']?>
+    },
+    <?php } ?>
+  ];
+
+  // Create axes
+  var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+  dateAxis.renderer.grid.template.location = 0;
+  dateAxis.renderer.minGridDistance = 50;
+
+  var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+  valueAxis.logarithmic = true;
+  valueAxis.renderer.minGridDistance = 20;
+
+  // Create series
+  var series = chart.series.push(new am4charts.LineSeries());
+  series.dataFields.valueY = "jml";
+  series.dataFields.dateX = "date";
+  series.tensionX = 0.8;
+  series.strokeWidth = 3;
+
+  var bullet = series.bullets.push(new am4charts.CircleBullet());
+  bullet.circle.fill = am4core.color("#fff");
+  bullet.circle.strokeWidth = 3;
+
+  // Add cursor
+  chart.cursor = new am4charts.XYCursor();
+  chart.cursor.fullWidthLineX = true;
+  chart.cursor.xAxis = dateAxis;
+  chart.cursor.lineX.strokeWidth = 0;
+  chart.cursor.lineX.fill = am4core.color("#000");
+  chart.cursor.lineX.fillOpacity = 0.1;
+
+  // Add scrollbar
+  chart.scrollbarX = new am4core.Scrollbar();
+
+  // Add a guide
+  let range = valueAxis.axisRanges.create();
+  range.value = 400;
+  range.grid.stroke = am4core.color("#396478");
+  range.grid.strokeWidth = 1;
+  range.grid.strokeOpacity = 1;
+  range.grid.strokeDasharray = "3,3";
+  range.label.inside = true;
+  range.label.text = "Average";
+  range.label.fill = range.grid.stroke;
+  range.label.verticalCenter = "bottom";
+
+  }); // end am4core.ready()
   </script>
 </head>
 <body class="hold-transition layout-top-nav">
@@ -369,23 +472,18 @@ input.invalid {
 <div class="content-wrapper">
   <div class="container">
     <!-- Content Header (Page header) -->
-    <div class="content-header">
+    <div class="content-header" style="padding-top: 8px;
+    padding-right: 0.5rem;
+    padding-bottom: 8px;
+    padding-left: 0.5rem;">
     </div>
     <!-- /.content-header -->
 
     <!-- Main content -->
     <section class="content">
-      <div class="container-fluid">
+      <!-- <div class="container-fluid"> -->
         <!-- Small boxes (Stat box) -->
         <div class="row">
-          <div class="col-12">
-            <div class="callout callout-info">
-              <h4><i class="fas fa-info"></i> VERSI APOLLO TERBARU SAAT INI :</h4>
-                <h4><strong><?php foreach ($dashboard as $dt){
-                  echo $dt['APOLLO'];
-                }?></strong></h4>
-            </div>
-          </div>
           <div class="col-md-12">
             <div class="card card-success card-outline">
               <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;">
@@ -428,7 +526,8 @@ input.invalid {
                 <tr><td><u>Keterangan :</u></td><td></td><td></td></tr>
                 <tr><td>Total Pegawai ASN</td><td>:</td><td><?php foreach ($dashboard as $dt){echo $dt['ASN'];}?></td></tr>
                 <tr><td>Pengguna Apollo</td><td>:</td><td><?php foreach ($dashboard as $dt){echo $dt['ASN_APOLLO'];}?></td></tr>
-                <tr><td>Yang Belum Apollo</td><td>:</td><td><?php foreach ($dashboard as $dt){echo $dt['ASN_BLM_APOLLO'];}?></td></tr>
+                <tr><td>Yang Belum Apollo</td><td>:</td><td><a href="javascript:void(0)"><span class="badge badge-danger rincianNonApollo" style="font-color:white; font-weight:bold; font-size:15px" data-toggle="modal" data-target="#datarincian" data-status="ASN"><i class="fas fa-exclamation-circle text-sm"></i><?php foreach ($dashboard as $dt){echo ' '.$dt['ASN_BLM_APOLLO'];}?></span></a>
+                </td></tr>
                 </table>
               </div>
               <!-- /.card-body -->
@@ -454,32 +553,58 @@ input.invalid {
                 <tr><td><u>Keterangan :</u></td><td></td><td></td></tr>
                 <tr><td>Total Pegawai NON ASN</td><td>:</td><td><?php foreach ($dashboard as $dt){echo $dt['NONASN'];}?></td></tr>
                 <tr><td>Pengguna Apollo</td><td>:</td><td><?php foreach ($dashboard as $dt){echo $dt['NONASN_APOLLO'];}?></td></tr>
-                <tr><td>Yang Belum Apollo</td><td>:</td><td><?php foreach ($dashboard as $dt){echo $dt['NONASN_BLM_APOLLO'];}?></td></tr>
+                <tr><td>Yang Belum Apollo</td><td>:</td><td><a href="javascript:void(0)"><span class="badge badge-danger rincianNonApollo" style="font-color:white; font-weight:bold; font-size:15px" data-toggle="modal" data-target="#datarincian" data-status="NONASN"><i class="fas fa-exclamation-circle text-sm"></i><?php foreach ($dashboard as $dt){echo ' '.$dt['NONASN_BLM_APOLLO'];}?></span></a></td></tr>
                 </table>
               </div>
               <!-- /.card-body -->
             </div>
           </div>
           <!-- ./col -->
-          
+          <div class="col-md-12">
+            <div class="card card-success card-outline">
+              <div class="card-header" style="text-align: center;align-items: center;display: grid;font-family: fantasy;">
+                  <h1 class="card-title m-0" style="text-align: center;font-size: 20px;">GRAFIK PEMAKAIAN APOLLO</h1>
+              </div>
+              <div class="card-body">
+              <!-- One "tab" for each step in the form: -->
+                <div class="row">
+                  <div class="col-md-12">
+                    <!-- HTML -->
+                    <div id="chartPemakaianApollo"></div>
+                  </div>
+                </div>
+              </div>
+            </div>                       
+          </div>
+          <!-- ./col -->
         </div>
         <!-- /.row -->
-        <!-- Main row -->
-        <div class="row">
-          <!-- Left col -->
-          <section class="col-lg-7 connectedSortable">
-            <!-- Custom tabs (Charts with tabs)-->
-          </section>
-          <!-- /.Left col -->
-        </div>
-        <!-- /.row (main row) -->
-      </div><!-- /.container-fluid -->
+      <!-- </div> -->
+      <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
     </div>
   </div>
   <!-- /.content-wrapper -->
-
+  
+  <div class="modal fade" id="dataBelumApollo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="status">Pegawai yang Belum Apollo</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="table-wrapper-scroll-y my-custom-scrollbar">
+            <table class="table table-bordered table-responsive" id="tabelNonApollo">
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Main Footer -->
   <footer class="main-footer text-center">
@@ -497,8 +622,19 @@ input.invalid {
 <script src="<?php echo base_url('assets/plugins/bootstrap/js/bootstrap.bundle.min.js');?>"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url('assets/dist/js/adminlte.min.js');?>"></script>
+<!-- Toastr -->
+<script src="<?php echo base_url('assets/plugins/toastr/toastr.min.js');?>"></script>
 <!-- bs-custom-file-input -->
 <script src="<?php echo base_url('assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js');?>"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+
+<script>
+ $(document).ready(function(){
+    toastr.info('Versi Apollo : <?php foreach ($dashboard as $dt){
+                  echo ' '.$dt['APOLLO'];
+                }?>');
+ });
+</script>
+
 </body>
 </html>
