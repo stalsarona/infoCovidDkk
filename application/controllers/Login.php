@@ -38,8 +38,8 @@ class Login extends CI_Controller {
 	
 	public function dashboard_grafik(){
 		//$periode = $this->input->post('periode');
-		$bln = '08';
-		$thn = '2020';
+		$bln = date("m");
+		$thn = date("Y");
 		$curl = curl_init();
 
 		curl_setopt_array($curl, array(

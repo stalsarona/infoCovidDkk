@@ -58,14 +58,19 @@
                         echo "
                         <tr>
                           <td>".$no_urut."</td>
-                          <td><input type='hidden' name='id' id='id' value='".$dt['IDWKTKERJA']."'>".$dt['IDWKTKERJA']."</td>
+                          <td>".$dt['IDWKTKERJA']."</td>
                           <td>".$dt['KETJNSWKTKERJA']."</td>
                           <td>".substr($dt['CHECKIN'],11,8)."</td>
                           <td>".substr($dt['CHECKOUT'],11,8)."</td>
                           <td>".$dt['DURATION']."</td>
-                          <td>".$dt['STATUS']."</td>
-                          <td>".$dt['NOTE']."</td>
-                          <td><button  data-id_waktu='" . $dt['IDWKTKERJA'] . "' data-toggle='modal' data-target='#ubah-data' class='btn btn-warning btnedit'>Ubah</button>
+                          <td>".$dt['STATUS']."</td>";
+                          if(strlen($dt['NOTE'])>=100){
+                          echo "<td>".
+                            substr($dt['NOTE'],0,100)."... <a href='#' data-id_waktu='" . $dt['IDWKTKERJA'] . "' data-toggle='modal' class='btn detailket' style='color:blue'>(Lihat Detail)</a></td>";
+                          }else{
+                            echo "<td>".$dt['NOTE']."</td>";
+                          }
+                          echo "<td><button  data-id_waktu='" . $dt['IDWKTKERJA'] . "' data-toggle='modal' data-target='#ubah-data' class='btn btn-warning btnedit'>Ubah</button>
                           </td>
                           </tr>
                         ";
@@ -197,7 +202,7 @@
             </div>
             <div class="modal-body" style="padding-top: 15px; padding-right: 30px; padding-bottom: 0px; padding-left: 30px;">
                 <form method="POST" name="editForm" id="editForm">
-                  <input type="hidden" class="form-control" placeholder="Username" name="private_token" id="private_token" value="<?php echo $token; ?>">
+                  <input type="hidden" class="form-control" placeholder="Username" name="private_tokenubah" id="private_tokenubah" value="<?php echo $token; ?>">
                     <div class="form-group">
                         <div class="row">
                             <div class="col-lg-12">
@@ -246,16 +251,69 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <label class="login2 pull-left pull-left-pro">Keterangan</label>
+                                <textarea name="ketubah" id="ketubah" rows="4" cols="60" required></textarea>
+                            </div>
+                        </div>
+                    </div>
                     <div class="modal-footer" style="padding-left:0px; padding-right:0px; ">
                         <button class="btn btn-large btn-danger" data-dismiss="modal" type="button">Kembali</button>
                         <button class="btn btn-large btn-primary" type="submit" id="btn_simpanubah">Simpan Data</button>
                     </div>
-                </form>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!--#####Modal Ubah Data Berakhir#####-->
+
+  <!--#####Modal Detail Data Mulai#####-->
+  <div id="detailket" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header header-color-modal bg-color-1" style="padding-top: 10px; padding-right: 50px; padding-bottom: 10px; padding-left: 50px;">
+                <h4 class="modal-title">Detail Jadwal Shift</h4>
+                <div class="modal-close-area modal-close-df">
+                    <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                </div>
+            </div>
+            <div class="modal-body" style="padding-top: 15px; padding-right: 30px; padding-bottom: 0px; padding-left: 30px;">
+              <div class="form-group">
+                  <div class="row">
+                      <div class="col-lg-12">
+                          <label class="login2 pull-left pull-left-pro">ID Waktu Kerja</label>
+                          <input type="text" name="idkerja" class="form-control" id="idkerja" autocomplete="off" required readonly/>
+                      </div>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <div class="row">
+                      <div class="col-lg-12">
+                          <label class="login2 pull-left pull-left-pro">Jenis Waktu Kerja</label>
+                          <input type="text" name="jnskerja" id="jnskerja" class="form-control" autocomplete="off" required readonly/>
+                      </div>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <div class="row">
+                      <div class="col-lg-12">
+                          <label class="login2 pull-left pull-left-pro">Keterangan</label>
+                          <!-- <input type="text" name="ket" id="ket" class="form-control" autocomplete="off" required /> -->
+                          <textarea name="ket" id="ket" rows="4" cols="60" readonly></textarea>
+                      </div>
+                  </div>
+              </div>
+              <div class="modal-footer" style="padding-left:0px; padding-right:0px; ">
+                  <button class="btn btn-large btn-danger" data-dismiss="modal" type="button">Kembali</button>
+              </div>
             </div>
         </div>
     </div>
 </div>
-<!--#####Modal Ubah Data Berakhir#####-->
+<!--#####Modal Detail Data Berakhir#####-->
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
@@ -408,33 +466,6 @@
           }else if(response[0]['CODE'] == '200'){     
             //alert("Berhasil Simpan");
             var orpeg = '<?php echo base_url('Dashboard/view_jadwal')?>';
-            // let timerInterval
-            // Swal.fire({
-            //   title: 'Berhasil Simpan',
-            //   html: '',
-            //   timer: 500,
-            //   timerProgressBar: true,
-            //   onBeforeOpen: () => {
-            //     Swal.showLoading()
-            //     timerInterval = setInterval(() => {
-            //       const content = Swal.getContent()
-            //       if (content) {
-            //         const b = content.querySelector('b')
-            //         if (b) {
-            //           b.textContent = Swal.getTimerLeft()
-            //         }
-            //       }
-            //     }, 100)
-            //   },
-            //   onClose: () => {
-            //     clearInterval(timerInterval)
-            //   }
-            // }).then((result) => {
-            //   /* Read more about handling dismissals below */
-            //   if (result.dismiss === Swal.DismissReason.timer) {
-            //     console.log('I was closed by the timer')
-            //   }
-            // })
             window.location.replace(orpeg);
           }
         }
@@ -442,7 +473,8 @@
       return false;
     });
     
-    $('.btnedit').on('click',function(){
+    // $('.btnedit').on('click',function(){
+    $('#tabelJadwal').on('click', '.btnedit', function(){
       var id =  $(this).data('id_waktu');
       $.ajax({
         type: "POST",
@@ -453,6 +485,7 @@
           $('#btnedit').modal('show');
           $('#id_waktu').val(response['IDWKTKERJA'])
           $('#jenis').val(response['KETJNSWKTKERJA'])
+          $('#ketubah').val(response['NOTE'])
 
           var html = '';
           var i;
@@ -497,6 +530,24 @@
             }
           }
           $("#menitkeluarubah").html(html);
+        }
+      })
+    });
+
+    // $('.detailket').on('click',function(){
+    $('#tabelJadwal').on('click','.detailket',function(){
+      var id =  $(this).data('id_waktu');
+      $.ajax({
+        type: "POST",
+        url: "<?php echo base_url('Dashboard/get_jadwal_by_id')?>",
+        data: {id:id}, 
+        dataType: "json",
+        success: function (response) {
+          $('#detailket').modal('show');
+          $('#idkerja').val(response['IDWKTKERJA'])
+          $('#jnskerja').val(response['KETJNSWKTKERJA'])
+          $('#ket').val(response['NOTE'])
+
         }
       })
     });

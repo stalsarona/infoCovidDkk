@@ -199,33 +199,6 @@
           }else if(response[0]['CODE'] == '200'){     
             var orpeg = '<?php echo base_url('Menu/view_jadwal')?>';
             swal("Berhasil Simpan",'','info');
-            // let timerInterval
-            // Swal.fire({
-            //   title: 'Berhasil Simpan',
-            //   html: '',
-            //   timer: 500,
-            //   timerProgressBar: true,
-            //   onBeforeOpen: () => {
-            //     Swal.showLoading()
-            //     timerInterval = setInterval(() => {
-            //       const content = Swal.getContent()
-            //       if (content) {
-            //         const b = content.querySelector('b')
-            //         if (b) {
-            //           b.textContent = Swal.getTimerLeft()
-            //         }
-            //       }
-            //     }, 100)
-            //   },
-            //   onClose: () => {
-            //     clearInterval(timerInterval)
-            //   }
-            // }).then((result) => {
-            //   /* Read more about handling dismissals below */
-            //   if (result.dismiss === Swal.DismissReason.timer) {
-            //     console.log('I was closed by the timer')
-            //   }
-            // })
             window.location.replace(orpeg);
           }
         }
@@ -266,44 +239,6 @@
       });
       return false;
     });
-
-    // $("#tabelakses").on('change', 'input[type=checkbox]',function(){
-    //   // var id =  $(this).data('id_role');
-    //   var checked = $(this).attr('checked');
-    //   // if(checked){
-    //   if($(this).is(':checked')){
-    //     var menuId = $(this).val();
-    //     var token  = $('#private_token').val();
-    //     var roleId = $(this).data('role');
-        
-    //     $.ajax({
-    //       type: "POST",
-    //       url: "<?php echo base_url('Menu/ubah_akses_menu')?>",
-    //       data: {
-    //         menuId : menuId,
-    //         roleId : roleId,
-    //         token  : token
-    //       }, 
-    //       dataType: "json",
-    //       success: function (response) {
-    //         if(response[0]['CODE'] == '515'){
-    //           alert("Nilai NULL tidak diperbolehkan");
-    //           var exp = '<?php echo base_url('Menu/akses_menu')?>';
-    //           window.location.replace(exp);
-    //         } else if(response[0]['CODE'] == '2627'){
-    //           alert("ID Waktu Kerja yang Anda masukkan sudah Ada, silahkan masukkan ID yang lain.");
-    //           var orpeg = '<?php echo base_url('Menu/akses_menu')?>';
-    //           window.location.replace(orpeg);
-    //         }else if(response[0]['CODE'] == '200'){     
-    //           var orpeg = '<?php echo base_url('Menu/akses_menu')?>';
-    //           swal("Berhasil Simpan",'','info');
-    //           window.location.replace(orpeg);
-    //         }
-    //       }
-    //     });
-    //     return false;
-    //   }
-    // });
 
     $("#tabelakses").on('click','input[type=checkbox]',function(){
       // var id =  $(this).data('id_role');

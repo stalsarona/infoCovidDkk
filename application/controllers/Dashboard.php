@@ -162,13 +162,28 @@ class Dashboard extends CI_Controller {
         }
         $data['data'] = $this->get_jadwal();
         $data['username'] = $this->session->userdata('username');
-        $data['nip'] = $this->session->userdata('niplama');
+        $data['nip'] = $this->session->userdata('nip');
         $data['token'] = $this->private_token();
         $menu['menu'] = $this->get_akses_menu();
         $this->load->view('V_navigasi',$menu);
         $this->load->view('V_jadwal',$data);
     }
 
+	public function jadwal_pegawai(){
+        if($this->session->userdata('tipe')!='ADM' && $this->session->userdata('tipe')!='IT'){
+            $this->session->set_flashdata('errorMessage', '<div class="alert alert-danger alert-dismissible"><i class="icon fas fa-exclamation-triangle"></i> Maaf Anda tidak memiliki akses menu tersebut !</div>');
+            redirect('Dashboard');
+        }
+        $data['jadwal'] = $this->get_jadwal();
+        $data['bagian'] = $this->get_bagian();
+        $data['username'] = $this->session->userdata('username');
+        $data['nip'] = $this->session->userdata('niplama');
+        $data['token'] = $this->private_token();
+        $menu['menu'] = $this->get_akses_menu();
+        $this->load->view('V_navigasi',$menu);
+        $this->load->view('V_jadwal_pegawai',$data);
+	}
+	
     public function get_jadwal_by_id(){
         $id = $this->input->post('id');
 		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_jadwal_by_id/";
@@ -271,7 +286,7 @@ class Dashboard extends CI_Controller {
             'USER_UBAH'  => urlencode($this->session->userdata('username')),
             'JAM_UBAH'   => date("Y-m-d H:i:s"),
             'KOMP_UBAH'  => gethostbyaddr($_SERVER['REMOTE_ADDR']),
-            'private_key' => $this->input->post('private_token')
+            'private_key' => $this->input->post('private_tokenubah')
         );
         $curl = curl_init();
         curl_setopt_array($curl, array(
@@ -363,31 +378,6 @@ class Dashboard extends CI_Controller {
         $this->output->set_content_type('application/json')->set_output(json_encode($data));
     }
 
-    public function get_absen_by_bulannip_baru($nip,$tahun,$bulan)
-	{
-		$url = 'http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_absen_by_bulannip/';
-		$header = array(             
-            "X-nip: ".$nip,
-            "X-bln: ".$tahun.''.$bulan	
-			);
-		$data = $this->get_cors($url, $header);
-		$key = json_decode($data, TRUE);
-		$hasil = array();
-		$nomor = 0;
-		foreach($key as $key){
-			$nomor++;
-			$hasil[] = array('nomor' => $nomor,
-							 'TANGGAL' => $key['TANGGAL'],
-							 'JAMKERJA' => $key['CHECKIN'].'-'.$key['CHECKOUT'],
-							 'KEGIATAN' => $key['KEGIATAN'],
-							 'MASUK' => $key['MASUK'],
-							 'PULANG' => $key['PULANG']
-			);
-		}
-		$result = array('aaData' => $hasil);
-		$this->output->set_content_type('application/json')->set_output(json_encode($result));	
-	}
-
     //===========================================ADMIN=============================//
     public function laporan(){
         $data['username'] = $this->session->userdata('username');
@@ -459,7 +449,68 @@ class Dashboard extends CI_Controller {
         $data = json_decode($response, TRUE);
         $this->output->set_content_type('application/json')->set_output(json_encode($data));
     }
-    
+	
+	public function get_riwayat_presensi_tabel($nip,$periode){
+		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_absen_by_bulannip";
+		$curl = curl_init();
+		curl_setopt_array($curl, array(
+		CURLOPT_URL => $url,
+		CURLOPT_RETURNTRANSFER => true,
+		CURLOPT_ENCODING => "",
+		CURLOPT_MAXREDIRS => 10,
+		CURLOPT_TIMEOUT => 0,
+		CURLOPT_FOLLOWLOCATION => true,
+		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		CURLOPT_CUSTOMREQUEST => "GET",
+		CURLOPT_HTTPHEADER => array(
+            "X-nip: ".$nip,
+            "X-bln: ".$periode
+			),
+		));
+
+		$response = curl_exec($curl);
+
+		curl_close($curl);
+		$key = json_decode($response, TRUE);
+		
+		$hasil = array();
+		$nomor = 0;
+		
+		if($key['code']=='404'){
+			$hasil[] = array('nomor' => $nomor,
+							'nip' => '',
+							'nama' => '',
+							'tanggal' => 'Data tidak ditemukan',
+							'masuk' => '',
+							'pulang' => '',
+							'durasi' => '',
+							'terlambat' => '',
+							'pulangcepat' => '',
+							'lembur' =>'',
+							'ket' => ''
+			);
+		}else{
+			foreach($key['data'] as $nilai){
+				$nomor++;
+				$hasil[] = array('nomor' => $nomor,
+								'nip' => $nilai['NIP'],
+								'nama' => $nilai['NAMA'],
+								'tanggal' => substr($nilai['TANGGAL'],0,10),
+								'masuk' => $nilai['MASUK'],
+								'pulang' => $nilai['PULANG'],
+								'durasi' => $nilai['DURASI'],
+								'terlambat' => $nilai['TERLAMBAT'],
+								'pulangcepat' => $nilai['PULANGCEPAT'],
+								'lembur' => $nilai['LEMBUR'],
+								'ket' => $nilai['KET'],
+								'totdurasi' => ($nilai['TOTDURASI']/60),
+				);
+			}
+		}
+		$result = array('aaData' => $hasil);
+		$this->output->set_content_type('application/json')->set_output(json_encode($result));
+	}
+	
     public function buatExcel() {
         $kdbag      = substr($this->input->post('bagian'),0,4);
         $bag        = substr($this->input->post('bagian'),5,30);
