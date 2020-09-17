@@ -223,7 +223,6 @@
           if(len > 0){
             html += "<tbody>";
             for(var i = 0; i < len; i++){
-              //html += "<tr><td>" + response.data[i].ID + "</td><td>" + response.data[i].TITLE + "</td><td><div class='custom-control custom-checkbox'><input class='form-check-input' type='checkbox' id='customCheckbox1' "+ check_access(id,response.data[i].ID) +"></div></td></tr>";
               html += "<tr><td>" + response.data[i].ID + "</td><td>" + id + "</td><td>" + response.data[i].TITLE + "</td>";
                 html += "<td><div class='custom-control custom-checkbox'><input class='form-check-input  formChecked' type='checkbox' value='"+ response.data[i].ID +"' data-role='"+ id +"' data-menu='"+ response.data[i].ID +"'"+ (response.data[i].MENU==response.data[i].ID ? 'checked' : '') +"></div></td>";
                 

@@ -156,92 +156,6 @@
           theme: 'bootstrap4'
         });
 
-        // $('.btncari').on('click',function(){
-        //   var tahun = $('#tahun').val();
-        //   var bulan = $('#bulan').val().substr(0,2);
-        //   var namabulan = $('#bulan').val().substr(3,4);
-        //   $.ajax({
-        //     type: "POST",
-        //     url: "<?php echo base_url('Dashboard/get_riwayat_presensi')?>",
-        //     data: {tahun:tahun,bulan:bulan,namabulan:namabulan}, 
-        //     dataType: "json",
-        //     success: function (response) {
-              
-        //       if(response['code'] == '200'){
-        //         $('.tabelshow').show();
-        //         $('#absensi').show();
-        //         var len           = response.data.length;
-        //         var totterlambat  = (response.data[0].TOTTERLAMBAT/60).toFixed(2);
-        //         var totplgcpt     = (response.data[0].TOTPULANGCEPAT/60).toFixed(2);
-        //         var totdurasi     = (response.data[0].TOTDURASI/60).toFixed(2);
-        //         var totlembur     = (response.data[0].TOTLEMBUR/60).toFixed(2);
-        //         var html = '';
-        //         if(len > 0){
-        //           html += "<h2 style='text-align:center;'>Laporan Detail Harian</h2><hr>";
-        //           html += "<table><tr><td><h4>PERIODE WAKTU</td><td><h4>:</td><td><h4>" + namabulan + " " + tahun + "</h4></td></tr></table>";
-        //           html += "<table id='tabelabsensi' class='table table-responsive table-bordered table-striped'>";
-        //           html += "<thead><tr><th>TANGGAL</th><th>JAM KERJA</th><th>KEGIATAN</th><th>MASUK</th><th>PULANG</th><th>TERLAMBAT (Menit)</th><th>CEPAT PLG (Menit)</th><th>TOTAL  (Menit)</th><th>LEMBUR (Menit)</th><th>KETERANGAN</th></tr></thead>";
-        //           html += "<tbody>";
-        //           for(var i = 0; i < len; i++){
-        //             var tgl=response.data[i].TANGGAL.substr(8,2);
-        //             var bln=response.data[i].TANGGAL.substr(5,2);
-        //             var thn=response.data[i].TANGGAL.substr(0,4);
-        //             var tglabsen = tgl + '-' + bln + '-' + thn;
-        //             //masuk
-        //             if(response.data[i].MASUK==null){
-        //               var masuk = '-';
-        //             }else{
-        //               var masuk = response.data[i].MASUK;
-        //             }
-        //             //pulang
-        //             if(response.data[i].PULANG==null){
-        //               var pulang = '-';
-        //             }else{
-        //               var pulang = response.data[i].PULANG;
-        //             }
-        //             //terlambat
-        //             if(response.data[i].TERLAMBAT==null){
-        //               var terlambat = '-';
-        //             }else{
-        //               var terlambat = response.data[i].TERLAMBAT;
-        //             }
-        //             //pulangcepat
-        //             if(response.data[i].PULANGCEPAT==null){
-        //               var plgcepat = '-';
-        //             }else{
-        //               var plgcepat = response.data[i].PULANGCEPAT;
-        //             }
-        //             //durasi
-        //             if(response.data[i].DURASI==null){
-        //               var durasi = '-';
-        //             }else{
-        //               var durasi = response.data[i].DURASI;
-        //             }
-        //             //lembur
-        //             if(response.data[i].LEMBUR==null){
-        //               var lembur = '-';
-        //             }else{
-        //               var lembur = response.data[i].LEMBUR;
-        //             }
-        //             html += "<tr><td>" + tglabsen + "</td><td>"+ response.data[i].CHECKIN + "-" + response.data[i].CHECKOUT + "</td><td>"+response.data[i].KEGIATAN + "</td><td>"+ masuk + "</td><td>"+ pulang + "</td><td>"+ terlambat + "</td><td>"+ plgcepat + "</td><td>"+ durasi + "</td><td>"+ lembur + "</td><td>"+response.data[i].KET + "</td></tr>";
-        //           }
-        //           html += "</tbody></table>";
-        //           html += "<table><tr><td><h4>JML TERLAMBAT</td><td><h4>:</td><td><h4>" + totterlambat + "</h4></td><td> &nbsp &nbsp &nbsp </td><td><h4>JML JAM KERJA</td><td><h4>:</td><td><h4>" + totdurasi + "</h4></td></tr>";
-        //           html += "<tr><td><h4>JML PLG CEPAT</td><td><h4>:</td><td><h4>" + totplgcpt + "</h4></td><td> &nbsp &nbsp &nbsp </td><td><h4>JML LEMBUR</td><td><h4>:</td><td><h4>" + totlembur + "</h4></td></tr>";
-        //           // html += "<tr><td><h4>JML JAM KERJA</td><td><h4>:</td><td><h4>" + totdurasi + "</h4></td></tr>";
-        //           // html += "<tr><td><h4>JML LEMBUR</td><td><h4>:</td><td><h4>" + totlembur + "</h4></td></tr></table>";
-        //           if(html != ""){
-        //               $("#absensi").html(html).removeClass("hidden");
-        //           }
-        //         }
-        //       }else{
-        //         alert('Data tidak ditemukan');
-        //       }
-        //     }
-        //   });
-        //   return false;
-        // });
-        // $('#tbriwayat').hide();
         $('.btncari').on('click',function(){
           var tahun = $('#tahun').val();
           var nip = $('#nip').val();
@@ -264,7 +178,7 @@
             "sAjaxSource": "<?php echo base_url()?>dashboard/get_riwayat_presensi_tabel/"+nip+"/"+periode,
             "aoColumns": [
                 {
-                    "mData": "tanggal"
+                    "mData": "tanggal",
                 },
                 {
                     "mData": "masuk",					

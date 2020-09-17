@@ -19,8 +19,8 @@ class Dashboard extends CI_Controller {
         //     redirect('login');
         // }
         is_logged_in(); //helper auth
-    }
-    
+	}
+	
     public function index(){
         // $data['pegawai'] = $this->get_total_pegawai_kontrak();
         // $data['pengguna'] = $this->get_total_pengguna();
@@ -397,7 +397,6 @@ class Dashboard extends CI_Controller {
         $this->load->view('V_navigasi',$menu);
         $this->load->view('V_laporan_bagian',$data);
     }
-
     
     public function get_bagian(){
         $url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_lokasi";
@@ -406,17 +405,76 @@ class Dashboard extends CI_Controller {
 		return $data;
     }
 
+	public function get_pegawai_by_lokasi(){
+        $bag   = $this->input->post('bagian');
+        $periode = $tahun.''.$bulan;
+		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_pegawai_by_lokasi/";
+		$curl = curl_init();
+		curl_setopt_array($curl, array(
+		CURLOPT_URL => $url,
+		CURLOPT_RETURNTRANSFER => true,
+		CURLOPT_ENCODING => "",
+		CURLOPT_MAXREDIRS => 10,
+		CURLOPT_TIMEOUT => 0,
+		CURLOPT_FOLLOWLOCATION => true,
+		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		CURLOPT_CUSTOMREQUEST => "GET",
+		CURLOPT_HTTPHEADER => array(
+            "X-bag: ".$bag
+			),
+		));
+
+		$response = curl_exec($curl);
+
+		curl_close($curl);
+        $data = json_decode($response, TRUE);
+        $this->output->set_content_type('application/json')->set_output(json_encode($data));
+    }
+
     public function get_pegawai_by_bagian($bag){
-        //$bag = $this->input->post('bagian');
 		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_pegawai_by_bagian/".$bag;
         $data = json_decode($this->get_cors($url), TRUE);
 		return $data;
     }
 
+	public function get_list_pegawai(){
+		$bagian   = $this->input->post('bagian');
+		if($bagian != ''){
+			$search_array = explode(",",$bagian);
+			
+			$search_text = "'" . implode("', '", $search_array) . "'";
+			$url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_list_pegawai/";
+			$curl = curl_init();
+			curl_setopt_array($curl, array(
+			CURLOPT_URL => $url,
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_ENCODING => "",
+			CURLOPT_MAXREDIRS => 10,
+			CURLOPT_TIMEOUT => 0,
+			CURLOPT_FOLLOWLOCATION => true,
+			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			CURLOPT_CUSTOMREQUEST => "GET",
+			CURLOPT_HTTPHEADER => array(
+			"X-bag: ".$bagian
+				),
+			));
+
+			$response = curl_exec($curl);
+			curl_close($curl);
+			$data = json_decode($response, TRUE);
+			//untuk scraping json harus di decode baru di looping dahulu
+			$this->output->set_content_type('application/json')->set_output(json_encode($data));
+		}else{
+			$response = array('message' => 'Data tidak ditemukan',
+						'status' => false,
+						'code' => 404);
+			$this->output->set_content_type('application/json')->set_output(json_encode($response));
+		}
+	}
+
     public function get_presensi_excel($nip,$bln){
 		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_presensi_excel/".$nip."/".$bln;
         $data = json_decode($this->get_cors($url), TRUE);
-        //$this->output->set_content_type('application/json')->set_output(json_encode($data));
 		return $data;
     }
 

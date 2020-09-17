@@ -95,31 +95,31 @@
                     <div class="form-group clearfix">
                     <label>Pilih Hari</label><br>
                       <div class="icheck-primary d-inline">
-                        <input type="checkbox" id="Sen"  value="1">
+                        <input type="checkbox" id="Sen"  value="1" checked>
                         <label for="Sen">
                           Sen &nbsp &nbsp
                         </label>
                       </div>
                       <div class="icheck-primary d-inline">
-                        <input type="checkbox" id="Sel"  value="2">
+                        <input type="checkbox" id="Sel"  value="2" checked>
                         <label for="Sel">
                           Sel &nbsp &nbsp
                         </label>
                       </div>
                       <div class="icheck-primary d-inline">
-                        <input type="checkbox" id="Rab" value="3">
+                        <input type="checkbox" id="Rab" value="3" checked>
                         <label for="Rab">
                           Rab &nbsp &nbsp
                         </label>
                       </div>
                       <div class="icheck-primary d-inline">
-                        <input type="checkbox" id="Kam" value="4">
+                        <input type="checkbox" id="Kam" value="4" checked>
                         <label for="Kam">
                           Kam &nbsp &nbsp
                         </label>
                       </div>
                       <div class="icheck-primary d-inline">
-                        <input type="checkbox" id="Jum" value="5">
+                        <input type="checkbox" id="Jum" value="5" checked>
                         <label for="Jum">
                           Jum &nbsp &nbsp
                         </label>
@@ -202,15 +202,32 @@
                   <div class="col-sm-6">
                     <div class="form-group">
                       <label>Pilih Unit/Bagian Kerja</label>
-                        <select class="form-control select2bs4" multiple="multiple" data-placeholder="Pilih Unit/Bagian Kerja" name="bagian[]" id="bagian" style="width: 100%;">
+                        <select class="form-control select2bs4" multiple="multiple" data-placeholder="Pilih Unit/Bagian Kerja" name="bagian" id="bagian" style="width: 100%;" required>
                           <?php
                             $no_urut=0;
                             foreach ($bagian as $dt){
                               $no_urut++;
-                              echo "<option value='".$dt['KODEBAGIAN']."'>".$dt['NAMABAGIAN']."</option>";
+                              echo "<option value='".$dt['KODEBAGIAN']."'>".$dt['KODEBAGIAN']." - ".$dt['NAMABAGIAN']."</option>";
                             }
                           ?>
                         </select>
+                        <input type="hidden" name="hidden_bagian" id="hidden_bagian">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group btn-cari">
+                      <button type="button" class="btn btn-success float-right btnproses">PROSES</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>List Pegawai yang diproses</label>
+                    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                      <table class="table table-striped table-bordered nowrap" id="tbpegawai">
+                      </table>
                     </div>
                   </div>
                 </div>
@@ -273,10 +290,11 @@
 <script src="<?= base_url('assets/plugins/jquery-validation/additional-methods.min.js');?>"></script>
 
 <!-- DataTables -->
-<script src="<?= base_url('assets/plugins/datatables/jquery.dataTables.min.js');?>"></script>
-<script src="<?= base_url('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js');?>"></script>
-<script src="<?= base_url('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js');?>"></script>
-<script src="<?= base_url('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js');?>"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.5/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.5/js/responsive.bootstrap.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 <script>
   $(document).ready(function(){
@@ -297,65 +315,60 @@
         $('.formTambah').show();
     });
 
-    // $('.btncari').on('click',function(){
-    //   var kdbag = $('#bagian').val().substr(0,4);
-    //   var bag = $('#bagian').val().substr(5,30);
-    //   var tahun = $('#tahun').val();
-    //   var bulan = $('#bulan').val().substr(0,2);
-    //   var namabulan = $('#bulan').val().substr(3,4);
-    //   $.ajax({
-    //     type: "POST",
-    //     url: "<?php echo base_url('Dashboard/buatExcel')?>",
-    //     data: {kdbag:kdbag,bag:bag,tahun:tahun,bulan:bulan,namabulan:namabulan}, 
-    //     dataType: "json",
-    //     success: function (response) {
+    load_data();
+    function load_data(bagian=''){
+      $.ajax({
+        type: "POST",
+        url: "<?php echo base_url('Dashboard/get_list_pegawai')?>",
+        data: {bagian:bagian}, 
+        dataType: "json",
+        success: function (response) {
+          // $('tbody').html(data);
           
-    //       if(response['code'] == '200'){
-    //         //alert('Data ditemukan');
-    //       }else{
-    //         //alert('Data tidak ditemukan');
-    //       }
-    //     }
-    //   });
-    //   return false;
-    // });
-    
-    $("#tabelakses").on('click','option',function(){
-      // var id =  $(this).data('id_role');
-      var checked = $(this).attr('checked');
-      // if(checked){
-      //if($(this).is(':checked')){
-        var menuId = $(this).data('menu');
-        var token  = $('#private_token').val();
-        var roleId = $(this).data('role');
-        
-        $.ajax({
-          type: "POST",
-          url: "<?php echo base_url('Menu/ubah_akses_menu')?>",
-          data: {
-            menuId : menuId,
-            roleId : roleId,
-            token  : token
-          }, 
-          dataType: "json",
-          success: function (response) {
-            if(response[0]['CODE'] == '515'){
-              alert("Nilai NULL tidak diperbolehkan");
-              var exp = '<?php echo base_url('Menu/akses_menu')?>';
-              window.location.replace(exp);
-            } else if(response[0]['CODE'] == '2627'){
-              alert("Data Sudah Ada");
-              var orpeg = '<?php echo base_url('Menu/akses_menu')?>';
-              window.location.replace(orpeg);
-            }else if(response[0]['CODE'] == '200'){     
-              var orpeg = '<?php echo base_url('Menu/akses_menu')?>';
-              swal("Berhasil Ubah Akses",'','info');
-              window.location.replace(orpeg);
+          // var len = response.data.length;
+          var html = '';
+          html += "<thead><tr><th>PILIH</th><th>NIP</th><th>NAMA</th><th>BAGIAN</th></tr></thead>";
+          if(response.code=='200'){
+            html += "<tbody>";
+            for(var i = 0; i < response.data.length; i++){
+              html += "<tr><td><div class='custom-control custom-checkbox'><input class='form-check-input  formChecked' type='checkbox' value='"+ response.data[i].NIP +"' data-role='"+ response.data[i].NIP +"' data-menu='"+ response.data[i].NIP +"'"+ (response.data[i].NIP==response.data[i].NIP ? 'checked' : '') +"></div></td><td>" + response.data[i].NIP + "</td><td>" + response.data[i].NAMA + "</td><td>" + response.data[i].BAG + "</td>";      
+              html += "</tr>";
+              html += "</tbody>";
+              if(html != ""){
+                  $("#tbpegawai").html(html).removeClass("hidden");
+              }
+            }
+          }else if(response.code=='404'){
+            html += "<tbody>";
+            html += "<tr><td>-</td><td>Data tidak ditemukan</td><td>-</td><td>-</td>";      
+            html += "</tr>";
+            html += "</tbody>";
+            if(html != ""){
+              $("#tbpegawai").html(html).removeClass("hidden");
             }
           }
-        });
-        return false;
-      //}
+        }
+      });
+    }
+
+    $('#bagian').change(function(){
+    //$('#bagian').on('change',function(){
+      $('#hidden_bagian').val($('#bagian').val());
+      var bagian = $('#hidden_bagian').val();
+      load_data(bagian);
+      // var tabel_riwayat = $('#tbpegawai').DataTable({
+      //   "responsive" : true,
+      //   "autoWidth": false,
+      //   "sAjaxSource": "<?php echo base_url()?>dashboard/get_list_pegawai/"+bagian,
+      //   "aoColumns": [
+      //       {
+      //           "mData": "nip",					
+      //       },
+      //       {
+      //           "mData": "nama",					
+      //       }
+      //   ]
+      // });
     });
 
   });
