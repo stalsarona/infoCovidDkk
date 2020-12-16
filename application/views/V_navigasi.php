@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>APOLLO RSUD TUGUREJO</title>
+  <title>INFO COVID DKK</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -44,7 +44,17 @@
 <style>
 .my-custom-scrollbar {
     position: relative;
-    height: 550px;
+    height: 500px;
+    overflow: auto;
+}
+.my-custom-scrollbar-nonshift {
+    position: relative;
+    height: 500px;
+    overflow: auto;
+}
+.my-custom-scrollbar-shift {
+    position: relative;
+    height: 400px;
     overflow: auto;
 }
 .table-wrapper-scroll-y {
@@ -178,9 +188,8 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="<?= site_url("Dashboard")?>" class="brand-link">
-      <img src="<?php echo base_url('assets/dist/img/AdminLTELogo.png');?>" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-           style="opacity: .8">
-      <span class="brand-text font-weight-light">APOLLO</span>
+      <!-- <img src="<?php echo base_url('assets/dist/img/AdminLTELogo.png');?>" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> -->
+      <span class="brand-text font-weight-light">INFO COVID DKK</span>
     </a>
 
     <!-- Sidebar -->
@@ -199,14 +208,12 @@
               </p>
             </a>
           </li>
-          <?php foreach ($menu as $m) : ?>
-              <li class='nav-item'>
-                <a href='<?= site_url($m['CONTROLLER'].'/'.$m['URL']);?>' class='nav-link <?php if($this->uri->segment(2)==$m['URL']){echo "active";}?>'>
-                  <i class='nav-icon fas <?= $m['ICON'];?>'></i>
-                  <p><?= $m['TITLE'];?></p>
-                </a>
-              </li>
-          <?php endforeach; ?>
+          <li class='nav-item'>
+            <a href="<?= site_url('Dashboard/tambah_data')?>" class='nav-link <?php if($this->uri->segment(2)=='tambah_data'){echo "active";}?>'>
+              <i class='nav-icon fas fa-edit'></i>
+              <p>Tambah Data</p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

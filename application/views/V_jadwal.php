@@ -408,7 +408,7 @@
         var obj = document.forms.namedItem("FormSimpanJadwal")
         $.ajax({
           type: "POST",
-          url: "<?php echo base_url('Dashboard/simpan_jadwal')?>",
+          url: "<?php echo base_url('Dashboard/simpan_waktu_kerja')?>",
           processData:false,
           contentType:false,
           cache:false,
@@ -443,7 +443,7 @@
       var obj = document.forms.namedItem("editForm")
       $.ajax({
         type: "POST",
-        url: "<?php echo base_url('Dashboard/ubah_jadwal')?>",
+        url: "<?php echo base_url('Dashboard/ubah_waktu_kerja')?>",
         processData:false,
         contentType:false,
         cache:false,

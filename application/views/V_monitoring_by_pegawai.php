@@ -310,10 +310,6 @@
             success: function (response) {
               
               if(response['code'] == '200'){
-                // $("#tabelabsensi").DataTable({
-                //   "responsive": true,
-                //   "autoWidth": false,
-                // });
                 $('.tabelshow').show();
                 $('#absensi').show();
                 var len           = response.data.length;

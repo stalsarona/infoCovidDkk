@@ -162,23 +162,24 @@
     <!-- /.content -->
 
     <!--#####Modal Ubah Data Mulai#####-->
-    <div id="btnedit" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+    <div id="modalubahdata" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header header-color-modal bg-color-1" style="padding-top: 10px; padding-right: 50px; padding-bottom: 10px; padding-left: 50px;">
-                <h4 class="modal-title">Ubah Data Jadwal Shift</h4>
+                <h4 class="modal-title">Ubah Konfigurasi Menu</h4>
                 <div class="modal-close-area modal-close-df">
                     <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
                 </div>
             </div>
             <div class="modal-body" style="padding-top: 15px; padding-right: 30px; padding-bottom: 0px; padding-left: 30px;">
                 <form method="POST" name="editForm" id="editForm">
-                  <input type="hidden" class="form-control" name="private_token" id="private_token" value="<?php echo $token; ?>">
+                  <input type="hidden" class="form-control" name="tokenubah" id="tokenubah" value="<?php echo $token; ?>">
                     <div class="form-group">
+                    <input type="hidden" name="id" class="form-control" id="id" autocomplete="off" required readonly/>
                         <div class="row">
                             <div class="col-lg-12">
                                 <label class="login2 pull-left pull-left-pro">JUDUL MENU</label>
-                                <input type="text" name="judulubah" class="form-control" id="judulubah" autocomplete="off" required readonly/>
+                                <input type="text" name="judulubah" class="form-control" id="judulubah" autocomplete="off" required/>
                             </div>
                         </div>
                     </div>
@@ -212,6 +213,7 @@
     </div>
 </div>
 <!--#####Modal Ubah Data Berakhir#####-->
+
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
@@ -319,7 +321,7 @@
       var obj = document.forms.namedItem("editForm")
       $.ajax({
         type: "POST",
-        url: "<?php echo base_url('Menu/ubah_jadwal')?>",
+        url: "<?php echo base_url('Menu/ubah_menu')?>",
         processData:false,
         contentType:false,
         cache:false,
@@ -341,34 +343,7 @@
             window.location.replace(orpeg);
           }else if(response[0]['CODE'] == '200'){     
             //alert("Berhasil Simpan");
-            var orpeg = '<?php echo base_url('Menu/view_jadwal')?>';
-            // let timerInterval
-            // Swal.fire({
-            //   title: 'Berhasil Simpan',
-            //   html: '',
-            //   timer: 500,
-            //   timerProgressBar: true,
-            //   onBeforeOpen: () => {
-            //     Swal.showLoading()
-            //     timerInterval = setInterval(() => {
-            //       const content = Swal.getContent()
-            //       if (content) {
-            //         const b = content.querySelector('b')
-            //         if (b) {
-            //           b.textContent = Swal.getTimerLeft()
-            //         }
-            //       }
-            //     }, 100)
-            //   },
-            //   onClose: () => {
-            //     clearInterval(timerInterval)
-            //   }
-            // }).then((result) => {
-            //   /* Read more about handling dismissals below */
-            //   if (result.dismiss === Swal.DismissReason.timer) {
-            //     console.log('I was closed by the timer')
-            //   }
-            // })
+            var orpeg = '<?php echo base_url('Menu/view_jadwal')?>';s
             window.location.replace(orpeg);
           }
         }
@@ -376,7 +351,7 @@
       return false;
     });
     
-    $('.btnedit').on('click',function(){
+    $('#tabelMenu').on('click', '.btnedit', function(){
       var id =  $(this).data('id');
       $.ajax({
         type: "POST",
@@ -384,14 +359,17 @@
         data: {id:id}, 
         dataType: "json",
         success: function (response) {
-          $('#btnedit').modal('show');
-          $('#judulubah').val(response['TITLE']);
-          $('#contubah').val(response['CONTROLLER']);
-
+          $('#modalubahdata').modal('show');
+          $('#id').val(response[0]['ID'])
+          $('#judulubah').val(response[0]['TITLE'])
+          $('#contubah').val(response[0]['CONTROLLER'])
+          $('#urlubah').val(response[0]['URL'])
+          $('#iconubah').val(response[0]['ICON'])
         }
       })
     });
 
+    
   });
 </script>
 </body>

@@ -20,7 +20,7 @@
           <div class="col-md-12">
             <div class="card card-success">
               <div class="card-header">
-                <h3 class="card-title">Pembuatan Jadwal Pegawai Bulanan (Non Shift)</h3>
+                <h3 class="card-title">Pembuatan Jadwal Pegawai Bulanan (Shift)</h3>
               </div>
               <div class="card-body">
                 <!-- Minimal style -->
@@ -39,156 +39,30 @@
                       </select>
                     </div>
                   </div>
+                  <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Bulan</label>
+                          <select class="form-control select2" id="bulan" name="bulan" style="width: 100%;">
+                            <?php
+                              $current = date('M');
+                              for ($i = 1; $i <= 12; $i++)
+                              {
+                                $month = date("M",mktime(0,0,0,$i,1,date("Y")));
+                                $bln = ($i < 10) ? '0'.$i : $i;
+                                  echo '<option value="'.$bln.'-'.$month.'"';
+                                  if ($i == date("n")) echo ' selected="selected"';
+                                  echo '>'.$month.'</option>';
+                              }
+                            ?>
+                          </select>
+                        </div>
+                      </div>
                 </div>
                 <div class="row">
-                  <div class="col-sm-12">
-                    <!-- checkbox -->
-                    <div class="form-group clearfix">
-                    <label>Pilih Bulan</label><br>
-                      <div class="icheck-primary d-inline">
-                        <input type="checkbox" name="bulan[]" id="Jan"  value="1">
-                        <label for="Jan">
-                          Jan &nbsp &nbsp
-                        </label>
-                      </div>
-                      <div class="icheck-primary d-inline">
-                        <input type="checkbox" name="bulan[]" id="Feb"  value="2">
-                        <label for="Feb">
-                          Feb &nbsp &nbsp
-                        </label>
-                      </div>
-                      <div class="icheck-primary d-inline">
-                        <input type="checkbox" name="bulan[]" id="Mar" value="3">
-                        <label for="Mar">
-                          Mar &nbsp &nbsp
-                        </label>
-                      </div>
-                      <div class="icheck-primary d-inline">
-                        <input type="checkbox" name="bulan[]" id="Apr" value="4">
-                        <label for="Apr">
-                          Apr &nbsp &nbsp
-                        </label>
-                      </div>
-                      <div class="icheck-primary d-inline">
-                        <input type="checkbox" name="bulan[]" id="Mei" value="5">
-                        <label for="Mei">
-                          Mei &nbsp &nbsp
-                        </label>
-                      </div>
-                      <div class="icheck-primary d-inline">
-                        <input type="checkbox" name="bulan[]" id="Jun" value="6">
-                        <label for="Jun">
-                          Jun &nbsp &nbsp
-                        </label>
-                      </div>
-                      <div class="icheck-primary d-inline">
-                        <input type="checkbox" name="bulan[]" id="Jul"  value="7">
-                        <label for="Jul">
-                          Jul &nbsp &nbsp  
-                        </label>
-                      </div>
-                      <div class="icheck-primary d-inline">
-                        <input type="checkbox" name="bulan[]" id="Agt"  value="8">
-                        <label for="Agt">
-                          Agt &nbsp &nbsp
-                        </label>
-                      </div>
-                      <div class="icheck-primary d-inline">
-                        <input type="checkbox" name="bulan[]" id="Sep" value="9">
-                        <label for="Sep">
-                          Sep &nbsp &nbsp
-                        </label>
-                      </div>
-                      <div class="icheck-primary d-inline">
-                        <input type="checkbox" name="bulan[]" id="Okt" value="10">
-                        <label for="Okt">
-                          Okt &nbsp &nbsp
-                        </label>
-                      </div>
-                      <div class="icheck-primary d-inline">
-                        <input type="checkbox" name="bulan[]" id="Nov" value="11">
-                        <label for="Nov">
-                          Nov &nbsp &nbsp
-                        </label>
-                      </div>
-                      <div class="icheck-primary d-inline">
-                        <input type="checkbox" name="bulan[]" id="Des" value="12">
-                        <label for="Des">
-                          Des 
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-12">
-                    <!-- checkbox -->
-                    <div class="form-group clearfix">
-                    <label>Pilih Hari</label><br>
-                      <div class="icheck-primary d-inline">
-                        <input type="checkbox" name="hari" id="Sen"  value="2" checked>
-                        <label for="Sen">
-                          Sen &nbsp &nbsp
-                        </label>
-                      </div>
-                      <div class="icheck-primary d-inline">
-                        <input type="checkbox" name="hari" id="Sel"  value="3" checked>
-                        <label for="Sel">
-                          Sel &nbsp &nbsp
-                        </label>
-                      </div>
-                      <div class="icheck-primary d-inline">
-                        <input type="checkbox" name="hari" id="Rab" value="4" checked>
-                        <label for="Rab">
-                          Rab &nbsp &nbsp
-                        </label>
-                      </div>
-                      <div class="icheck-primary d-inline">
-                        <input type="checkbox" name="hari" id="Kam" value="5" checked>
-                        <label for="Kam">
-                          Kam &nbsp &nbsp
-                        </label>
-                      </div>
-                      <div class="icheck-primary d-inline">
-                        <input type="checkbox" name="hari" id="Jum" value="6" checked>
-                        <label for="Jum">
-                          Jum &nbsp &nbsp
-                        </label>
-                      </div>
-                      <div class="icheck-primary d-inline">
-                        <input type="checkbox" name="hari" id="Sab" value="7">
-                        <label for="Sab">
-                          Sab &nbsp &nbsp
-                        </label>
-                      </div>
-                      <div class="icheck-primary d-inline">
-                        <input type="checkbox" name="hari" id="Ming" value="1">
-                        <label for="Ming">
-                          Ming 
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label>Pilih Waktu Kerja</label>
-                      <select class="form-control select2" id="wktkerja" name="wktkerja" style="width: 100%;">
-                        <?php
-                        $no_urut=0;
-                          foreach ($jadwal as $dt){
-                            $no_urut++;
-                            echo "<option value='".$dt['IDWKTKERJA']."'>".$dt['KETJNSWKTKERJA']." (".substr($dt['CHECKIN'],11,8)." - ".substr($dt['CHECKOUT'],11,8).")</option>";
-                          }
-                        ?>
-                      </select>
-                    </div>
-                  </div>
                   <div class="col-sm-6">
                     <div class="form-group">
                       <label>Pilih Unit/Bagian Kerja</label>
-                        <select class="form-control select2bs4" multiple="multiple" data-placeholder="Pilih Unit/Bagian Kerja" name="bagian" id="bagian" style="width: 100%;" required>
+                        <select class="form-control select2bs4" data-placeholder="Pilih Unit/Bagian Kerja" name="bagian" id="bagian" style="width: 100%;" required>
                           <?php
                             $no_urut=0;
                             foreach ($bagian as $dt){
@@ -211,8 +85,8 @@
                 <div class="row">
                   <div class="col-md-12">
                     <label>List Pegawai yang diproses</label>
-                    <div class="table-wrapper-scroll-y my-custom-scrollbar-nonshift">
-                      <table class="table table-striped table-bordered nowrap" id="tbpegawai">
+                    <div class="table-wrapper-scroll-y my-custom-scrollbar-shift">
+                      <table class="table table-striped table-bordered fulltable fulltable-editable nowrap" id="tbpegawai">
                       </table>
                     </div>
                   </div>
@@ -302,6 +176,18 @@
     });
 
     load_data();
+    load_waktukerja();
+    function load_waktukerja(){
+      $.ajax({
+        type: "POST",
+        url: "<?php echo base_url('Dashboard/get_waktu_kerja')?>",
+        dataType: "json",
+        success: function (response) {
+          var html = '';
+        }
+      })
+    }
+
     function load_data(bagian=''){
       $.ajax({
         type: "POST",
@@ -310,11 +196,28 @@
         dataType: "json",
         success: function (response) {
           var html = '';
-          html += "<thead><tr><th>PILIH</th><th>NIP</th><th>NAMA</th><th>BAGIAN</th></tr></thead>";
+          html += "<thead><tr><th>PILIH</th><th>NIP</th><th>NAMA</th><th>BAGIAN</th><th>01</th><th>02</th><th>03</th><th>04</th><th>05</th><th>06</th><th>07</th><th>08</th><th>09</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>19</th><th>20</th><th>21</th><th>22</th><th>23</th><th>24</th><th>25</th><th>26</th><th>27</th><th>28</th><th>29</th><th>30</th><th>31</th></tr></thead>";
           if(response.code=='200'){
+            var html = '';
+              var i;
+              //foreach ($jadwal as $jadwal){
+                for(var k in jadwal){
+                $no_urut++;
+                  html += "<td><option value='" + jadwal[k]['IDWKTKERJA'] + "'>" +  jadwal[k]['KETJNSWKTKERJA'] + "</option></td>";
+              }
+              $("#menitmasukubah").html(html);
             html += "<tbody>";
             for(var i = 0; i < response.data.length; i++){
-              html += "<tr><td><div class='custom-control custom-checkbox'><input class='form-check-input  formChecked' type='checkbox' value='"+ response.data[i].NIP +"' data-role='"+ response.data[i].NIP +"' data-menu='"+ response.data[i].NIP +"'"+ (response.data[i].NIP==response.data[i].NIP ? 'checked' : '') +"></div></td><td>" + response.data[i].NIP + "</td><td>" + response.data[i].NAMA + "</td><td>" + response.data[i].BAG + "</td>";      
+              html += "<tr><td><div class='custom-control custom-checkbox'><input class='form-check-input  formChecked' type='checkbox' value='"+ response.data[i].NIP +"' data-role='"+ response.data[i].NIP +"' data-menu='"+ response.data[i].NIP +"'"+ (response.data[i].NIP==response.data[i].NIP ? 'checked' : '') +"></div></td><td>" + response.data[i].NIP + "</td><td>" + response.data[i].NAMA + "</td><td>" + response.data[i].BAG + "</td>";  
+              html += "<td><select class='form-control' name='menitmasukubah' id='menitmasukubah' style='width: 100%; '><option value=''>xx</option></select></td>" 
+              
+              
+
+              /*html += "<td><div class='custom-control custom-checkbox'><input class='form-control select2' "+ $no_urut=0;
+                          foreach ($jadwal as $dt){
+                            $no_urut++;
+                            echo "<option value='".$dt['IDWKTKERJA']."'>".$dt['KETJNSWKTKERJA']." (".substr($dt['CHECKIN'],11,8)." - ".substr($dt['CHECKOUT'],11,8).")</option>";
+                          } +"></div></td>";   */
               html += "</tr>";
               html += "</tbody>";
               if(html != ""){
@@ -338,6 +241,7 @@
       $('#hidden_bagian').val($('#bagian').val());
       var bagian = $('#hidden_bagian').val();
       load_data(bagian);
+      load_waktukerja();
     });
 
     $('#btnsimpan').on('click',function(){

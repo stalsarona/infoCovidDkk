@@ -207,30 +207,24 @@ class Menu extends CI_Controller {
 		return $data;
     }
     
-    public function ubah_jadwal(){
-        $jmasukubah   = $this->input->post('jammasukubah');
-        $mmasukubah   = $this->input->post('menitmasukubah');
-        $jpulangubah  = $this->input->post('jamkeluarubah');
-        $mpulangubah  = $this->input->post('menitkeluarubah');
-        $masukubah    = ($jmasukubah*60)+$mmasukubah;
-        $pulangubah   = ($jpulangubah*60)+$mpulangubah;
-        $durasiubah   = $pulangubah-$masukubah;
-		$obj = array(
-            'JNS_SHIFT'   => urlencode($this->input->post('id_waktu')),
-            'KET_SHIFT'   => urlencode($this->input->post('jenis')),
-            'JAM_MASUK'   => $jmasukubah,
-            'MENIT_MASUK' => $mmasukubah,
-            'JAM_PULANG'  => $jpulangubah,
-            'MENIT_PULANG'=> $mpulangubah,
-            'DURASI'      => $durasiubah,
-            'USER_UBAH'  => urlencode($this->session->userdata('username')),
-            'JAM_UBAH'   => date("Y-m-d H:i:s"),
-            'KOMP_UBAH'  => gethostbyaddr($_SERVER['REMOTE_ADDR']),
-            'private_key' => $this->input->post('private_token')
+    public function ubah_menu(){
+        $token      = $this->input->post('tokenubah');
+        $id         = urlencode($this->input->post('id'));
+        $judul      = urlencode($this->input->post('judulubah'));
+        $controller = urlencode($this->input->post('contubah'));
+        $url        = urlencode($this->input->post('urlubah'));
+        $icon       = urlencode($this->input->post('iconubah'));
+		$obj  = array(
+            'JAM_MASUK'   => $id,
+            'MENIT_MASUK' => $judul,
+            'JAM_PULANG'  => $controller,
+            'MENIT_PULANG'=> $url,
+            'DURASI'      => $icon,
+            'private_key' => $token
         );
         $curl = curl_init();
         curl_setopt_array($curl, array(
-          CURLOPT_URL => "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/ubah_jadwal/",
+          CURLOPT_URL => "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/ubah_menu/",
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => "",
           CURLOPT_MAXREDIRS => 10,

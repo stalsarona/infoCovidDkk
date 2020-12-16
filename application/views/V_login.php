@@ -177,9 +177,6 @@
         <div class="input-group mb-3">
 
           <input type="username" class="form-control" placeholder="Username" name="username" id="username" autofocus>
-
-          <input type="hidden" class="form-control" placeholder="Username" name="private_token" id="private_token" value="<?php echo $token; ?>">
-
           <div class="input-group-append">
 
             <div class="input-group-text">
@@ -271,32 +268,24 @@
     $('#btnlogin').click(function(){
       var username = $('#username').val();
       var password = $('#password').val();
-      var private_token = $('#private_token').val();
       if(username == "" || password == ""){
         swal('Username / Password','harus di isi','info');
       } else {
           $.ajax({
             type: "POST",
-            url: "<?php echo base_url('Login/login_pendataan')?>",
-            data: {username:username, password:password, private_token:private_token},
+            url: "<?php echo base_url('Login/get_login')?>",
+            data: {username:username, password:password},
             dataType: "json",
             beforeSend: function() {
                 $('.overlay').css('display', 'block');
             },
             success: function (response) {
-              if(response[0]['kode'] == '200'){
+              if(response['token'] != ''){
                 var dashboard = '<?php echo base_url('Dashboard')?>/'
                 window.location.replace(dashboard);
-              } else if(response[0]['kode'] == '300'){
-                swal("password salah ",'','info');
-                $('.overlay').css('display', 'none');
-              } else if(response[0]['kode'] == '400'){
+              } else{
                 swal("Login tidak dikenal ",'','info');
                 $('.overlay').css('display', 'none');
-              } else {
-                swal("Maaf anda tidak memiliki hak akses ",'','info');
-                var exp = '<?php echo base_url('login')?>';
-                window.location.replace(exp);
               }
             }
           });

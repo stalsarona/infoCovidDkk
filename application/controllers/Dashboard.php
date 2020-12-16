@@ -1,87 +1,42 @@
 <?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-use PhpOffice\PhpSpreadsheet\Style\Alignment;
-use PhpOffice\PhpSpreadsheet\Style\Border;
-use PhpOffice\PhpSpreadsheet\Style\Fill;
-use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
-
 class Dashboard extends CI_Controller {
     
     public function __construct()
     {
         parent::__construct();
-        $this->load->library('session');
+        //$this->load->library('session');
         // if(!$this->session->userdata('username')){
         //     $this->session->set_flashdata('errorMessage', '<div class="alert alert-danger alert-dismissible"><i class="icon fas fa-exclamation-triangle"></i> Silahkan sign in terlebih dahulu !</div>');
         //     redirect('login');
         // }
-        is_logged_in(); //helper auth
+        //is_logged_in(); //helper auth
 	}
 	
     public function index(){
         // $data['pegawai'] = $this->get_total_pegawai_kontrak();
         // $data['pengguna'] = $this->get_total_pengguna();
-        $data['dashboard'] = $this->dashboard();
-        $menu['menu'] = $this->get_akses_menu();
-        $data['authmenu'] = $this->get_auth_menu();
-        $this->load->view('V_navigasi',$menu);
-        $this->load->view('V_content1',$data);
+        //$data['dashboard'] = $this->dashboard();
+       // $menu['menu'] = $this->get_akses_menu();
+		// $data['token'] = $this->session->userdata('token');
+        $this->load->view('V_navigasi');
+        // $this->load->view('V_content1',$data);
     }
 
-    public function get_total_pegawai_kontrak()
-	{
-		
-		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_total_pegawai_kontrak";
-        $data = json_decode($this->get_cors($url), TRUE);
-        
-		return $data;
-	}
-    
-    public function get_total_pengguna()
-	{
-		
-		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_total_pengguna";
-        $data = json_decode($this->get_cors($url), TRUE);
-        
-		return $data;
-    }
-
+	//==============================Dashboard Start===========================//
     public function dashboard(){
-        $url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/dashboard";
-        $data = json_decode($this->get_cors($url), TRUE);
+        // $url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/dashboard";
+        // $data = json_decode($this->get_cors($url), TRUE);
         
 		return $data;
     }
 
-	public function dashboard_peg_non_apollo(){
-		$status = $this->input->post('status');
-		$curl = curl_init();
+	//==============================Dashboard Finish===========================//
 
-		curl_setopt_array($curl, array(
-			CURLOPT_URL => "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/dashboard_detail_pegawai_nonapollo",
-			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_ENCODING => "",
-			CURLOPT_MAXREDIRS => 10,
-			CURLOPT_TIMEOUT => 0,
-			CURLOPT_FOLLOWLOCATION => true,
-			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-			CURLOPT_CUSTOMREQUEST => "GET",
-			CURLOPT_HTTPHEADER => array(
-				"X-status: ".$status,
-				"Cookie: rsdm_session=RHpWcKB8KgsuqNoJaoocZuc8VROAd4r0uXyKR%2Bmfx%2F4m0J0St8TJSvZoPvmEAAMHcsc9158HA9FdnZZjHGENusDL%2FzisFt%2BoXeCk8q983h0DXPaGI7lPKU4ABKOr3rGFg2o%2BvJ%2BjuT0IMmoUVvKYGjuzy%2Bb5V5pulEpXnyTkpRNd0XENgFaZYzs6lxL9oY5ZFGXU58nYY026xrWYfWZNGqeBxO7lPYh25Jx9POFlHja9FXhYhs7F1c9vhy1T8xt4UvPOtvk%2Bx1kwf8%2F%2BeHrC4rBc7DwzS%2FOAywYzLiIAsU3jEpbAqprU1ogxoVd7Rlv9nb9WgyvukpgSF%2BoKClCcfw%3D%3D"
-			),
-		));
 
-		$response = curl_exec($curl);
-
-		curl_close($curl);
-		echo $response;
-	}
-	
-    public function get_auth_menu(){
+	//==============================Autentikasi Menu Start===========================//
+    /*public function get_auth_menu(){
         $tipe = $this->session->userdata('tipe');
         $menu = $this->uri->segment(1);
         $url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_auth_menu/";
@@ -137,7 +92,7 @@ class Dashboard extends CI_Controller {
         //untuk scraping json harus di decode baru di looping dahulu
         //$this->output->set_content_type('application/json')->set_output(json_encode($data));
         return $data;
-    }
+    }*/
     
     public function error(){
         $this->load->view('V_navigasi');
@@ -152,29 +107,55 @@ class Dashboard extends CI_Controller {
         $exec0 	 = curl_exec ($ch0);
         curl_close ($ch0); 
         return $exec0;
-    }
-    
-    //======================ORPEG=======================/
-    public function view_jadwal(){
-        if($this->session->userdata('tipe')!='ADM' && $this->session->userdata('tipe')!='IT'){
+	}
+	
+	//================================Token====================================//
+	/*public function get_token(){
+		$curl = curl_init();
+		$username = 3374134;
+		$password = "b3374134";
+		curl_setopt_array($curl, array(
+		CURLOPT_URL => "http://119.2.50.170:9095/infocovid/servicesRs/login",
+		CURLOPT_RETURNTRANSFER => true,
+		CURLOPT_ENCODING => "",
+		CURLOPT_MAXREDIRS => 10,
+		CURLOPT_TIMEOUT => 0,
+		CURLOPT_FOLLOWLOCATION => true,
+		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		CURLOPT_CUSTOMREQUEST => "GET",
+		CURLOPT_HTTPHEADER => array(
+			"x-username: ".$username,
+			"x-password: ".$password
+		),
+		));
+
+		$response = curl_exec($curl);
+
+		curl_close($curl);
+		echo $response;
+		//$data = json_decode($response, TRUE);
+		//return $data;
+    }*/
+	//==============================Autentikasi Menu Finish===========================//
+	
+
+    //==============================View Menu Start==========================//
+    public function tambah_data(){ //master kerja
+        if($this->session->userdata('token')==''){
             $this->session->set_flashdata('errorMessage', '<div class="alert alert-danger alert-dismissible"><i class="icon fas fa-exclamation-triangle"></i> Maaf Anda tidak memiliki akses menu tersebut !</div>');
             redirect('Dashboard');
-        }
-        $data['data'] = $this->get_jadwal();
-        $data['username'] = $this->session->userdata('username');
-        $data['nip'] = $this->session->userdata('nip');
-        $data['token'] = $this->private_token();
-        $menu['menu'] = $this->get_akses_menu();
-        $this->load->view('V_navigasi',$menu);
-        $this->load->view('V_jadwal',$data);
+		}
+		
+        $this->load->view('V_navigasi');
+        $this->load->view('V_tambahdata');
     }
 
-	public function jadwal_pegawai(){
+	/*public function jadwal_pegawai(){ //jadwal pegawai non shift
         if($this->session->userdata('tipe')!='ADM' && $this->session->userdata('tipe')!='IT'){
             $this->session->set_flashdata('errorMessage', '<div class="alert alert-danger alert-dismissible"><i class="icon fas fa-exclamation-triangle"></i> Maaf Anda tidak memiliki akses menu tersebut !</div>');
             redirect('Dashboard');
         }
-        $data['jadwal'] = $this->get_jadwal();
+        $data['jadwal'] = $this->get_waktu_kerja();
         $data['bagian'] = $this->get_bagian();
         $data['username'] = $this->session->userdata('username');
         $data['nip'] = $this->session->userdata('niplama');
@@ -184,7 +165,52 @@ class Dashboard extends CI_Controller {
         $this->load->view('V_jadwal_pegawai',$data);
 	}
 	
-    public function get_jadwal_by_id(){
+	public function jadwal_shift_pegawai(){ //jadwal pegawai shift
+        if($this->session->userdata('tipe')!='ADM' && $this->session->userdata('tipe')!='IT'){
+            $this->session->set_flashdata('errorMessage', '<div class="alert alert-danger alert-dismissible"><i class="icon fas fa-exclamation-triangle"></i> Maaf Anda tidak memiliki akses menu tersebut !</div>');
+            redirect('Dashboard');
+        }
+        $data['jadwal'] = $this->get_waktu_kerja();
+        $data['bagian'] = $this->get_bagian();
+        $data['username'] = $this->session->userdata('username');
+        $data['nip'] = $this->session->userdata('niplama');
+        $data['token'] = $this->private_token();
+        $menu['menu'] = $this->get_akses_menu();
+        $this->load->view('V_navigasi',$menu);
+        $this->load->view('V_jadwal_shift_pegawai',$data);
+	}
+
+	public function laporan(){ //riwayat presensiku
+        $data['username'] = $this->session->userdata('username');
+        $data['nip'] = $this->session->userdata('nip');
+        $data['token'] = $this->private_token();
+        $menu['menu'] = $this->get_akses_menu();
+        $this->load->view('V_navigasi',$menu);
+        $this->load->view('V_laporan',$data);
+    }
+
+    public function laporan_bagian(){ //laporan presensi bagian
+        $data['username'] = $this->session->userdata('username');
+        $data['nip'] = $this->session->userdata('nip');
+        $data['token'] = $this->private_token();
+        $menu['menu'] = $this->get_akses_menu();
+        $data['bagian'] = $this->get_bagian();
+        $this->load->view('V_navigasi',$menu);
+        $this->load->view('V_laporan_bagian',$data);
+    }*/
+	//==============================View Menu Finish==========================//
+	
+
+	//==============================Function Master Kerja Start==========================//
+	/*public function post_pasien_baru()
+	{
+		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_jadwal";
+        $data = json_decode($this->get_cors($url), TRUE);
+        
+		return $data;
+	}
+	
+	public function get_jadwal_by_id(){
         $id = $this->input->post('id');
 		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_jadwal_by_id/";
 		$curl = curl_init();
@@ -210,14 +236,7 @@ class Dashboard extends CI_Controller {
         $this->output->set_content_type('application/json')->set_output(json_encode($data));
     }
 
-    public function private_token(){
-		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/private_token/";
-        $data = json_decode($this->get_cors($url), TRUE);
-       
-		return $data;
-    }
-
-    public function simpan_jadwal(){
+    public function simpan_waktu_kerja(){
         $jmasuk   = $this->input->post('jammasuk');
         $mmasuk   = $this->input->post('menitmasuk');
         $jpulang  = $this->input->post('jampulang');
@@ -240,7 +259,7 @@ class Dashboard extends CI_Controller {
         );
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/simpan_jadwal/",
+            CURLOPT_URL => "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/simpan_waktu_kerja/",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
@@ -258,16 +277,7 @@ class Dashboard extends CI_Controller {
         
     }
 
-    public function get_jadwal()
-	{
-		
-		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_jadwal";
-        $data = json_decode($this->get_cors($url), TRUE);
-        
-		return $data;
-    }
-    
-    public function ubah_jadwal(){
+    public function ubah_waktu_kerja(){
         $jmasukubah   = $this->input->post('jammasukubah');
         $mmasukubah   = $this->input->post('menitmasukubah');
         $jpulangubah  = $this->input->post('jamkeluarubah');
@@ -290,7 +300,7 @@ class Dashboard extends CI_Controller {
         );
         $curl = curl_init();
         curl_setopt_array($curl, array(
-          CURLOPT_URL => "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/ubah_jadwal/",
+          CURLOPT_URL => "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/ubah_waktu_kerja/",
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => "",
           CURLOPT_MAXREDIRS => 10,
@@ -306,10 +316,10 @@ class Dashboard extends CI_Controller {
         
         curl_close($curl);
         echo $response;
-    }
+    }*/
 
     //======================MANAJEMEN=======================/
-    public function monitoring(){
+    /*public function monitoring(){
         if($this->session->userdata('tipe')!='MANAJEMEN'){
             $this->session->set_flashdata('errorMessage', '<div class="alert alert-danger alert-dismissible"><i class="icon fas fa-exclamation-triangle"></i> Maaf Anda tidak memiliki akses menu tersebut !</div>');
             redirect('Dashboard');
@@ -376,29 +386,11 @@ class Dashboard extends CI_Controller {
 		curl_close($curl);
         $data = json_decode($response, TRUE);
         $this->output->set_content_type('application/json')->set_output(json_encode($data));
-    }
+    }*/
 
     //===========================================ADMIN=============================//
-    public function laporan(){
-        $data['username'] = $this->session->userdata('username');
-        $data['nip'] = $this->session->userdata('nip');
-        $data['token'] = $this->private_token();
-        $menu['menu'] = $this->get_akses_menu();
-        $this->load->view('V_navigasi',$menu);
-        $this->load->view('V_laporan',$data);
-    }
-
-    public function laporan_bagian(){
-        $data['username'] = $this->session->userdata('username');
-        $data['nip'] = $this->session->userdata('nip');
-        $data['token'] = $this->private_token();
-        $menu['menu'] = $this->get_akses_menu();
-        $data['bagian'] = $this->get_bagian();
-        $this->load->view('V_navigasi',$menu);
-        $this->load->view('V_laporan_bagian',$data);
-    }
     
-    public function get_bagian(){
+    /*public function get_bagian(){
         $url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_lokasi";
         $data = json_decode($this->get_cors($url), TRUE);
         
@@ -435,15 +427,34 @@ class Dashboard extends CI_Controller {
 		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_pegawai_by_bagian/".$bag;
         $data = json_decode($this->get_cors($url), TRUE);
 		return $data;
-    }
+    }*/
 
-	public function get_list_pegawai(){
-		$bagian   = $this->input->post('bagian');
-		if($bagian != ''){
-			$search_array = explode(",",$bagian);
-			
-			$search_text = "'" . implode("', '", $search_array) . "'";
-			$url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_list_pegawai/";
+	public function get_pasien(){
+		$status   = $this->input->post('status');
+		//print_r($status);exit;
+		if($status == 'ri'){
+			// $search_array = explode(",",$bagian);
+			// $search_text = "'" . implode("', '", $search_array) . "'";
+			$url = "http://api.rstugurejo.jatengprov.go.id:8060/wsrstugu/dkk/Covid/get_pasien_inap/";
+			$curl = curl_init();
+			curl_setopt_array($curl, array(
+			CURLOPT_URL => $url,
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_ENCODING => "",
+			CURLOPT_MAXREDIRS => 10,
+			CURLOPT_TIMEOUT => 0,
+			CURLOPT_FOLLOWLOCATION => true,
+			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			CURLOPT_CUSTOMREQUEST => "GET",
+			));
+
+			$response = curl_exec($curl);
+			curl_close($curl);
+			$data = json_decode($response, TRUE);
+			//untuk scraping json harus di decode baru di looping dahulu
+			$this->output->set_content_type('application/json')->set_output(json_encode($data));
+		}else if($status == 'ri_plg'){
+			$url = "http://api.rstugurejo.jatengprov.go.id:8060/wsrstugu/dkk/Covid/get_pasien_inap_plg/";
 			$curl = curl_init();
 			curl_setopt_array($curl, array(
 			CURLOPT_URL => $url,
@@ -455,8 +466,9 @@ class Dashboard extends CI_Controller {
 			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 			CURLOPT_CUSTOMREQUEST => "GET",
 			CURLOPT_HTTPHEADER => array(
-			"X-bag: ".$bagian
-				),
+				"X-tgl1: ".$tgl1,
+				"X-tgl2: ".$tgl2
+			),
 			));
 
 			$response = curl_exec($curl);
@@ -472,7 +484,72 @@ class Dashboard extends CI_Controller {
 		}
 	}
 
-    public function get_presensi_excel($nip,$bln){
+	public function post_pasien(){
+        $no			= $_POST['no'];
+        $nik		= $this->input->post('nik');
+        $nopas  	= $this->input->post('nopas');
+        $pasien 	= $this->input->post('pasien');
+        $alamat 	= $this->input->post('alamat');
+        $tgllhr 	= $this->input->post('tgllhr');
+        $jk  		= $this->input->post('jk');
+        $masuk  	= $this->input->post('masuk');
+		$noreg  	= $this->input->post('noreg');
+		$kodebag  	= $this->input->post('kodebag');
+		$username  	= $this->session->userdata('username');
+		$token  	= $this->session->userdata('token');
+		
+		// $today	= date('d-m-Y');
+		// $d		= date('d')-(substr($tgllhr,0,2));
+		// $m		= date('m')-(substr($tgllhr,3,2));
+		// $y		= date('y')-(substr($tgllhr,6,4));
+		//$m		= $today->diff($tgllhr)->m;
+		//$y		= $today->diff($tgllhr)->y;
+		$data = array();
+		//for($i = 0; $i < count(array($no)) ; $i++){
+			foreach($no as $key => $val){
+			
+
+			$result = array(
+				"nik"  => $no[$key],
+			);
+			   
+		}
+		print_r($result);
+		//print_r($no);exit;
+		/*foreach($no as $key => $val){
+			$obj = array(
+				'nama'  	=> $pasien[$key],
+				'nik'   	=> $nik[$key],
+				'nopas'   	=> $nopas[$key],
+				'alamat' 	=> $alamat[$key],
+				'tgllhr'  	=> $tgllhr[$key],
+				'jk'		=> $jk[$key]
+        	);
+			$curl = curl_init();
+			curl_setopt_array($curl, array(
+				CURLOPT_URL => "http://119.2.50.170:9095/infocovidtest/
+				/servicesRs/tambahpasien?token=".$token,
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_ENCODING => "",
+				CURLOPT_MAXREDIRS => 10,
+				CURLOPT_TIMEOUT => 0,
+				CURLOPT_FOLLOWLOCATION => true,
+				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+				CURLOPT_CUSTOMREQUEST => "POST",
+				CURLOPT_HTTPHEADER => array(
+					"X-username: ".$username
+				),
+				CURLOPT_POSTFIELDS => $obj,
+			));
+			
+			$response = curl_exec($curl);
+			
+			curl_close($curl);
+			echo $response;
+		}*/
+	}
+	
+    /*public function get_presensi_excel($nip,$bln){
 		$url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/get_presensi_excel/".$nip."/".$bln;
         $data = json_decode($this->get_cors($url), TRUE);
 		return $data;
@@ -844,7 +921,7 @@ class Dashboard extends CI_Controller {
 	
             $writer->save('php://output');
             // exit;
-    }  
+    }*/  
 }
 
 /* End of file Dashboard.php */
