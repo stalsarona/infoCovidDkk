@@ -344,48 +344,48 @@
 
     
 
-    $('#btnsimpan').on('click',function(){
-      var languages = [];
-      //var obj = document.forms.namedItem("FormTambahPasien")
-      $('.cek').each(function(){
-        if($(this).is(":checked"))  
-          {  
-            languages.push($(this).val());  
-            // var cek= $(this).attr('data-role');
-            //   alert(cek);
-          }  
-      });
-        $.ajax({
-          type: "POST",
-          url: "<?php echo base_url('Dashboard/post_pasien')?>",
-          processData:false,
-          contentType:false,
-          cache:false,
-          async:true,
-          crossOrigin : true,
-          data: new FormData(obj), 
-          dataType: "json",
-          beforeSend: function() {
-            $('.overlay').css('display', 'block');
-          },
-          success: function (response) {
-            // if(response[0]['CODE'] == '515'){
-            //   alert("Nilai NULL tidak diperbolehkan");
-            //   var exp = '<?php echo base_url('Dashboard/error')?>';
-            //   window.location.replace(exp);
-            // } else if(response[0]['CODE'] == '2627'){
-            //   alert("ID Waktu Kerja yang Anda masukkan sudah Ada, silahkan masukkan ID yang lain.");
-            //   var orpeg = '<?php echo base_url('Dashboard/view_jadwal')?>';
-            //   window.location.replace(orpeg);
-            // }else if(response[0]['CODE'] == '200'){     
-            //   alert("Berhasil Simpan");
-            //   var orpeg = '<?php echo base_url('Dashboard/view_jadwal')?>';
-            //   window.location.replace(orpeg);
-            // }
-          }
-        });
-        return false;
-    });
+    // $('#btnsimpan').on('click',function(){
+    //   var languages = [];
+    //   //var obj = document.forms.namedItem("FormTambahPasien")
+    //   $('.cek').each(function(){
+    //     if($(this).is(":checked"))  
+    //       {  
+    //         languages.push($(this).val());  
+    //         // var cek= $(this).attr('data-role');
+    //         //   alert(cek);
+    //       }  
+    //   });
+    //     $.ajax({
+    //       type: "POST",
+    //       url: "<?php echo base_url('Dashboard/post_pasien')?>",
+    //       processData:false,
+    //       contentType:false,
+    //       cache:false,
+    //       async:true,
+    //       crossOrigin : true,
+    //       data: new FormData(obj), 
+    //       dataType: "json",
+    //       beforeSend: function() {
+    //         $('.overlay').css('display', 'block');
+    //       },
+    //       success: function (response) {
+    //         // if(response[0]['CODE'] == '515'){
+    //         //   alert("Nilai NULL tidak diperbolehkan");
+    //         //   var exp = '<?php echo base_url('Dashboard/error')?>';
+    //         //   window.location.replace(exp);
+    //         // } else if(response[0]['CODE'] == '2627'){
+    //         //   alert("ID Waktu Kerja yang Anda masukkan sudah Ada, silahkan masukkan ID yang lain.");
+    //         //   var orpeg = '<?php echo base_url('Dashboard/view_jadwal')?>';
+    //         //   window.location.replace(orpeg);
+    //         // }else if(response[0]['CODE'] == '200'){     
+    //         //   alert("Berhasil Simpan");
+    //         //   var orpeg = '<?php echo base_url('Dashboard/view_jadwal')?>';
+    //         //   window.location.replace(orpeg);
+    //         // }
+    //       }
+    //     });
+    //     return false;
+    // });
 
     //load_data();
     $("#tbpasien").on('click', '.cek', function() {
@@ -393,35 +393,35 @@
      //$(".cek").prop("checked", true);
       var html = '';
           
-      // if($('.cek:checked').length > 0)
-      // {
-       // console.log("checked");
+      if($('.cek:checked').length > 0)
+      {
+       console.log("checked");
         html += "<tbody>";
-        html += "<tr><td><div class='custom-control custom-checkbox'><input class='form-check-input formChecked cek' type='checkbox' name='no[]'  data-nik='"+ $(this).data('nik') +"' data-nopas='"+ $(this).data('nopas') +"' data-nama='"+ $(this).data('nama') +"' data-alamat='"+ $(this).data('alamat') +"' data-tgllahir='"+ $(this).data('tglahir') +"' data-jk='"+ $(this).data('jk') +"' data-tglmasuk='"+ $(this).data('tglmasuk') +"' data-noreg='"+ $(this).data('noreg') +"' data-kodebag='"+ $(this).data('kodebag') +"' value='"+$(this).data('nik')+"' checked ></div></td>";
+        html += "<tr><td><div class='custom-control custom-checkbox'><input class='form-check-input formChecked cek' type='checkbox' name='no[]'  data-nik='"+ $(this).data('nik') +"' data-nopas='"+ $(this).data('nopas') +"' data-nama='"+ $(this).data('nama') +"' data-alamat='"+ $(this).data('alamat') +"' data-tgllahir='"+ $(this).data('tgllahir') +"' data-jk='"+ $(this).data('jk') +"' data-tglmasuk='"+ $(this).data('tglmasuk') +"' data-noreg='"+ $(this).data('noreg') +"' data-kodebag='"+ $(this).data('kodebag') +"' value='"+$(this).data('nik')+"' checked ></div></td>";
         // html += "<td><input type='hidden'  value='"+(i+1)+"'>" + (i+1) + "</td>";
-        html += "<td><input type='hidden' name='nopas[]' value='"+$(this).data("NOPASIEN")+"'>" + $(this).data("NOPASIEN") + "</td>";
-        html += "<td><input type='hidden' name='pasien[]' value='"+$(this).data("NAMAPASIEN")+"'>" + $(this).data("NAMAPASIEN") + "</td>";
-        html += "<td><input type='hidden' name='alamat[]'  value='"+$(this).data("ALAMAT")+"'>" + $(this).data("ALAMAT") + "</td>";
-        html += "<td><input type='hidden' name='tgllhr[]' value='"+$(this).data("TGLLAHIR")+"'>" + $(this).data("TGLLAHIR") + "</td>";
-        html += "<td><input type='hidden' name='jk[]' value='"+$(this).data("JNSKELAMIN")+"'>" + $(this).data("JNSKELAMIN") + "</td>";
-        html += "<td><input type='hidden' name='nik[]' value='"+$(this).data("NIK")+"'>" + $(this).data("NIK") + "</td>";
-        html += "<td><input type='hidden' name='masuk[]' value='"+$(this).data("TGLMASUK")+"'><input type='hidden' name='noreg[]' value='"+$(this).data("NOREG")+"'><input type='hidden' name='kodebag[]' value='"+$(this).data("KODEBAGIAN")+"'>" + $(this).data("TGLMASUK") + "</td>"; 
+        html += "<td><input type='hidden' name='nopas[]' value='"+$(this).data("nopas")+"'>" + $(this).data("nopas") + "</td>";
+        html += "<td><input type='hidden' name='pasien[]' value='"+$(this).data("nama")+"'>" + $(this).data("nama") + "</td>";
+        html += "<td><input type='hidden' name='alamat[]'  value='"+$(this).data("alamat")+"'>" + $(this).data("alamat") + "</td>";
+        html += "<td><input type='hidden' name='tgllhr[]' value='"+$(this).data("tgllahir")+"'>" + $(this).data("tgllahir") + "</td>";
+        html += "<td><input type='hidden' name='jk[]' value='"+$(this).data("jk")+"'>" + $(this).data("jk") + "</td>";
+        html += "<td><input type='hidden' name='nik[]' value='"+$(this).data("nik")+"'>" + $(this).data("nik") + "</td>";
+        html += "<td><input type='hidden' name='masuk[]' value='"+$(this).data("tglmasuk")+"'><input type='hidden' name='noreg[]' value='"+$(this).data("noreg")+"'><input type='hidden' name='kodebag[]' value='"+$(this).data("kodebag")+"'>" + $(this).data("tglmasuk") + "</td>"; 
         html += "</tr>";
          html += "</tbody>";
 
          $("#tbpasien").html(html);
         //  if(html != ""){
-        //           //$("#tbpasien").html(html);
-        //           alert(html);
+        //           $("#tbpasien").html(html);
+        //           // alert(html);
         //       }
-      // }
-    //   else
-    //  {
-    //   html += "<td><div class='custom-control custom-checkbox'><input class='form-check-input formChecked cek' type='checkbox' name='no' value='"+$(this).data('nik')+"'  ></div></td>";
-    //   if(html != ""){
-    //               $("#tbpasien").html(html);
-    //           }
-    //  }
+      }
+      else
+     {
+      html += "<td><div class='custom-control custom-checkbox'><input class='form-check-input formChecked cek' type='checkbox' name='no' value='"+$(this).data('nik')+"'  ></div></td>";
+      if(html != ""){
+                  $("#tbpasien").html(html);
+              }
+     }
 
     
 
@@ -430,21 +430,21 @@
    
  
 
-  $('#btnsimpan1').on('click', function(e) {
-      e.preventDefault();
-      var nik = $('.cek').val();
-      if($('.cek:checked').length > 0){
-        $.ajax({
-          type: "POST",
-          url: "<?php echo base_url('Dashboard/post_pasien')?>",
-          data: $('#FormTambahPasien').serialize(),
-          success: function (data) {
-           // alert(data);
-           console.log(data);
-          }
-      });    
-  }
-    });
+  // $('#btnsimpan1').on('click', function(e) {
+  //     e.preventDefault();
+  //     var nik = $('.cek').val();
+  //     if($('.cek:checked').length > 0){
+  //       $.ajax({
+  //         type: "POST",
+  //         url: "<?php echo base_url('Dashboard/post_pasien')?>",
+  //         data: $('#FormTambahPasien').serialize(),
+  //         success: function (data) {
+  //          // alert(data);
+  //          console.log(data);
+  //         }
+  //     });    
+  // }
+  //   });
 
     
 
