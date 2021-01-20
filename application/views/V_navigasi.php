@@ -41,6 +41,11 @@
   <script src="https://www.amcharts.com/lib/4/themes/material.js"></script>
   <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
 
+
+  <!-- Tempusdominus Bbootstrap 4 -->
+  <link rel="stylesheet" href="<?php echo base_url()?>assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <!-- Bootstrap4 Duallistbox -->
+  <link rel="stylesheet" href=".<?php echo base_url()?>assets/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
 </head>
 <style>
 .my-custom-scrollbar {

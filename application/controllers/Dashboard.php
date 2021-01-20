@@ -2,6 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Dashboard extends CI_Controller {
+
+	var $url = 'http://119.2.50.170:9095/infocovidtest/';
     
     public function __construct()
     {
@@ -53,12 +55,12 @@ class Dashboard extends CI_Controller {
             $this->session->set_flashdata('errorMessage', '<div class="alert alert-danger alert-dismissible"><i class="icon fas fa-exclamation-triangle"></i> Maaf Anda tidak memiliki akses menu tersebut !</div>');
             redirect('Dashboard');
 		}
-		
+		$data['flag'] = $this->getListFlag();
         $this->load->view('V_navigasi');
-        $this->load->view('V_tambahdata');
+        $this->load->view('V_tambahdata', $data);
 	}
 	
-	function pasienInap(){
+	public function pasienInap(){
 		$url = 'http://api.rstugurejo.jatengprov.go.id:8060/wsrstugu/dkk/Covid/get_pasien_inap/';
 		$ex = WEBSERVICES::getCors($url, array());
 		$data = json_decode($ex);
@@ -68,7 +70,13 @@ class Dashboard extends CI_Controller {
 			$no++;
 			$result[] = array(
 				"no" => $no,
-				"inputcheck" => '<input type="checkbox" class="" id="'.$value->NOPASIEN.'">',
+				"inputcheck" => '<input type="checkbox" class="cek" id="'.$value->NOPASIEN.'" 
+									data-nama="'.$value->NAMAPASIEN.'"
+									data-nik="'.$value->NIK.'"
+									data-alamat="'.$value->ALAMAT.'"
+									data-tgllahir="'.$value->TGLLAHIR.'"
+									data-jk="'.$value->JNSKELAMIN.'"
+									data-nopas="'.$value->NOPASIEN.'">',
 				"nopasien" => $value->NOPASIEN,
 				"namapasien" => $value->NAMAPASIEN,
 				"alamat" => $value->ALAMAT,
@@ -85,7 +93,7 @@ class Dashboard extends CI_Controller {
 		echo json_encode($final);
 	}
 
-	function pasienInapPulang($awal, $akhir){
+	public function pasienInapPulang($awal, $akhir){
 		$header = array(
 			"X-tgl1: ".$awal,
 			"X-tgl2: ".$akhir
@@ -99,7 +107,13 @@ class Dashboard extends CI_Controller {
 			$no++;
 			$result[] = array(
 				"no" => $no,
-				"inputcheck" => '<input type="checkbox" class="" id="'.$value->NOPASIEN.'">',
+				"inputcheck" => '<input type="checkbox" class="cek" id="'.$value->NOPASIEN.'" 
+									data-nama="'.$value->NAMAPASIEN.'"
+									data-nik="'.$value->NIK.'"
+									data-alamat="'.$value->ALAMAT.'"
+									data-tgllahir="'.$value->TGLLAHIR.'"
+									data-jk="'.$value->JNSKELAMIN.'"
+									data-nopas="'.$value->NOPASIEN.'">',
 				"nopasien" => $value->NOPASIEN,
 				"namapasien" => $value->NAMAPASIEN,
 				"alamat" => $value->ALAMAT,
@@ -116,7 +130,7 @@ class Dashboard extends CI_Controller {
 		echo json_encode($final);
 	}
 
-	function pasienRajal($awal, $akhir)
+	public function pasienRajal($awal, $akhir)
 	{
 		$header = array(
 			"X-tgl1: ".$awal,
@@ -131,7 +145,13 @@ class Dashboard extends CI_Controller {
 			$no++;
 			$result[] = array(
 				"no" => $no,
-				"inputcheck" => '<input type="checkbox" class="" id="'.$value->NOPASIEN.'">',
+				"inputcheck" => '<input type="checkbox" class="cek" id="'.$value->NOPASIEN.'" 
+									data-nama="'.$value->NAMAPASIEN.'"
+									data-nik="'.$value->NIK.'"
+									data-alamat="'.$value->ALAMAT.'"
+									data-tgllahir="'.$value->TGLLAHIR.'"
+									data-jk="'.$value->JNSKELAMIN.'"
+									data-nopas="'.$value->NOPASIEN.'">',
 				"nopasien" => $value->NOPASIEN,
 				"namapasien" => $value->NAMAPASIEN,
 				"alamat" => $value->ALAMAT,
@@ -166,117 +186,135 @@ class Dashboard extends CI_Controller {
 		}
 	}
 
-	public function parsingDkk()
+	public function getDetailPasien($nik)
 	{
-		$obj = array(
-			'nama'  	=> $this->input->post('nama'),
-			'nik'   	=> $this->input->post('nik'),
-			'umur'   	=> '-',
-			'tgl_lahir' => $this->input->post('tgl_lahir'),
-			'jk'		=> $this->input->post('jk'),
-			'alamat'	=> $this->input->post('alamat'),
-			'rt'	=> '-',
-			'rw'	=> '-',
-			'kelurahan' => '-',
-			'kecamatan' => '-',
-			'kota'	=> '-',
-			'provinsi' => '-',
-			'status_kehamilan' => 0,
-			'status' => 'Tidak ada riwayat kontak/perjalanan',
-			'indek_kasus' => '-',
-			'lokasi' => '-',
-			'tgl_kontak' => '-',
-			'agama' => '-',
-			'gejala_awal' => '-',
-			'telp' => '-',
-			'etnis' => '-'
-		);
-		// $curl = curl_init();
-
-		// curl_setopt_array($curl, array(
-		// CURLOPT_URL => 'http://119.2.50.170:9095/infocovidtest/servicesRs/tambahpasien?token='.$this->session->userdata('token'),
-		// CURLOPT_RETURNTRANSFER => true,
-		// CURLOPT_ENCODING => '',
-		// CURLOPT_MAXREDIRS => 10,
-		// CURLOPT_TIMEOUT => 0,
-		// CURLOPT_FOLLOWLOCATION => true,
-		// CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-		// CURLOPT_CUSTOMREQUEST => 'POST',
-		// CURLOPT_POSTFIELDS => $obj,
-		// CURLOPT_HTTPHEADER => array(
-		// 	'x-username: 3374134'
-		// ),
-		// ));
-
-		// $response = curl_exec($curl);
-
-		// curl_close($curl);
-		echo json_encode($obj);
+		$str   = "TUGUREJORSUD2019";
+		$dates = date('dmY');
+		$passId = md5($str.$dates);
+		$url ='http://adminduk.jatengprov.go.id:8282/ws_server/get_json/RSUDTUGUREJO/GET_NIK_TUGUREJO?USER_ID=RSUDTUGUREJO&PASSWORD='.$passId.'&NIK='.$nik;
+		$ex = WEBSERVICES::getCors($url, array());
+		$desc = json_decode($ex);
+		return $desc;
 	}
 
-	public function post_pasien(){
-        $no			= $_POST['no'];
-        $nik		= $this->input->post('nik');
-        $nopas  	= $this->input->post('nopas');
-        $pasien 	= $this->input->post('pasien');
-        $alamat 	= $this->input->post('alamat');
-        $tgllhr 	= $this->input->post('tgllhr');
-        $jk  		= $this->input->post('jk');
-        $masuk  	= $this->input->post('masuk');
-		$noreg  	= $this->input->post('noreg');
-		$kodebag  	= $this->input->post('kodebag');
-		$username  	= $this->session->userdata('username');
-		$token  	= $this->session->userdata('token');
-		
-		// $today	= date('d-m-Y');
-		// $d		= date('d')-(substr($tgllhr,0,2));
-		// $m		= date('m')-(substr($tgllhr,3,2));
-		// $y		= date('y')-(substr($tgllhr,6,4));
-		//$m		= $today->diff($tgllhr)->m;
-		//$y		= $today->diff($tgllhr)->y;
-		$data = array();
-		//for($i = 0; $i < count(array($no)) ; $i++){
-			foreach($no as $key => $val){
-			
-
-			$result = array(
-				"nik"  => $no[$key],
-			);
-			   
-		}
-		print_r($result);
-		//print_r($no);exit;
-		/*foreach($no as $key => $val){
+	public function parsingDkk()
+	{
+		$nik = $this->input->post('nik');
+		$getDetailPasien = $this->getDetailPasien($nik);
+		$getDetailPasien->totalElements > 0 ? $data = $getDetailPasien : $data ='-';
+		if($data === '-'){
+			$obj = array('message' => 'Kelengkapan data bermasalah', 'status' => false);
+		} else {
 			$obj = array(
-				'nama'  	=> $pasien[$key],
-				'nik'   	=> $nik[$key],
-				'nopas'   	=> $nopas[$key],
-				'alamat' 	=> $alamat[$key],
-				'tgllhr'  	=> $tgllhr[$key],
-				'jk'		=> $jk[$key]
-        	);
-			$curl = curl_init();
-			curl_setopt_array($curl, array(
-				CURLOPT_URL => "http://119.2.50.170:9095/infocovidtest/
-				/servicesRs/tambahpasien?token=".$token,
-				CURLOPT_RETURNTRANSFER => true,
-				CURLOPT_ENCODING => "",
-				CURLOPT_MAXREDIRS => 10,
-				CURLOPT_TIMEOUT => 0,
-				CURLOPT_FOLLOWLOCATION => true,
-				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-				CURLOPT_CUSTOMREQUEST => "POST",
-				CURLOPT_HTTPHEADER => array(
-					"X-username: ".$username
-				),
-				CURLOPT_POSTFIELDS => $obj,
-			));
-			
-			$response = curl_exec($curl);
-			
-			curl_close($curl);
-			echo $response;
-		}*/
+				'nama'  	=> $this->input->post('nama'),
+				'nik'   	=> $nik,
+				'umur'   	=> '-',
+				'tgl_lahir' => $this->input->post('tgl_lahir'),
+				'jk'		=> $this->input->post('jk'),
+				'alamat'	=> $this->input->post('alamat'),
+				'rt'	=> $data->content[0]->NO_RT,
+				'rw'	=> $data->content[0]->NO_RW,
+				'kelurahan' => $data->content[0]->NO_KEL,
+				'kecamatan' => $data->content[0]->NO_KEC,
+				'kota'	=> $data->content[0]->NO_KAB,
+				'provinsi' => $data->content[0]->NO_PROP,
+				'status_kehamilan' => 0,
+				'status' => 'Tidak ada riwayat kontak/perjalanan',
+				'indek_kasus' => '-',
+				'lokasi' => '-',
+				'tgl_kontak' => '-',
+				'agama' => $data->content[0]->NO_AGAMA,
+				'gejala_awal' => '-',
+				'telp' => '-',
+				'etnis' => '-'
+			);
+		}
+		$url = 'http://119.2.50.170:9095/infocovidtest/servicesRs/tambahpasien?token='.$this->getToken();
+		$header = array(
+			'x-username : 3374134'
+		);
+		$ex = WEBSERVICES::postCors($url, $obj, $header);
+		echo $ex;
+	}
+
+	public function getListFlag()
+	{
+		$url = $this->url.'servicesRs/get_new_flag';
+		$ex = WEBSERVICES::getCors($url, array(), array());
+		$data = json_decode($ex);
+
+		return $data->flag;
+	}
+
+	public function flag()
+	{
+		$flag = $this->input->post('flag');
+		$tgl_penetapan = str_replace('/','-',$this->input->post('tgl_penetapan'));
+		$nik = $this->input->post('nik');
+		switch ($flag) {
+			case 1:
+				$data = $this->flagStatus($nik, $tgl_penetapan, 'kontak_erat');
+				break;
+			case 2:
+				$data = $this->flagStatus($nik, $tgl_penetapan, 'pelaku_perjalanan');
+				break;
+			case 3:
+				$data = 'Discarded';
+				break;
+			case 4: 
+				$data = $this->flagStatus($nik, $tgl_penetapan, 'suspek');
+				break;
+			case 5:
+				$data = $this->flagStatus($nik, $tgl_penetapan, 'konfirmasi	');
+				break;
+			case 6:
+				$data = $this->flagStatus($nik, $tgl_penetapan, 'probable');
+				break;
+			case 7:
+				$data = $this->flagStatus($nik, $tgl_penetapan, 'meninggal');
+				break;
+			case 8:
+				$data = $this->flagStatus($nik, $tgl_penetapan, 'selesai_isolasi');
+				break;
+			case 71:
+				$data = $this->flagStatus($nik, $tgl_penetapan, 'meninggal_probable');
+				break;
+			case 72:
+				$data = $this->flagStatus($nik, $tgl_penetapan, 'meninggal_negatif');
+				break;
+			default:
+				$data = $this->flagStatus($nik, $tgl_penetapan, 'kontak_erat');
+				break;
+		}
+		echo $data;
+	}
+
+	public function getToken()
+	{
+		$url = $this->url.'servicesRs/login';
+		$header = array(
+			'x-username: 3374134',
+			'x-password:b3374134'
+		);
+		$ex = WEBSERVICES::postCors($url, array(), $header);
+		$data = json_decode($ex);
+		return $data->token;
+	}
+
+	public function flagStatus($nik, $tgl, $flagStatus){
+		$token = $this->getToken();
+		$url = $this->url.'servicesRs/'.$flagStatus.'?token='.$token;
+		$field = array('nik' => $nik, 'tgl_penetapan_status' => $tgl);
+		$header = array('x-username: 3374134');
+		$ex = WEBSERVICES::postCors($url, $field, $header);
+		return $ex;
+	}
+
+	public function dataRegional($region)
+	{
+		$url = 'http://119.2.50.170:9095/infocovidtest/servicesRs/'.$region;
+		$ex = WEBSERVICES::getCors($url, array(), array());
+		echo $ex;
 	}
 }
 
