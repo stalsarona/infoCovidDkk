@@ -8,33 +8,16 @@ class Dashboard extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        //$this->load->library('session');
-        // if(!$this->session->userdata('username')){
-        //     $this->session->set_flashdata('errorMessage', '<div class="alert alert-danger alert-dismissible"><i class="icon fas fa-exclamation-triangle"></i> Silahkan sign in terlebih dahulu !</div>');
-        //     redirect('login');
-        // }
-        //is_logged_in(); //helper auth
 	}
 	
     public function index(){
-        // $data['pegawai'] = $this->get_total_pegawai_kontrak();
-        // $data['pengguna'] = $this->get_total_pengguna();
-        //$data['dashboard'] = $this->dashboard();
-       // $menu['menu'] = $this->get_akses_menu();
-		// $data['token'] = $this->session->userdata('token');
         $this->load->view('V_navigasi');
-        // $this->load->view('V_content1',$data);
     }
 
 	//==============================Dashboard Start===========================//
     public function dashboard(){
-        // $url = "http://api.rstugurejo.jatengprov.go.id:8000/wspresensi/rstugu/MonPresensi/dashboard";
-        // $data = json_decode($this->get_cors($url), TRUE);
-        
-		//return $data;
     }
-
-    
+ 
     public function error(){
         $this->load->view('V_navigasi');
         $this->load->view('V_content1');
@@ -200,35 +183,30 @@ class Dashboard extends CI_Controller {
 	public function parsingDkk()
 	{
 		$nik = $this->input->post('nik');
-		$getDetailPasien = $this->getDetailPasien($nik);
-		$getDetailPasien->totalElements > 0 ? $data = $getDetailPasien : $data ='-';
-		if($data === '-'){
-			$obj = array('message' => 'Kelengkapan data bermasalah', 'status' => false);
-		} else {
-			$obj = array(
-				'nama'  	=> $this->input->post('nama'),
-				'nik'   	=> $nik,
-				'umur'   	=> '-',
-				'tgl_lahir' => $this->input->post('tgl_lahir'),
-				'jk'		=> $this->input->post('jk'),
-				'alamat'	=> $this->input->post('alamat'),
-				'rt'	=> $data->content[0]->NO_RT,
-				'rw'	=> $data->content[0]->NO_RW,
-				'kelurahan' => $data->content[0]->NO_KEL,
-				'kecamatan' => $data->content[0]->NO_KEC,
-				'kota'	=> $data->content[0]->NO_KAB,
-				'provinsi' => $data->content[0]->NO_PROP,
-				'status_kehamilan' => 0,
-				'status' => 'Tidak ada riwayat kontak/perjalanan',
-				'indek_kasus' => '-',
-				'lokasi' => '-',
-				'tgl_kontak' => '-',
-				'agama' => $data->content[0]->NO_AGAMA,
-				'gejala_awal' => '-',
-				'telp' => '-',
-				'etnis' => '-'
-			);
-		}
+		$obj = array(
+			'nama'  	=> $this->input->post('nama'),
+			'nik'   	=> $nik,
+			'umur'   	=> '-',
+			'tgl_lahir' => $this->input->post('tgl_lahir'),
+			'jk'		=> $this->input->post('gender'),
+			'alamat'	=> $this->input->post('alamat'),
+			'rt'	=> 1,
+			'rw'	=> 1,
+			'kelurahan' => $this->input->post('kelurahan'),
+			'kecamatan' => $this->input->post('kecamatan'),
+			'kota'	=> $this->input->post('kota'),
+			'provinsi' => $this->input->post('provinsi'),
+			'status_kehamilan' => 0,
+			'status' => 'Tidak ada riwayat kontak/perjalanan',
+			'indek_kasus' => '-',
+			'lokasi' => '-',
+			'tgl_kontak' => '-',
+			'agama' => 'islam',
+			'gejala_awal' => '-',
+			'telp' => '-',
+			'etnis' => '-'
+		);
+		
 		$url = 'http://119.2.50.170:9095/infocovidtest/servicesRs/tambahpasien?token='.$this->getToken();
 		$header = array(
 			'x-username : 3374134'

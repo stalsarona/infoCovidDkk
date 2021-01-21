@@ -156,7 +156,7 @@
                 </div>
                 <!-- modal flag pasien -->
                 <div class="modal fade show" id="modal-flag" aria-modal="true">
-                  <div class="modal-dialog">
+                  <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                       <div class="modal-header">
                         <h4 class="modal-title">Form Perubahan Status Pasien</h4>
@@ -170,8 +170,7 @@
                             <div class="card-header">
                               <h3 class="card-title">
                                 <i class="fas fa-text-width"></i>
-                                <div id="description-nama" class="d-inline">Muhammad Fathony</div>
-                                <input type="hidden" id="nik" name="nik">
+                                <div id="description-nama" class="d-inline">Muhammad Fathony</div>                             
                               </h3>
                               <div class="d-inline">
                                 <div class="img"></div>
@@ -188,7 +187,15 @@
                           </div>
                           <!-- /.card -->
                         </div>
-                        <div class="row">
+                        <form id="form-pasien">
+                        <input type="hidden" id="nama" name="nama">
+                        <input type="hidden" id="nik" name="nik">
+                        <input type="hidden" id="gender" name="gender">
+                        <input type="hidden" id="norm" name="norm">
+                        <input type="hidden" id="alamat" name="alamat">
+                        <input type="hidden" id="tgl_lahir" name="tgl_lahir">
+                        <input type="hidden" id="form_status" name="form_status">
+                        <div class="row form-step">
                           <div class="col-sm-6">
                             <div class="form-group">
                               <label>Provinsi</label>
@@ -218,30 +225,34 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-sm-6">
-                          <div class="form-group">
-                            <label>Status Pasien:</label>
-                            <select class="form-control select2" id="flag" name="flag" style="width: 100%;">
-                              <option value="">Pilih Status Pasien</option>
-                              <?php foreach ($flag as $key => $value) {?>
-                                <option value="<?php echo $value->kode ?>"><?php echo $value->arti ?></option>
-                              <?php } ?>
-                            </select>
-                          </div>
-                          <div class="form-group">
-                            <label>Tanggal Penetapan:</label>
-                              <div class="input-group date" id="tanggal_penetapan" data-target-input="nearest">
-                                  <input type="text" id="tgl_penetapan" class="form-control datetimepicker-input" data-target="#tanggal_penetapan"/>
-                                  <div class="input-group-append" data-target="#tanggal_penetapan" data-toggle="datetimepicker">
-                                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                  </div>
-                              </div>
+                        <div class="row form-step-two" style="display:none;">
+                          <div class="col-sm-6">
+                            <div class="form-group">
+                              <label>Status Pasien:</label>
+                              <select class="form-control select2" id="flag" name="flag" style="width: 100%;">
+                                <option value="">Pilih Status Pasien</option>
+                                <?php foreach ($flag as $key => $value) {?>
+                                  <option value="<?php echo $value->kode ?>"><?php echo $value->arti ?></option>
+                                <?php } ?>
+                              </select>
+                            </div>
+                            <div class="form-group">
+                              <label>Tanggal Penetapan:</label>
+                                <div class="input-group date" id="tanggal_penetapan" data-target-input="nearest">
+                                    <input type="text" id="tgl_penetapan" class="form-control datetimepicker-input" data-target="#tanggal_penetapan"/>
+                                    <div class="input-group-append" data-target="#tanggal_penetapan" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                            </div>
                           </div>
                         </div>
+                        </form>
                       </div>
-                      <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="btn-flag">Save changes</button>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" id="btn-close" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="btn-back" style="display:none;">Back</button>
+                        <button type="button" class="btn btn-primary" id="btn-flag">Next</button>
                       </div>
                     </div>
                     <!-- /.modal-content -->
@@ -324,11 +335,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 <script>
   $(document).ready(function(){
-
+   
     $('#tanggal_penetapan').datetimepicker({
       'format' : 'DD/MM/YYYY'
     });
-    
     const getProvinsi = () => {
       fetch("<?php echo base_url('dashboard/dataRegional/get_provinsi')?>")
         .then(response => {
@@ -400,11 +410,10 @@
         })
         .catch(error => alert(error));
     }
-
-    getKelurahan();
-    getKecamatan();
-    getKota();
     getProvinsi();
+    getKota();
+    getKecamatan();
+    getKelurahan();
     
     let tabel_pasien = $('#tb-pasien').DataTable({
         "destroy": true,
@@ -503,24 +512,6 @@
       });
     }
 
-    $('.select2').select2({
-          theme: 'bootstrap4'
-    });
-    //Initialize Select2 Elements
-    $('.select2bs4').select2({
-      theme: 'bootstrap4'
-    })
-
-    $("#tabelMenu").DataTable({
-      "responsive": true,
-      "autoWidth": false,
-    });
-    $('.formTambah').hide();        
-
-    $('.btntambah').click(function(){
-        $('.formTambah').show();
-    });
-
     $('#reservation').daterangepicker({
       locale: {
         format: 'DD/MMM/YYYY'
@@ -537,7 +528,6 @@
           url = `<?php echo base_url('Dashboard/get_pasien')?>?status=${status}&awal=${awal}&akhir=${akhir}`;
           showTable(url);
         }
-        //showTable(status, awal, akhir);
     })
 
     // $("#checkAll").click(function () {
@@ -566,22 +556,137 @@
       } 
     });
 
+    $("#tb-pasien").on('change', '.cek', function() {
+      const nama = $(this).data('nama');
+      const nik = $(this).data('nik');
+      const alamat = $(this).data('alamat');
+      const tgl_lahir = $(this).data('tgllahir');
+      const jk = $(this).data('jk');
+      const nopas = $(this).data('nopas');
+
+      $('#nama').val(nama);
+      $('#nik').val(nik);
+      $('#alamat').val(alamat);
+      $('#tgl_lahir').val(tgl_lahir);
+      $('#gender').val(jk);
+      $('#norm').val(nopas);
+
+      let gender;
+      jk === 'L' ? gender = 'Pria' : gender = 'Wanita';
+      let dataPasien = [];
+      if($(this).is(':checked')){
+        $('#form_status').val(0);
+        $('#btn-back').css('display', 'none');
+        $('#btn-flag').html('Next');
+        $('.form-step').css('display', 'flex');
+        $('.form-step-two').css('display', 'none');
+        // $.ajax({
+        //   type: "POST",
+        //   url: "<?php echo base_url('dashboard/parsingDkk')?>",
+        //   data: {
+        //     nama: nama,
+        //     nik: nik,
+        //     alamat: alamat,
+        //     tgl_lahir: tgl_lahir,
+        //     jk: jk
+        //   },
+        //   dataType: "JSON",
+        //   beforeSend: function() {
+        //     $('.overlay').css('display', 'block');
+        //   },
+        //   success: function (response) {
+            $('.overlay').css('display', 'none');
+            $('#modal-flag').modal('show');
+            $('#nik').val(nik);
+            $('#description-nama').html(nama);
+            const desc = `Nik: ${nik} / Jenis Kelamin: ${gender} / No. Pasien:  ${nopas}  / Alamat: ${alamat}`;
+            $('#description-pasien').html(desc);
+            $('#description-periksa').html(`Tanggal Lahir ${tgl_lahir}`)
+             const obj = {
+                nama: nama,
+                nik: nik,
+                alamat: alamat,
+                tgl_lahir: tgl_lahir,
+                jk: jk,
+                nopas: nopas
+              };
+              if("dataPasien" in localStorage){
+                  let dataPasienNew = JSON.parse(localStorage.getItem('dataPasien'));
+                  dataPasienNew.push(obj);
+                  localStorage.setItem('dataPasien', JSON.stringify(dataPasienNew));
+              } else {
+                localStorage.setItem('dataPasien', JSON.stringify([obj]));
+              }
+          // }, error : function(){
+          //   $('.overlay').css('display', 'none');
+          //   swal('error','','error')
+          // }
+        // });
+      } else {
+        let dataPasienNew = JSON.parse(localStorage.getItem('dataPasien'));
+        const filter = dataPasienNew.filter((data) => {
+          return data.nopas != nopas;
+        })
+        localStorage.setItem("dataPasien", JSON.stringify(filter));
+      }
+    });
+
+    
+    $('#btn-back').click(function(){
+      $('#btn-flag').html('Next');
+      $('.form-step-two').css('display', 'none');
+      $('.form-step').css('display', 'flex');
+      $('#btn-back').css('display', 'none');
+      $('#form_status').val('');
+    })
+
     $('#btn-flag').click(function(){
-      const flag = $('#flag').val();
-      const nik = $('#nik').val();
-      const tgl_penetapan = $('#tgl_penetapan').val()
+      let url ;
+      let status = $('#form_status').val();
+      status === '1' ? url = '<?php echo base_url('dashboard/flag')?>' : url = '<?php echo base_url('dashboard/parsingdkk')?>';
+      const obj = document.forms.namedItem("form-pasien")
       $.ajax({
         type: "POST",
-        url: "<?php echo base_url('Dashboard/flag')?>",
-        data: {flag:flag, tgl_penetapan:tgl_penetapan, nik:nik},
-        dataType: "JSON",
+        url: url,
+        processData:false,
+        contentType:false,
+        cache:false,
+        async:true,
+        crossOrigin : true,
+        data: new FormData(obj),
+        dataType: "json",
+        beforeSend: function() {
+            $('.overlay').css('display', 'block');
+        },
         success: function (response) {
+          $('#form_status').val(1);
           if(response.status === true){
-            swal('Berhasil', '', 'success');
-            $('#modal-flag').modal('hide');
+            if($('#form_status').val() === '1'){
+              swal("Berhasil!", "data terbarui", "success");
+            }
+            $('.overlay').css('display', 'none');
+            $('#btn-flag').html('Save changes');
+            $('#btn-back').css('display', 'block');
+            $('.form-step').css('display', 'none');
+            $('.form-step-two').css('display', 'block');
+          } else if(response.status === false){
+            $('.overlay').css('display', 'none');
+            $('#btn-flag').html('Save changes');
+            $('#btn-back').css('display', 'block');
+            $('.form-step').css('display', 'none');
+            $('.form-step-two').css('display', 'block');
+            swal('Upss ...', 'Nik sudah terdaftar', 'info');
           } else {
+            $('.overlay').css('display', 'none');
+            $('#btn-back').css('display', 'none');
+            $('#btn-flag').html('Next');
+            $('#form_status').val('');
+            $('.form-step').css('display', 'flex');  
+            $('.form-step-two').css('display', 'none');
             swal('Upss ...', 'something wrong', 'error');
           }
+        }, error: function(error){
+          swal(error, '', 'error');
         }
       });
     })
@@ -669,67 +774,6 @@
     //     return false;
     // });
     
-    $("#tb-pasien").on('change', '.cek', function() {
-      const nama = $(this).data('nama');
-      const nik = $(this).data('nik');
-      const alamat = $(this).data('alamat');
-      const tgl_lahir = $(this).data('tgllahir');
-      const jk = $(this).data('jk');
-      const nopas = $(this).data('nopas');
-      let gender;
-      jk === 'L' ? gender = 'Pria' : gender = 'Wanita';
-      let dataPasien = [];
-      if($(this).is(':checked')){
-        $.ajax({
-          type: "POST",
-          url: "<?php echo base_url('dashboard/parsingDkk')?>",
-          data: {
-            nama: nama,
-            nik: nik,
-            alamat: alamat,
-            tgl_lahir: tgl_lahir,
-            jk: jk
-          },
-          dataType: "JSON",
-          beforeSend: function() {
-            $('.overlay').css('display', 'block');
-          },
-          success: function (response) {
-            $('.overlay').css('display', 'none');
-            $('#modal-flag').modal('show');
-            $('#nik').val(nik);
-            $('#description-nama').html(nama);
-            const desc = `Nik: ${nik} / Jenis Kelamin: ${gender} / No. Pasien:  ${nopas}  / Alamat: ${alamat}`;
-            $('#description-pasien').html(desc);
-            $('#description-periksa').html(`Tanggal Lahir ${tgl_lahir}`)
-             const obj = {
-                nama: nama,
-                nik: nik,
-                alamat: alamat,
-                tgl_lahir: tgl_lahir,
-                jk: jk,
-                nopas: nopas
-              };
-              if("dataPasien" in localStorage){
-                  let dataPasienNew = JSON.parse(localStorage.getItem('dataPasien'));
-                  dataPasienNew.push(obj);
-                  localStorage.setItem('dataPasien', JSON.stringify(dataPasienNew));
-              } else {
-                localStorage.setItem('dataPasien', JSON.stringify([obj]));
-              }
-          }, error : function(){
-            $('.overlay').css('display', 'none');
-            swal('error','','error')
-          }
-        });
-      } else {
-        let dataPasienNew = JSON.parse(localStorage.getItem('dataPasien'));
-        const filter = dataPasienNew.filter((data) => {
-          return data.nopas != nopas;
-        })
-        localStorage.setItem("dataPasien", JSON.stringify(filter));
-      }
-    });
 
    $('#tbpasien').on('change', '#checkAll', function(){
      if($('#checkAll').is(':checked')){
