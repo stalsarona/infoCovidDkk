@@ -111,7 +111,7 @@
                         <table id="tb-pasien" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th><input type="checkbox" class="" id="exampleCheck1"></th>
+                                    <th><input type="checkbox" class="" id="checkAll"></th>
                                     <th>No</th>
                                     <th>No. Rm</th>
                                     <th>Nama</th>
@@ -150,7 +150,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="form-group btn-cari">
-                      <button id="btnsimpan1" class="btn btn-info float-right ">Masukkan Data</button>
+                      <button id="btn-simpan" class="btn btn-info float-right ">Masukkan Data</button>
                     </div>
                   </div>
                 </div>
@@ -165,6 +165,13 @@
                         </button>
                       </div>
                       <div class="modal-body">
+                        <div class="col-md-12 bd-message" style="display:none;">
+                          <div class="alert alert-info alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h5><i class="icon fas fa-info"></i> Informasi pengguna!</h5>
+                            <h6 class="message">ko</h6>
+                          </div>
+                        </div>
                         <div class="col-md-12">
                           <div class="card">
                             <div class="card-header">
@@ -414,6 +421,16 @@
     getKota();
     getKecamatan();
     getKelurahan();
+
+    const checkBoxStorage = () => {
+      if("dataPasien" in localStorage){
+        const dataStorage = localStorage.getItem("dataPasien");
+        let dataPasien = JSON.parse(dataStorage);
+        dataPasien.map((data, key) => {
+          $('#'+data.nopas).prop('checked', true);
+        })
+      } 
+    }
     
     let tabel_pasien = $('#tb-pasien').DataTable({
         "destroy": true,
@@ -508,7 +525,10 @@
             "mData": "tanggal"					
           }
 				],
-				"fixedColumns": true
+        "fixedColumns": true,
+        "initComplete": function(response){
+          checkBoxStorage()
+        }
       });
     }
 
@@ -580,52 +600,38 @@
         $('#btn-flag').html('Next');
         $('.form-step').css('display', 'flex');
         $('.form-step-two').css('display', 'none');
-        // $.ajax({
-        //   type: "POST",
-        //   url: "<?php echo base_url('dashboard/parsingDkk')?>",
-        //   data: {
-        //     nama: nama,
-        //     nik: nik,
-        //     alamat: alamat,
-        //     tgl_lahir: tgl_lahir,
-        //     jk: jk
-        //   },
-        //   dataType: "JSON",
-        //   beforeSend: function() {
-        //     $('.overlay').css('display', 'block');
-        //   },
-        //   success: function (response) {
-            $('.overlay').css('display', 'none');
-            $('#modal-flag').modal('show');
-            $('#nik').val(nik);
-            $('#description-nama').html(nama);
-            const desc = `Nik: ${nik} / Jenis Kelamin: ${gender} / No. Pasien:  ${nopas}  / Alamat: ${alamat}`;
-            $('#description-pasien').html(desc);
-            $('#description-periksa').html(`Tanggal Lahir ${tgl_lahir}`)
-             const obj = {
-                nama: nama,
-                nik: nik,
-                alamat: alamat,
-                tgl_lahir: tgl_lahir,
-                jk: jk,
-                nopas: nopas
-              };
-              if("dataPasien" in localStorage){
-                  let dataPasienNew = JSON.parse(localStorage.getItem('dataPasien'));
-                  dataPasienNew.push(obj);
-                  localStorage.setItem('dataPasien', JSON.stringify(dataPasienNew));
-              } else {
-                localStorage.setItem('dataPasien', JSON.stringify([obj]));
-              }
-          // }, error : function(){
-          //   $('.overlay').css('display', 'none');
-          //   swal('error','','error')
-          // }
-        // });
+      
+        $('#modal-flag').modal('show');
+        $('#nik').val(nik);
+        $('#description-nama').html(nama);
+        const desc = `Nik: ${nik} / Jenis Kelamin: ${gender} / No. Pasien:  ${nopas}  <br> Alamat: ${alamat}`;
+        $('#description-pasien').html(desc);
+        $('#description-periksa').html(`Tanggal Lahir ${tgl_lahir}`)
+          const obj = {
+            nama: nama,
+            nik: nik,
+            alamat: alamat,
+            tgl_lahir: tgl_lahir,
+            jk: jk,
+            nopas: nopas
+          };
+          if("dataPasien" in localStorage){
+              let dataPasienNew = JSON.parse(localStorage.getItem('dataPasien'));
+              const check = dataPasienNew.filter(data => {
+                return data.nopas === nopas;
+              });
+              if(check.length > 0 ){
+                return;
+              } 
+              dataPasienNew.push(obj);
+              localStorage.setItem('dataPasien', JSON.stringify(dataPasienNew));            
+          } else {
+            localStorage.setItem('dataPasien', JSON.stringify([obj]));
+          }
       } else {
         let dataPasienNew = JSON.parse(localStorage.getItem('dataPasien'));
         const filter = dataPasienNew.filter((data) => {
-          return data.nopas != nopas;
+          return data.nopas !== nopas;
         })
         localStorage.setItem("dataPasien", JSON.stringify(filter));
       }
@@ -675,7 +681,8 @@
             $('#btn-back').css('display', 'block');
             $('.form-step').css('display', 'none');
             $('.form-step-two').css('display', 'block');
-            swal('Upss ...', 'Nik sudah terdaftar', 'info');
+            $('.bd-message').css('display', 'block');
+            $('.message').html('Ups ... nik sudah terdata.')
           } else {
             $('.overlay').css('display', 'none');
             $('#btn-back').css('display', 'none');
@@ -690,118 +697,16 @@
         }
       });
     })
-    // $('#btnsimpan').on('click',function(){
-    //   var id = $('#NIK').val();
-    //   if(id == ""){
-    //     swal('Data tidak ditemukan','','info');
-    //   } else {
-    //     var obj = document.forms.namedItem("FormTambahPasien")
-    //     $.ajax({
-    //       type: "POST",
-    //       url: "<?php echo base_url('Dashboard/post_pasien')?>",
-    //       processData:false,
-    //       contentType:false,
-    //       cache:false,
-    //       async:true,
-    //       crossOrigin : true,
-    //       data: new FormData(obj), 
-    //       dataType: "json",
-    //       beforeSend: function() {
-    //         $('.overlay').css('display', 'block');
-    //       },
-    //       success: function (response) {
-    //         // if(response[0]['CODE'] == '515'){
-    //         //   alert("Nilai NULL tidak diperbolehkan");
-    //         //   var exp = '<?php echo base_url('Dashboard/error')?>';
-    //         //   window.location.replace(exp);
-    //         // } else if(response[0]['CODE'] == '2627'){
-    //         //   alert("ID Waktu Kerja yang Anda masukkan sudah Ada, silahkan masukkan ID yang lain.");
-    //         //   var orpeg = '<?php echo base_url('Dashboard/view_jadwal')?>';
-    //         //   window.location.replace(orpeg);
-    //         // }else if(response[0]['CODE'] == '200'){     
-    //         //   alert("Berhasil Simpan");
-    //         //   var orpeg = '<?php echo base_url('Dashboard/view_jadwal')?>';
-    //         //   window.location.replace(orpeg);
-    //         // }
-    //       }
-    //     });
-    //     return false;
-    //   }
-    // });
 
-    
-
-    // $('#btnsimpan').on('click',function(){
-    //   var languages = [];
-    //   //var obj = document.forms.namedItem("FormTambahPasien")
-    //   $('.cek').each(function(){
-    //     if($(this).is(":checked"))  
-    //       {  
-    //         languages.push($(this).val());  
-    //         // var cek= $(this).attr('data-role');
-    //         //   alert(cek);
-    //       }  
-    //   });
-    //     $.ajax({
-    //       type: "POST",
-    //       url: "<?php echo base_url('Dashboard/post_pasien')?>",
-    //       processData:false,
-    //       contentType:false,
-    //       cache:false,
-    //       async:true,
-    //       crossOrigin : true,
-    //       data: new FormData(obj), 
-    //       dataType: "json",
-    //       beforeSend: function() {
-    //         $('.overlay').css('display', 'block');
-    //       },
-    //       success: function (response) {
-    //         // if(response[0]['CODE'] == '515'){
-    //         //   alert("Nilai NULL tidak diperbolehkan");
-    //         //   var exp = '<?php echo base_url('Dashboard/error')?>';
-    //         //   window.location.replace(exp);
-    //         // } else if(response[0]['CODE'] == '2627'){
-    //         //   alert("ID Waktu Kerja yang Anda masukkan sudah Ada, silahkan masukkan ID yang lain.");
-    //         //   var orpeg = '<?php echo base_url('Dashboard/view_jadwal')?>';
-    //         //   window.location.replace(orpeg);
-    //         // }else if(response[0]['CODE'] == '200'){     
-    //         //   alert("Berhasil Simpan");
-    //         //   var orpeg = '<?php echo base_url('Dashboard/view_jadwal')?>';
-    //         //   window.location.replace(orpeg);
-    //         // }
-    //       }
-    //     });
-    //     return false;
-    // });
-    
-
-   $('#tbpasien').on('change', '#checkAll', function(){
+   $('#tb-pasien').on('change', '#checkAll', function(){
      if($('#checkAll').is(':checked')){
         $('.cek').prop('checked', true);
      } else {
         $('.cek').prop('checked', false);
      }
    });
- 
 
-    $('#btnsimpan1').on('click', function(e) {
-        e.preventDefault();
-        var nik = $('.cek').val();
-        if($('.cek:checked').length > 0){
-          // $.ajax({
-          //   type: "POST",
-          //   url: "<?php echo base_url('Dashboard/post_pasien')?>",
-          //   data: $('#FormTambahPasien').serialize(),
-          //   success: function (data) {
-          //   console.log(data);
-          //   }
-          // });    
-        } 
-        const data = JSON.parse(localStorage.getItem('dataPasien'));
-        data.map((data, key)=>{
-          console.log(data);
-        })
-    });
+   //$('#btn-simpan')
 });
 </script>
 </body>
