@@ -10,7 +10,7 @@
 
   <link rel="shortcut icon" type="ico" href="<?php echo base_url()?>assets/images/logo.ico">
 
-  <title>Monitoring Presensi</title>
+  <title>Informasi Covid DKK</title>
 
   <!-- Tell the browser to be responsive to screen width -->
 

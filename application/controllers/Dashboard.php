@@ -169,17 +169,6 @@ class Dashboard extends CI_Controller {
 		}
 	}
 
-	public function getDetailPasien($nik)
-	{
-		$str   = "TUGUREJORSUD2019";
-		$dates = date('dmY');
-		$passId = md5($str.$dates);
-		$url ='http://adminduk.jatengprov.go.id:8282/ws_server/get_json/RSUDTUGUREJO/GET_NIK_TUGUREJO?USER_ID=RSUDTUGUREJO&PASSWORD='.$passId.'&NIK='.$nik;
-		$ex = WEBSERVICES::getCors($url, array());
-		$desc = json_decode($ex);
-		return $desc;
-	}
-
 	public function parsingDkk()
 	{
 		$nik = $this->input->post('nik');
